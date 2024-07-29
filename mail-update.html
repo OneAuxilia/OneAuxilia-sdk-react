@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div style="width: 800px; margin: auto;">
+    <div style="display: flex; margin-bottom: 16px;">
+      <p>Dear [Client's Name], </p>
+	  <p>Thank you for your payment.</p>
+	  <p>This email confirms that we have received your payment for the invoice [Invoice Number].</p>
+    </div>
+    <div style="padding: 16px; color: #646970; font-weight: 400;">
+      <div  style="display: flex; justify-content: space-between; margin-bottom: 32px;">
+        <div  style="font-size: 18px; font-weight: 700;">Invoice</div>
+        <div>
+          <img style="height: 40px;" src="https://edg-dev-edg-upload.s3.ap-northeast-1.amazonaws.com/images/5660a6e2-8b6f-499b-9e6a-44dc96c82fc7.png" alt="invoice" />
+        </div>
+      </div>
+
+      <div style="display: flex; margin-bottom: 16px;">
+        <div  style="width: 33%;">Invoice number</div>
+        <div style="width: 66%;">{invoice_number}</div>
+      </div>
+      <div style="display: flex; margin-bottom: 16px;">
+        <div style="width: 33%;">Receipt number</div>
+        <div style="width: 66%;">{invoice.receipt_number}</div>
+      </div>
+      <div style="display: flex; margin-bottom: 16px;">
+        <div style="width: 33%;">Date paid:</div>
+        <div style="width: 66%;"> {payment_date}</div>
+      </div>
+      <div style="display: flex; margin-bottom: 16px;">
+        <div style="width: 33%;">Payment method</div>
+        <div style="width: 66%;">{payment_method}</div>
+      </div>
+    
+      <div style="display: flex; margin-bottom: 16px;">
+        <div style="width: 50%;">
+          <div style="width: 33%; font-weight: 700;   margin-bottom: 12px">Edoglobe, Inc.</div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Address</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_address}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">City</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_city}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">State</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_state}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Country</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_country}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Post code</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_postcode}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Email</div>
+            <div style="width: 66%; font-weight: 500;">
+              {billing_email}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">VAT</div>
+            <div style="width: 66%; font-weight: 500;">
+              {" "}
+              {billing_vat}
+            </div>
+          </div>
+        </div>
+        <div style="width: 50%;">
+          <div style="width: 100%; font-weight: 700; margin-bottom: 8px;">{client_name}</div>
+
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Address</div>
+            <div style="width: 66%; font-weight: 500;">{client_billing_address}</div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">City</div>
+            <div style="width: 66%; font-weight: 500;">{client_billing_city}</div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">State</div>
+            <div style="width: 66%; font-weight: 500;">{client_billing_state}</div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Country</div>
+            <div style="width: 66%; font-weight: 500;">
+              {client_billing_country}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Post code</div>
+            <div style="width: 66%; font-weight: 500;">
+              {client_billing_postcode}
+            </div>
+          </div>
+          <div style="display: flex; gap:16px; margin-bottom: 8px">
+            <div style="width: 33%;">Email</div>
+            <div style="width: 66%; font-weight: 500;">{client_billing_email}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+      </div>
+      <div style="display: grid;  grid-template-columns: repeat(5, minmax(0, 1fr));  margin-bottom: 8px">
+        <div style="width: 33%;">Description</div>
+        <div style="width: 33%;">Qty</div>
+        <div style="width: 33%;">Amount</div>
+      </div>
+      <hr style="border:1px solid #646970;margin-bottom: 8px;" />
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin-bottom: 16px; ">
+        <Fragment key={index}>
+          <div style="width: 33%;">Description</div>
+          <div style="width: 33%;">1</div>
+          <div style="display: flex; width: 33%; font-weight: 700;">
+            {transaction_amount}
+          </div>
+        </Fragment>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 24px;" >
+        <div style="width: 33%;"></div>
+        <div style="width: 33%;">
+          <div style="display: flex; justify-content: space-between; gap-16px">
+            <div >Subtotal</div>
+            <div>1</div>
+          </div>
+          <hr style="border:1px solid #646970; margin-bottom: 8px;" />
+          <div style="display: flex; justify-content: space-between; gap-16px">
+            <div >Total</div>
+            <div>1</div>
+          </div>
+          <hr style="border:1px solid #646970; margin-bottom: 8px;"/>
+          <div style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700;">
+            <div >Amount paid</div>
+            <div>
+              {transaction_amount}
+            </div>
+          </div>
+          <hr style="border:1px solid #646970; margin-bottom: 8px;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
