@@ -11,7 +11,7 @@ export default function DashboardLayout() {
       navigate('/sign-in')
     }
   }, [isLoaded, navigate, userId])
- console.log({userId});
+
   if (!isLoaded) return 'Loading...'
 
   return <Outlet />

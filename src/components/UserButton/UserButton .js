@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import useComponentVisible from "./ClickOutside"
 import styles from "./styles.module.css"
-import "./styles.css"
 import useStore from "../Context"
+import "./styles.css"
 
 export default function UserButton({ list }) {
   const { onSignOut, fullName, email } = useStore()
@@ -67,7 +67,6 @@ export default function UserButton({ list }) {
               </button>
             </div>
             <div className={styles.ox_dropdown_secured}>Secured by</div>
-            <div className="test22">xxx</div>
           </div>
         )}
       </div>

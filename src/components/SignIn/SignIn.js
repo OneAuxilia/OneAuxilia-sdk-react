@@ -1,15 +1,9 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import axios from 'axios'
 import useStore from '../Context'
-import logo from './avatar.png'
-const domain = 'https://core-api-dev.oneauxilia.co'
-const headers = {
-  'Content-Type': 'application/json',
-  'Tenant-Header': 'ins_ZA67hkwyslHH',
-  'Template-Slug': '1'
-}
+import {setToken} from '../../lib/cookie'
+import { apiCore } from '../../api'
 
 export default function SignIn({ children }) {
   const { setLogin, setLoading, userId, routerPush } = useStore()
@@ -25,16 +19,12 @@ export default function SignIn({ children }) {
 
   async function onLogin() {
     try {
-      const url = `${domain}/api/v1/sign_in_tokens/`
       const bodydata = { username: name, password }
-      const headers = {
-        'Content-Type': 'application/json',
-        'Tenant-Header': 'ins_ZA67hkwyslHH'
-      }
       setLoading(false)
-      const { data } = await axios.post(url, bodydata, { headers: headers })
-      const { token, user } = data?.data
-      const fullName = user.first_name + ' ' +user.last_name
+      const { data } = await apiCore.signIn(bodydata)
+      const { token, user } = data
+      const fullName = user.first_name + ' ' + user.last_name
+      setToken(token.session_token)
       setLogin({
         ...token,
         ...user,
@@ -49,15 +39,19 @@ export default function SignIn({ children }) {
   }
 
   async function getConfig() {
-    await axios.get(`${domain}/api/v1/environment/`, {
-      headers: headers
-    })
+    await apiCore.getConfig()
   }
-
+  async function get() {
+    try {
+      const res = await apiCore.getProfile()
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
+    get()
     getConfig()
   }, [])
-  console.log('useStore()', useStore())
 
   return (
     <div className={styles.pageContainer}>
@@ -70,13 +64,11 @@ export default function SignIn({ children }) {
                 Welcome back! Please sign in to continue
               </div>
             </div>
-
             <div className={styles.ox_input_fields_name}>
               <div className={styles.ox_label_input_name}>
                 <div className={styles.ox_label_email}>Email</div>
                 <div>Phone</div>
               </div>
-
               <input
                 className={styles.ox_input}
                 value={name}
@@ -84,7 +76,6 @@ export default function SignIn({ children }) {
                 onChange={onChangeName}
               />
             </div>
-
             <div className={styles.ox_input_fields_password}>
               <div className={styles.ox_label_input_name}>
                 <div className={styles.ox_label_email}>Password</div>
@@ -97,7 +88,6 @@ export default function SignIn({ children }) {
                 onChange={onChangePassword}
               />
             </div>
-
             <button className={styles.ox_button} onClick={onLogin}>
               Continue
             </button>
@@ -115,7 +105,7 @@ export default function SignIn({ children }) {
             <div className={styles.footer_secured}>
               <div>Secured by</div>
               <div>
-                <img src='/avatar.png' /> Onxilia11
+                <img src='/avatar.png' /> Onxilia
               </div>
             </div>
           </div>

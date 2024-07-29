@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 import axios from "axios"
+import { apiCore } from '../../api'
 import useStore from "../Context"
 import icon from "./favicon.png"
+
 const domain = "https://core-api-dev.oneauxilia.co"
 const headers = {
   "Content-Type": "application/json",
-  "Tenant-Header": "ins_ZA67hkwyslHH",
+  "Tenant-Header": "ins_pXqIOEBZi5Rc",
   "Template-Slug": "1"
 }
 
@@ -29,7 +31,7 @@ export default function SignUp({ children }) {
       const bodydata = { username: name, password }
       const headers = {
         "Content-Type": "application/json",
-        "Tenant-Header": "ins_ZA67hkwyslHH"
+        "Tenant-Header": "ins_pXqIOEBZi5Rc"
       }
       setLoading(false)
       const { data } = await axios.post(url, bodydata, { headers: headers })
@@ -47,13 +49,24 @@ export default function SignUp({ children }) {
   }
 
   async function getConfig() {
-    await axios.get(`${domain}/api/v1/environment/`, {
-      headers: headers
-    })
+    console.log('process', process.env.REACT_APP_CORE_URL);
+    // await apiCore.getConfig()
+    // await axios.get(`${domain}/api/v1/environment/`, {
+    //   headers: headers
+    // })
+  }
+
+  async function get() {
+    try {
+      const res = await apiCore.getProfile()
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     getConfig()
+    get()
   }, [])
 
   return (

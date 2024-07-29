@@ -1,5 +1,8 @@
-import React, { useReducer, useMemo, createContext, useContext } from 'react'
+import React, { useReducer, useMemo, createContext, useContext, useEffect } from 'react'
+import Cookies from "js-cookie"
 import KEY from './Const'
+import { getToken } from '../../lib/cookie'
+import { apiCore } from '../../api'
 
 function initialState() {
   return {
@@ -26,8 +29,8 @@ function reducer(state, action) {
   switch (action.type) {
     case KEY.SET_AUTH:
       return { ...state, ...action.value }
-    case KEY.SET_USER_PROFILE:
-      return { ...state, userProfile: action.value }
+    case KEY.GET_USER_PROFILE:
+      return { ...state, ...action.value }
     case KEY.SET_LOGIN:
       return { ...state, ...action.value }
     case KEY.LOADING:
@@ -43,6 +46,7 @@ const MyContext = createContext(initialState())
 MyContext.displayName = 'MyContext'
 
 export function StoreProvider({ routerPush, routerReplace, ...rest }) {
+  Cookies.set('publishableKey', rest.publishableKey)
   const [state, dispatch] = useReducer(reducer, initialState())
 
   const setAuthStore = (value) => {
@@ -54,19 +58,30 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   const setLoading = (value) => {
     return dispatch({ type: KEY.LOADING, value })
   }
-  const setProfile = (value) => {
-    return dispatch({ type: KEY.SET_USER_PROFILE, value })
+  const getProfile = (value) => {
+    return dispatch({ type: KEY.GET_USER_PROFILE, value })
   }
 
   const setLogin = (value) => {
     return dispatch({ type: KEY.SET_LOGIN, value })
   }
 
+  useEffect( ()=>{
+    async function get(){
+        try {
+          const res = await apiCore.getProfile()
+        } catch (error) {
+          console.log(error);
+        }
+    }
+
+    if (getToken()) get()
+  },[])
   const value = useMemo(
     () => ({
       ...state,
       setAuthStore,
-      setProfile,
+      getProfile,
       setLogin,
       routerPush,
       routerReplace,
