@@ -1,74 +1,50 @@
-/* eslint-disable react/jsx-no-bind */
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import styles from "./styles.module.css"
-import axios from "axios"
 import { apiCore } from "../../api"
 import useStore from "../Context"
-import icon from "./favicon.png"
+import InputPhoneMail from "../InputPhoneMail"
+import InputPassword from "../InputPassword"
+import InputName from "../InputName"
 
-const domain = "https://core-api-dev.oneauxilia.co"
-const headers = {
-  "Content-Type": "application/json",
-  "Tenant-Header": "ins_pXqIOEBZi5Rc",
-  "Template-Slug": "1"
-}
 
 export default function SignUp({ children }) {
-  const { setLogin, setLoading, routerPush } = useStore()
-  const [name, setName] = useState("huyhq@gmail.com")
-  const [password, setPassWord] = useState("abc@123Xy")
+  const { setLogin, setLoaded, routerPush } = useStore()
+  const [values, setValues] = useState({
+    email: "thangnd@gmail.com",
+    first_name: 'Thang',
+    last_name: 'ND',
+    password: 'abc@123Xy',
+    password_confirm: 'abc@123Xy'
+  })
+  // const [password, setPassWord] = useState("abc@123Xy")
 
-  function onChangeName(e) {
-    setName(e.target.value)
+  function onChangeValues(key, e) {
+    setValues({ ...values, [key]: e.target.value })
   }
   function onChangePassword(e) {
     setPassWord(e.target.value)
   }
 
-  async function onLogin() {
+  async function onSignUp() {
     try {
-      const url = `${domain}/api/v1/sign_in_tokens/`
-      const bodydata = { username: name, password }
-      const headers = {
-        "Content-Type": "application/json",
-        "Tenant-Header": "ins_pXqIOEBZi5Rc"
+      setLoaded(false)
+      const { message } = await apiCore.signUp(values)
+      // const { token, user } = data?.data
+      // setLogin({
+      //   ...token,
+      //   ...user,
+      //   userId: user?.id
+      // })
+      if (message) {
+        setLoaded(true)
+        routerPush("/dashboard")
       }
-      setLoading(false)
-      const { data } = await axios.post(url, bodydata, { headers: headers })
-      const { token, user } = data?.data
-      setLogin({
-        ...token,
-        ...user,
-        userId: user?.id
-      })
-      setLoading(true)
-      routerPush("/dashboard")
+    
     } catch (error) {
       console.log(error)
     }
   }
-
-  async function getConfig() {
-    console.log("process", process.env.REACT_APP_CORE_URL)
-    // await apiCore.getConfig()
-    // await axios.get(`${domain}/api/v1/environment/`, {
-    //   headers: headers
-    // })
-  }
-
-  async function get() {
-    try {
-      const res = await apiCore.getProfile()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getConfig()
-    get()
-  }, [])
-
+  const { email, password, password_confirm, first_name, last_name } = values
   return (
     <div className={styles.pageContainer}>
       <div className={styles.componentContainer}>
@@ -81,34 +57,33 @@ export default function SignUp({ children }) {
               </div>
             </div>
 
-            <div className={styles.ox_input_fields_name}>
-              <div className={styles.ox_label_input_name}>
-                <div className={styles.ox_label_email}>Email</div>
-                <div>Phone</div>
-              </div>
+            <InputPhoneMail
+              onChange={(e) => onChangeValues('email', e)}
+              value={email}
+            />
+            <InputPassword
+              onChange={(e) => onChangeValues('password' ,e)}
+              value={password}
+            />
+            <InputPassword
+              label="Confirm password"
+              onChange={(e) => onChangeValues('password_confirm', e)}
+              value={password_confirm}
+            />
+            <InputName
+              onChange={(e) => onChangeValues('first_name', e)}
+              label="First name"
+              placeholder="First name..."
+              value={first_name}
+            />
+            <InputName
+              onChange={(e) => onChangeValues('last_name' ,e )}
+              label="Last name"
+              placeholder="Last name..."
+              value={last_name}
+            />
 
-              <input
-                className={styles.ox_input}
-                value={name}
-                placeholder="Email..."
-                onChange={onChangeName}
-              />
-            </div>
-
-            <div className={styles.ox_input_fields_password}>
-              <div className={styles.ox_label_input_name}>
-                <div className={styles.ox_label_email}>Password</div>
-              </div>
-              <input
-                className={styles.ox_input}
-                value={name}
-                type="password"
-                placeholder="Email..."
-                onChange={onChangePassword}
-              />
-            </div>
-
-            <button className={styles.ox_button} onClick={onLogin}>
+            <button className={styles.ox_button} onClick={onSignUp}>
               Continue
             </button>
           </div>
@@ -122,7 +97,12 @@ export default function SignUp({ children }) {
             <div className={styles.footer_secured}>
               <div>Secured by</div>
               <div>
-                <img src={icon} /> Onxilia
+                <img
+                  className={styles.logoIcon}
+                  alt="logo"
+                  src="https://edg-dev-edg-upload.s3.ap-northeast-1.amazonaws.com/images/3c55537e-f21c-4970-ac41-6bb0ced4bf78.png"
+                />
+                nxilia
               </div>
             </div>
           </div>

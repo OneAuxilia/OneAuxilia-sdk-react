@@ -5,6 +5,9 @@ const resource = version
 function signIn(data) {
   return Client.post(`${resource}/sign_in_tokens/`, data)
 }
+function signUp(data) {
+  return Client.post(`${resource}/sign_ups/`, data)
+}
 function getConfig() {
   return Client.get(`${resource}/environment/`)
 }
@@ -33,6 +36,7 @@ function remove(id) {
 const api = {
   gets,
   signIn,
+  signUp,
   getConfig,
   getProfile,
   create,

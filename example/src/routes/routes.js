@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { ExampleComponent } from '@oneauxilia/oneauxilia-react'
+import React from "react"
+import { Link } from "react-router-dom"
+import { ExampleComponent } from "oneauxilia-react"
 
 export default function IndexPage() {
   return (

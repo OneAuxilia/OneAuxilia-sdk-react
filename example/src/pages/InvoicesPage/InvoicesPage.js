@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export default function InvoicesPage() {
   return (
@@ -8,9 +8,13 @@ export default function InvoicesPage() {
       <p>This is a protected page.</p>
 
       <ul>
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/">Return to index</Link></li>
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+        <li>
+          <Link to="/">Return to index</Link>
+        </li>
       </ul>
     </>
-  );
+  )
 }

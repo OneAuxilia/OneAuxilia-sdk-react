@@ -1,7 +1,7 @@
 import React from "react"
 import { Outlet, useNavigate } from "react-router-dom"
-import { OneAuxiliaProvider } from "@oneauxilia/oneauxilia-react"
-import "@oneauxilia/oneauxilia-react/dist/index.css"
+import { OneAuxiliaProvider } from "oneauxilia-react"
+import "oneauxilia-react/dist/index.css"
 import Layout from "./layout"
 const PUBLISHABLE_KEY = "ins_pXqIOEBZi5Rc"
 

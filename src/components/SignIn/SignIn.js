@@ -1,13 +1,14 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from "react"
+import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
-import { setToken } from "../../lib/cookie"
+import { setToken, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
-import avatar from "./avatar.png"
+import InputPhoneMail from "../InputPhoneMail"
+import InputPassword from "../InputPassword"
 
 export default function SignIn({ children }) {
-  const { setLogin, setLoading, routerPush } = useStore()
+  const { setLogin, setLoaded, routerPush } = useStore()
   const [name, setName] = useState("huyhq@gmail.com")
   const [password, setPassWord] = useState("abc@123Xy")
 
@@ -21,18 +22,20 @@ export default function SignIn({ children }) {
   async function onLogin() {
     try {
       const bodydata = { username: name, password }
-      setLoading(false)
+      setLoaded(false)
       const { data } = await apiCore.signIn(bodydata)
       const { token, user } = data
       const fullName = user.first_name + " " + user.last_name
-      setToken(token.session_token)
       setLogin({
         ...token,
         ...user,
+        isSignedIn: true,
         userId: user?.id,
         fullName
       })
-      setLoading(true)
+      setToken(token.session_token)
+      Cookies.set('userId', user?.id)
+      setLoaded(true)
       routerPush("/dashboard")
     } catch (error) {
       console.log(error)
@@ -40,18 +43,16 @@ export default function SignIn({ children }) {
   }
 
   async function getConfig() {
-    await apiCore.getConfig()
-  }
-  async function get() {
     try {
-      const res = await apiCore.getProfile()
+      await apiCore.getConfig()
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+
   }
+
   useEffect(() => {
-    get()
-    getConfig()
+     if (getSignedIn()) routerPush("/dashboard")
   }, [])
 
   return (
@@ -65,30 +66,8 @@ export default function SignIn({ children }) {
                 Welcome back! Please sign in to continue
               </div>
             </div>
-            <div className={styles.ox_input_fields_name}>
-              <div className={styles.ox_label_input_name}>
-                <div className={styles.ox_label_email}>Email</div>
-                <div>Phone</div>
-              </div>
-              <input
-                className={styles.ox_input}
-                value={name}
-                placeholder="Email..."
-                onChange={onChangeName}
-              />
-            </div>
-            <div className={styles.ox_input_fields_password}>
-              <div className={styles.ox_label_input_name}>
-                <div className={styles.ox_label_email}>Password</div>
-              </div>
-              <input
-                className={styles.ox_input}
-                value={name}
-                type="password"
-                placeholder="Email..."
-                onChange={onChangePassword}
-              />
-            </div>
+            <InputPhoneMail onChange={onChangeName} value={name} />
+            <InputPassword onChange={onChangePassword} value={password} />
             <button className={styles.ox_button} onClick={onLogin}>
               Continue
             </button>

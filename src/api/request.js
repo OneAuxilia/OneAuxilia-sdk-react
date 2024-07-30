@@ -3,7 +3,7 @@ import { getPublishableKey, getToken } from "../lib/cookie"
 
 export default function getInstanceAxios(baseAPI) {
   const instance = axios.create({
-    // withCredentials: true,
+    withCredentials: true,
     baseURL: baseAPI
   })
 
@@ -16,7 +16,7 @@ export default function getInstanceAxios(baseAPI) {
           "Tenant-Header": getPublishableKey()
         }
         const access_token = getToken()
-        if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
+        // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
         return config
       } catch (e) {
         console.log(e)

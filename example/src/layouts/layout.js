@@ -1,14 +1,8 @@
-import React, { Fragment } from 'react'
-import {
-  useAuth,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@oneauxilia/oneauxilia-react'
-import styles from './styles.module.css'
-import { Link } from 'react-router-dom'
+import React, { Fragment } from "react"
+import { useAuth, SignedIn, UserButton } from "oneauxilia-react"
+import styles from "./styles.module.css"
 
-export default function Layout(params) {
+export default function Layout() {
   const { userId, isLoaded } = useAuth()
   return (
     <Fragment>

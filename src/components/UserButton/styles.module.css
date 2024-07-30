@@ -1,31 +1,35 @@
 /* add css module styles here (optional) */
 .ox_dropdown {
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   position: absolute;
   overflow: hidden;
   top: 60px;
   right: 1rem;
   width: 350px;
-  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
   transition: opacity 2s ease-in-out;
   z-index: 20;
 }
-.ox_avatar{
+.ox_avatar {
   width: 30px;
   height: 30px;
   border-radius: 100%;
   border: 3px solid #fff;
-  animation: border 2s ease-in-out ;
+  transition: border 0.3s ease-in-out;
   cursor: pointer;
 }
-.ox_avatar:hover{
+.ox_avatar:hover {
   border: 3px solid #ccc;
 }
-.ox_ul{
-   background: white;
+.ox_ul {
+  background: white;
 }
-.ox_dropdown_li{
+.ox_dropdown_li {
   padding-left: 2rem;
   padding-right: 2rem;
   display: flex;
@@ -38,7 +42,7 @@
   background-color: white;
   cursor: pointer;
 }
-.ox_dropdown_li_user{
+.ox_dropdown_li_user {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   display: flex;
@@ -51,8 +55,8 @@
   background-color: white;
   cursor: pointer;
 }
-.ox_dropdown_secured{
-    padding-left: 2rem;
+.ox_dropdown_secured {
+  padding-left: 2rem;
   padding-right: 2rem;
   display: flex;
   height: 50px;
@@ -62,25 +66,22 @@
   border: none;
   border-bottom: 1px solid #e0dfdf;
 }
-.size6{
+.size6 {
   height: 1.5rem;
   width: 1.5rem;
 }
-.ox_user{
+.ox_user {
   display: flex;
   gap: 16px;
   align-items: center;
 }
-.ox_user_name_email{
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+.ox_user_name_email {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   text-align: left;
 }
-.ox_user_name{
-  margin-bottom: .25rem;
+.ox_user_name {
+  margin-bottom: 0.25rem;
   font-size: 16px;
   font-weight: 500;
-}
-.abc{
-  color: red;
 }

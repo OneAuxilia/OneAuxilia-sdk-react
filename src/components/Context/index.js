@@ -1,12 +1,12 @@
 import React, { useReducer, useMemo, createContext, useContext, useEffect } from "react"
 import Cookies from "js-cookie"
 import KEY from "./Const"
-import { getToken } from "../../lib/cookie"
+import { getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
 
 function initialState() {
   return {
-    isLoaded: true,
+    isLoaded: getSignedIn() ? false : true,
     userId: false,
     isSignedIn: false,
     session: {},
@@ -36,6 +36,11 @@ function reducer(state, action) {
     case KEY.LOADING:
       return { ...state, isLoaded: action.value }
     case KEY.LOG_OUT:
+      Cookies.remove('userId')
+      Cookies.remove('publishableKey')
+      Cookies.remove('__session')
+      Cookies.remove('__one_auxilia_session_id')
+      Cookies.cle
       return initialState()
     default:
       throw new Error()
@@ -55,7 +60,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   const onSignOut = () => {
     dispatch({ type: KEY.LOG_OUT })
   }
-  const setLoading = (value) => {
+  const setLoaded = (value) => {
     return dispatch({ type: KEY.LOADING, value })
   }
   const getProfile = (value) => {
@@ -67,15 +72,29 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }
 
   useEffect(() => {
-    async function get() {
+     const _userId =  Cookies.get('userId')
+    // if (_userId){
+    //   routerPush
+    // }
+    async function getProfile() {
       try {
-        const res = await apiCore.getProfile()
+        setLoaded(false)
+        const { data } = await apiCore.getProfile()
+        const fullName = data.first_name + " " + data.last_name
+        setLogin({
+          ...data,
+          isSignedIn: true,
+          userId: data?.id,
+          fullName
+        })
       } catch (error) {
         console.log(error)
+      }finally{
+        setLoaded(true)
       }
     }
 
-    if (getToken()) get()
+    if (getSignedIn()) getProfile()
   }, [])
   const value = useMemo(
     () => ({
@@ -85,7 +104,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
       setLogin,
       routerPush,
       routerReplace,
-      setLoading,
+      setLoaded,
       onSignOut
     }),
     [routerPush, routerReplace, state]

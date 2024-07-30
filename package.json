@@ -1,10 +1,10 @@
 {
-  "name": "@oneauxilia/oneauxilia-react",
+  "name": "oneauxilia-react",
   "version": "1.0.0",
   "description": "Made with create-react-library",
   "author": "thang148",
   "license": "1.0.0",
-  "repository": "thang148/@oneauxilia/oneauxilia-react",
+  "repository": "thang148/oneauxilia-react",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
@@ -44,13 +44,14 @@
       "react-app/jest"
     ]
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@babel/plugin-proposal-unicode-property-regex": "^7.18.6",
     "gh-pages": "^6.1.1",
     "microbundle-crl": "^0.13.11",
     "npm-run-all": "^4.1.5"
-  }
+  },
+  "proxy": "http://localhost:3000",
+  "files": [
+    "dist"
+  ]
 }
