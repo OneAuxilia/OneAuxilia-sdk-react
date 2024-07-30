@@ -13,9 +13,9 @@ export default function getInstanceAxios(baseAPI) {
         config.headers = {
           Accept: "application/json",
           "Content-Type": "application/json",
-          'Tenant-Header': getPublishableKey(),
+          "Tenant-Header": getPublishableKey()
         }
-        const  access_token  = getToken()
+        const access_token = getToken()
         if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
         return config
       } catch (e) {
@@ -27,17 +27,14 @@ export default function getInstanceAxios(baseAPI) {
     }
   )
 
-  instance.interceptors.response.use(
-    function (response) {
-      try {
-        if (response.status >= 200 && response.status < 300) return response.data
-        return Promise.reject(response.data)
-      } catch (error) {
-        return Promise.reject(error)
-      }
+  instance.interceptors.response.use(function (response) {
+    try {
+      if (response.status >= 200 && response.status < 300) return response.data
+      return Promise.reject(response.data)
+    } catch (error) {
+      return Promise.reject(error)
     }
-  )
+  })
 
   return instance
 }
-

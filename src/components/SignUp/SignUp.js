@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 import axios from "axios"
-import { apiCore } from '../../api'
+import { apiCore } from "../../api"
 import useStore from "../Context"
 import icon from "./favicon.png"
 
@@ -49,7 +49,7 @@ export default function SignUp({ children }) {
   }
 
   async function getConfig() {
-    console.log('process', process.env.REACT_APP_CORE_URL);
+    console.log("process", process.env.REACT_APP_CORE_URL)
     // await apiCore.getConfig()
     // await axios.get(`${domain}/api/v1/environment/`, {
     //   headers: headers
@@ -60,7 +60,7 @@ export default function SignUp({ children }) {
     try {
       const res = await apiCore.getProfile()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 

@@ -1,5 +1,5 @@
 import Client from "../ClientCore"
-const version = 'api/v1'
+const version = "api/v1"
 const resource = version
 
 function signIn(data) {
