@@ -1,5 +1,5 @@
-import React from 'react'
-import useStore from '../Context'
+import React from "react"
+import useStore from "../Context"
 
 export default function SignedIn({ children }) {
   const { userId } = useStore()

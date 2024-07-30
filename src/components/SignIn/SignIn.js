@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useEffect, useState } from 'react'
-import styles from './styles.module.css'
-import useStore from '../Context'
-import {setToken} from '../../lib/cookie'
-import { apiCore } from '../../api'
+import React, { useEffect, useState } from "react"
+import styles from "./styles.module.css"
+import useStore from "../Context"
+import { setToken } from "../../lib/cookie"
+import { apiCore } from "../../api"
+import avatar from "./avatar.png"
 
 export default function SignIn({ children }) {
-  const { setLogin, setLoading, userId, routerPush } = useStore()
-  const [name, setName] = useState('huyhq@gmail.com')
-  const [password, setPassWord] = useState('abc@123Xy')
+  const { setLogin, setLoading, routerPush } = useStore()
+  const [name, setName] = useState("huyhq@gmail.com")
+  const [password, setPassWord] = useState("abc@123Xy")
 
   function onChangeName(e) {
     setName(e.target.value)
@@ -23,7 +24,7 @@ export default function SignIn({ children }) {
       setLoading(false)
       const { data } = await apiCore.signIn(bodydata)
       const { token, user } = data
-      const fullName = user.first_name + ' ' + user.last_name
+      const fullName = user.first_name + " " + user.last_name
       setToken(token.session_token)
       setLogin({
         ...token,
@@ -32,7 +33,7 @@ export default function SignIn({ children }) {
         fullName
       })
       setLoading(true)
-      routerPush('/dashboard')
+      routerPush("/dashboard")
     } catch (error) {
       console.log(error)
     }
@@ -45,7 +46,7 @@ export default function SignIn({ children }) {
     try {
       const res = await apiCore.getProfile()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
   useEffect(() => {
@@ -95,17 +96,19 @@ export default function SignIn({ children }) {
           <div className={styles.ox_footer}>
             <div className={styles.footer_signin}>
               <div>Already have an account?</div>
-              <div
-                className={styles.link}
-                onClick={() => routerPush('/sign-up')}
-              >
+              <div className={styles.link} onClick={() => routerPush("/sign-up")}>
                 Sign up
               </div>
             </div>
             <div className={styles.footer_secured}>
               <div>Secured by</div>
               <div>
-                <img src='/avatar.png' /> Onxilia
+                <img
+                  className={styles.logoIcon}
+                  alt="logo"
+                  src="https://edg-dev-edg-upload.s3.ap-northeast-1.amazonaws.com/images/3c55537e-f21c-4970-ac41-6bb0ced4bf78.png"
+                />
+                nxilia
               </div>
             </div>
           </div>
