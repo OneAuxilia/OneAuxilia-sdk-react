@@ -1,73 +1,16 @@
-.pageContainer {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  align-items: flex-start;
-  padding-top: clamp(2rem, 10vw, 5rem);
+.ox_input_fields_email {
+  margin-bottom: 1.25rem;
 }
-.componentContainer,
-.pageContainer {
-  display: flex;
-  justify-content: center;
-}
-.componentContainer {
-  margin-bottom: 5rem;
-  border-radius: 0.75rem;
-  width: 25rem;
-  overflow: hidden;
-  box-shadow:
-    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
-    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
-    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
-}
-.oxBox {
-  width: 100%;
-  border-radius: 0.75rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
-    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
-}
-.ox_form {
-  padding: 2rem 2.5rem;
-  border-radius: 0.75rem;
-  z-index: 10;
-  background: white;
-  margin-bottom: 1px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  /* box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px */
-}
-.ox_header {
-  margin-bottom: 1.5rem;
-}
-.ox_text_header {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-.ox_text_header_sub {
-  font-size: 12px;
-  color: #9ca3af;
-}
-.ox_input_fields_name {
-  margin-bottom: 2rem;
-}
-.ox_input_fields_name,
-.ox_input_fields_password {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-.ox_input_fields_password {
-  margin-bottom: 2rem;
-}
-.ox_label_input_name {
+
+.ox_label_input_email {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.ox_label_email {
-  font-weight: 500;
-}
 .ox_input {
   box-sizing: border-box;
   margin: 0px;

@@ -6,6 +6,8 @@ import { setToken, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
 import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
+import BottomFormLogin from "../BottomFormLogin"
+import TopFormLogin from "../TopFormLogin"
 
 export default function SignIn({ children }) {
   const { setLogin, setLoaded, routerPush } = useStore()
@@ -34,7 +36,7 @@ export default function SignIn({ children }) {
         fullName
       })
       setToken(token.session_token)
-      Cookies.set('userId', user?.id)
+      Cookies.set("userId", user?.id)
       setLoaded(true)
       routerPush("/dashboard")
     } catch (error) {
@@ -46,13 +48,12 @@ export default function SignIn({ children }) {
     try {
       await apiCore.getConfig()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-
   }
 
   useEffect(() => {
-     if (getSignedIn()) routerPush("/dashboard")
+    if (getSignedIn()) routerPush("/dashboard")
   }, [])
 
   return (
@@ -60,37 +61,14 @@ export default function SignIn({ children }) {
       <div className={styles.componentContainer}>
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
-            <div className={styles.ox_header}>
-              <div className={styles.ox_text_header}>Sign in to App</div>
-              <div className={styles.ox_text_header_sub}>
-                Welcome back! Please sign in to continue
-              </div>
-            </div>
+            <TopFormLogin />
             <InputPhoneMail onChange={onChangeName} value={name} />
             <InputPassword onChange={onChangePassword} value={password} />
             <button className={styles.ox_button} onClick={onLogin}>
               Continue
             </button>
           </div>
-          <div className={styles.ox_footer}>
-            <div className={styles.footer_signin}>
-              <div>Already have an account?</div>
-              <div className={styles.link} onClick={() => routerPush("/sign-up")}>
-                Sign up
-              </div>
-            </div>
-            <div className={styles.footer_secured}>
-              <div>Secured by</div>
-              <div>
-                <img
-                  className={styles.logoIcon}
-                  alt="logo"
-                  src="https://edg-dev-edg-upload.s3.ap-northeast-1.amazonaws.com/images/3c55537e-f21c-4970-ac41-6bb0ced4bf78.png"
-                />
-                nxilia
-              </div>
-            </div>
-          </div>
+          <BottomFormLogin isSignIn={true} />
         </div>
         {children}
       </div>
