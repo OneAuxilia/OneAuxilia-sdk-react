@@ -36,11 +36,10 @@ function reducer(state, action) {
     case KEY.LOADING:
       return { ...state, isLoaded: action.value }
     case KEY.LOG_OUT:
-      Cookies.remove('userId')
-      Cookies.remove('publishableKey')
-      Cookies.remove('__session')
-      Cookies.remove('__one_auxilia_session_id')
-      Cookies.cle
+      Cookies.remove("userId")
+      Cookies.remove("publishableKey")
+      Cookies.remove("__session")
+      Cookies.remove("__one_auxilia_session_id")
       return initialState()
     default:
       throw new Error()
@@ -72,7 +71,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }
 
   useEffect(() => {
-     const _userId =  Cookies.get('userId')
+    const _userId = Cookies.get("userId")
     // if (_userId){
     //   routerPush
     // }
@@ -89,7 +88,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         })
       } catch (error) {
         console.log(error)
-      }finally{
+      } finally {
         setLoaded(true)
       }
     }
