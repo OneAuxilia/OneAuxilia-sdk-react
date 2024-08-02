@@ -1,7 +1,7 @@
-import { getPublishableKey } from "../lib/cookie"
+// import { getPublishableKey } from "../lib/cookie"
 import getInstanceAxios from "./request"
-const intansce = getPublishableKey()
-const baseDomain = `https:/${intansce}.oneauxilia.tech`
-const baseURL = `${baseDomain}/`
+// const intansce = getPublishableKey()
+const baseURL = window.location.origin
+const baseDomain = `${baseURL}/`
 
-export default getInstanceAxios(baseURL)
+export default getInstanceAxios(baseDomain)
