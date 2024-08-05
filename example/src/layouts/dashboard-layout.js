@@ -10,7 +10,6 @@ export default function DashboardLayout() {
     if (isLoaded && !userId) {
       navigate("/sign-in")
     }
-    console.log(userId, isLoaded)
   }, [isLoaded, navigate, userId])
 
   if (!isLoaded) return "Loading..."

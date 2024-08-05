@@ -8,6 +8,31 @@ function signIn(data) {
 function signUp(data) {
   return Client.post(`${resource}/sign_ups/`, data)
 }
+function signOut(session_id) {
+  return Client.post(`${resource}/${session_id}/sign_outs/`)
+}
+function genCode(data) {
+  return Client.post(`${resource}/generate/`, data)
+}
+function validAuth(data) {
+  return Client.post(`${resource}/auth/validate/`, data)
+}
+function validSignIn(data) {
+  return Client.post(`${resource}/auth/validate/sign_ins`, data)
+}
+function recoveryCode(data) {
+  return Client.post(`${resource}/auth/regenerate_recovery_codes/`, data)
+}
+function verifyCode(data) {
+  return Client.post(`${resource}/verify/`, data)
+}
+function update2Fa(user_id, data) {
+  return Client.post(`${resource}/auth/update_secret_key/${user_id}`, data)
+}
+
+function validCode(data) {
+  return Client.post(`${resource}/auth/valid_recovery_codes/`, data)
+}
 function getConfig() {
   return Client.get(`${resource}/environment/`)
 }
@@ -23,9 +48,6 @@ function create(data) {
 function update(id, data) {
   return Client.put(`${resource}/${id}/`, data)
 }
-function changeStatus(id, data) {
-  return Client.put(`${resource}/${id}/change-status/`, data)
-}
 function changePassword(id, data) {
   return Client.put(`${resource}/${id}/change-password/`, data)
 }
@@ -37,11 +59,18 @@ const api = {
   gets,
   signIn,
   signUp,
+  signOut,
+  genCode,
+  verifyCode,
+  validSignIn,
   getConfig,
   getProfile,
   create,
   update,
-  changeStatus,
+  update2Fa,
+  validCode,
+  validAuth,
+  recoveryCode,
   changePassword,
   remove
 }

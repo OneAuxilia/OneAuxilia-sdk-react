@@ -71,10 +71,6 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }
 
   useEffect(() => {
-    const _userId = Cookies.get("userId")
-    // if (_userId){
-    //   routerPush
-    // }
     async function getProfile() {
       try {
         setLoaded(false)
@@ -88,11 +84,19 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         })
       } catch (error) {
         console.log(error)
+        onSignOut()
       } finally {
         setLoaded(true)
       }
     }
-
+    async function getConfig() {
+      try {
+        await apiCore.getConfig()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getConfig()
     if (getSignedIn()) getProfile()
   }, [])
   const value = useMemo(

@@ -15,6 +15,7 @@ export default function getInstanceAxios(baseAPI) {
           "Content-Type": "application/json",
           "Tenant-Header": getPublishableKey()
         }
+        if (window.location.origin === "http://localhost:3000") config.headers.mode = "development"
         const access_token = getToken()
         // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
         return config

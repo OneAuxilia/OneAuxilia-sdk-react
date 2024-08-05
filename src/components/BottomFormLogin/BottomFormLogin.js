@@ -2,16 +2,21 @@ import React from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
 
-export default function BottomFormLogin({ isSignIn }) {
+export default function BottomFormLogin({ isSignIn, step }) {
   const { routerPush } = useStore()
   return (
     <div className={styles.ox_footer}>
-      <div className={styles.footer_signin}>
-        <div>Already have an account?</div>
-        <div className={styles.link} onClick={() => routerPush(isSignIn ? "/sign-up" : "/sign-in")}>
-          {isSignIn ? "Sign up" : "Sign in"}
+      {step === 1 && (
+        <div className={styles.footer_signin}>
+          <div>Already have an account?</div>
+          <div
+            className={styles.link}
+            onClick={() => routerPush(isSignIn ? "/sign-up" : "/sign-in")}
+          >
+            {isSignIn ? "Sign up" : "Sign in"}
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.footer_secured}>
         <div>Secured by</div>
         <div className={styles.ox_logo_bottom}>

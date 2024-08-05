@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import useComponentVisible from "./ClickOutside"
 import styles from "./styles.module.css"
 import useStore from "../Context"
+import { apiCore } from "../../api"
+import { getSessionId } from "../../lib/cookie"
 
 export default function UserButton({ list }) {
   const { onSignOut, fullName, email } = useStore()
@@ -17,12 +19,22 @@ export default function UserButton({ list }) {
     }
   }
 
+  async function onLogOut() {
+    try {
+      await apiCore.signOut(getSessionId())
+      onSignOut()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     if (!isComponentVisible)
       setTimeout(() => {
         setOpen(false)
       }, 100)
   }, [isComponentVisible])
+
   return (
     <div>
       <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
@@ -60,7 +72,7 @@ export default function UserButton({ list }) {
                 <div>{icSetting}</div>
                 Setting
               </button>
-              <button onClick={onSignOut} className={styles.ox_dropdown_li}>
+              <button onClick={onLogOut} className={styles.ox_dropdown_li}>
                 <div>{icLogout}</div>
                 Sign out
               </button>
