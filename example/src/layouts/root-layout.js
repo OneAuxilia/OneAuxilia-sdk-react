@@ -3,11 +3,13 @@ import { Outlet, useNavigate } from "react-router-dom"
 import { OneAuxiliaProvider } from "oneauxilia-react"
 import "oneauxilia-react/dist/index.css"
 import Layout from "./layout"
-const PUBLISHABLE_KEY = "ins_pXqIOEBZi5Rc"
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
+const PUBLISHABLE_KEY =
+  window.location.origin === "http://localhost:3000" ? "ins_ea9wlcu6ajvf" : "ins_pXqIOEBZi5Rc"
+
+// if (!PUBLISHABLE_KEY) {
+//   throw new Error("Missing Publishable Key")
+// }
 
 export default function RootLayout() {
   const navigate = useNavigate()

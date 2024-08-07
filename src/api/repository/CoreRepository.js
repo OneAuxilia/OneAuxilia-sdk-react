@@ -11,6 +11,22 @@ function signUp(data) {
 function signOut(session_id) {
   return Client.post(`${resource}/${session_id}/sign_outs/`)
 }
+function prepareFirstfactor2(data) {
+  //strategy email_or_phone
+  return Client.post(`${resource}/prepare_first_factor`, data)
+}
+function attemptFirstfactor3(data) {
+  //strategy email_or_phone code
+  return Client.post(`${resource}/attempt_first_factor`, data)
+}
+function prepareSecondfactor4(data) {
+  //strategy email_or_phone
+  return Client.post(`${resource}/prepare_second_factor`, data)
+}
+function attemptSecondfactor5(data) {
+  // strategy email_or_phone code
+  return Client.post(`${resource}/attempt_second_factor`, data)
+}
 function genCode(data) {
   return Client.post(`${resource}/generate/`, data)
 }
@@ -58,6 +74,10 @@ function remove(id) {
 const api = {
   gets,
   signIn,
+  prepareFirstfactor2,
+  attemptFirstfactor3,
+  prepareSecondfactor4,
+  attemptSecondfactor5,
   signUp,
   signOut,
   genCode,

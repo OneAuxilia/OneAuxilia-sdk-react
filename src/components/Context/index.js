@@ -21,6 +21,9 @@ function initialState() {
     },
     invitations: {
       infinite: true
+    },
+    user_general_setting: {
+      authentication_strategies: {}
     }
   }
 }
@@ -28,6 +31,8 @@ function initialState() {
 function reducer(state, action) {
   switch (action.type) {
     case KEY.SET_AUTH:
+      return { ...state, ...action.value }
+    case KEY.SET_CONFIG:
       return { ...state, ...action.value }
     case KEY.GET_USER_PROFILE:
       return { ...state, ...action.value }
@@ -40,7 +45,7 @@ function reducer(state, action) {
       Cookies.remove("publishableKey")
       Cookies.remove("__session")
       Cookies.remove("__one_auxilia_session_id")
-      return initialState()
+      return { ...state, isSignedIn: false, userId: false }
     default:
       throw new Error()
   }
@@ -55,6 +60,9 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
 
   const setAuthStore = (value) => {
     return dispatch({ type: KEY.SET_AUTH, value })
+  }
+  const setConfig = (value) => {
+    return dispatch({ type: KEY.SET_CONFIG, value })
   }
   const onSignOut = () => {
     dispatch({ type: KEY.LOG_OUT })
@@ -91,7 +99,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     }
     async function getConfig() {
       try {
-        await apiCore.getConfig()
+        const { data } = await apiCore.getConfig()
+        setConfig(data)
       } catch (error) {
         console.log(error)
       }
@@ -99,6 +108,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     getConfig()
     if (getSignedIn()) getProfile()
   }, [])
+
   const value = useMemo(
     () => ({
       ...state,
@@ -112,6 +122,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     }),
     [routerPush, routerReplace, state]
   )
+  console.log("store:", value)
+
   return <MyContext.Provider value={value} {...rest} />
 }
 
