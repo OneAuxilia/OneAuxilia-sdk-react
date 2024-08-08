@@ -2,28 +2,18 @@ import React, { Fragment, useEffect, useState } from "react"
 import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
-import { setToken, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
 import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
 import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
-import InputOtp from "../InputOtp"
 import { signInSetting, stepStatus } from "../../lib/const"
 
-const typeFactor = {
-  NONE: "NONE",
-  SMS: "sms",
-  AUTHENTICATOR: "authenticator"
-}
-
 export default function FirstSignIn({ children, onChangeStep }) {
-  const { setLogin, setLoaded, routerPush, user_general_setting } = useStore()
+  const { setLogin, setLoaded, isSignedIn, routerPush, user_general_setting } = useStore()
   const { authentication_strategies } = user_general_setting
-
   const [name, setName] = useState("thangnd1@gmail.com")
   const [password, setPassWord] = useState("abc@123X")
-  const [config, setConfig] = useState({ type: signInSetting.EMAIL_CODE, factor: typeFactor.NONE })
 
   function onChangeName(e) {
     setName(e.target.value)
@@ -33,9 +23,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
   }
   function onSignIn(data) {
     const { user } = data
-
     setLogin({ firstSignIn: { email: user.email, phone: user.phone } })
-    Cookies.set("userId", user?.id)
     setLoaded(true)
   }
 
@@ -56,9 +44,9 @@ export default function FirstSignIn({ children, onChangeStep }) {
   }
 
   useEffect(() => {
-    if (getSignedIn()) routerPush("/dashboard")
+    if (isSignedIn) routerPush("/dashboard")
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isSignedIn])
 
   return (
     <div className={styles.pageContainer}>

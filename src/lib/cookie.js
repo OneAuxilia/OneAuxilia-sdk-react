@@ -15,9 +15,6 @@ export function getSessionId() {
 export function setSignIn(accessToken) {
   return Cookies.set("accessToken", accessToken)
 }
-export function getSignIn() {
-  return Cookies.get("accessToken")
-}
 export function getSignedIn() {
-  return Cookies.get("userId") || false
+  return Cookies.get("isSignedIn") || false
 }

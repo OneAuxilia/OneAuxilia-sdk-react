@@ -3,10 +3,11 @@ import Cookies from "js-cookie"
 import KEY from "./Const"
 import { getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
+import { convertDataSignIn, convertDataSignOut } from "../../lib/function"
 
 function initialState() {
   return {
-    isLoaded: getSignedIn() ? false : true,
+    isLoaded: true,
     userId: false,
     isSignedIn: false,
     session: {},
@@ -41,11 +42,8 @@ function reducer(state, action) {
     case KEY.LOADING:
       return { ...state, isLoaded: action.value }
     case KEY.LOG_OUT:
-      Cookies.remove("userId")
-      Cookies.remove("publishableKey")
-      Cookies.remove("__session")
-      Cookies.remove("__one_auxilia_session_id")
-      return { ...state, isSignedIn: false, userId: false }
+      convertDataSignOut()
+      return { ...state, isSignedIn: false }
     default:
       throw new Error()
   }
@@ -55,7 +53,6 @@ const MyContext = createContext(initialState())
 MyContext.displayName = "MyContext"
 
 export function StoreProvider({ routerPush, routerReplace, ...rest }) {
-  Cookies.set("publishableKey", rest.publishableKey)
   const [state, dispatch] = useReducer(reducer, initialState())
 
   const setAuthStore = (value) => {
@@ -75,7 +72,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }
 
   const setLogin = (value) => {
-    return dispatch({ type: KEY.SET_LOGIN, value })
+    Cookies.set("isSignedIn", true)
+    return dispatch({ type: KEY.SET_LOGIN, value: convertDataSignIn(value) })
   }
 
   useEffect(() => {
@@ -107,6 +105,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     }
     getConfig()
     if (getSignedIn()) getProfile()
+    Cookies.set("publishableKey", rest.publishableKey)
   }, [])
 
   const value = useMemo(
@@ -122,7 +121,12 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     }),
     [routerPush, routerReplace, state]
   )
-  console.log("store:", value)
+  useEffect(() => {
+    if (state.isSignedIn) routerPush("/dashboard")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isSignedIn])
+
+  console.log("______store", value)
 
   return <MyContext.Provider value={value} {...rest} />
 }

@@ -1,29 +1,18 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
-import { setToken, getSignedIn } from "../../lib/cookie"
+import { setToken } from "../../lib/cookie"
 import { apiCore } from "../../api"
-import InputPhoneMail from "../InputPhoneMail"
-import InputPassword from "../InputPassword"
 import BottomFormLogin from "../BottomFormLogin"
-import TopFormLogin from "../TopFormLogin"
 import InputOtp from "../InputOtp"
-import { signInSetting, stepStatus } from "../../lib/const"
-
-const typeFactor = {
-  NONE: "NONE",
-  SMS: "sms",
-  AUTHENTICATOR: "authenticator"
-}
+import { stepStatus } from "../../lib/const"
+import { getAuthStrategies } from "../../lib/function"
 
 export default function FactorOne({ children, onChangeStep }) {
   const { setLogin, setLoaded, routerPush, firstSignIn, user_general_setting } = useStore()
-  const { multi_factors } = user_general_setting
+  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [otp, setOtp] = useState()
-
-  const [config, setConfig] = useState({ type: signInSetting.PASSWORD, factor: typeFactor.NONE })
-  const { type, factor } = config
 
   function onSignIn(data) {
     const { token, user } = data
@@ -35,9 +24,7 @@ export default function FactorOne({ children, onChangeStep }) {
       userId: user?.id,
       fullName
     })
-    setToken(token.session_token)
-    Cookies.set("userId", user?.id)
-    setLoaded(true)
+    // setToken(token.session_token)
     routerPush("/dashboard")
   }
 
@@ -45,7 +32,7 @@ export default function FactorOne({ children, onChangeStep }) {
     try {
       setLoaded(false)
       const body = {
-        strategy: "email_verification_code",
+        strategy: strategies[0],
         email_or_phone: firstSignIn.email,
         code: otp
       }
@@ -68,10 +55,10 @@ export default function FactorOne({ children, onChangeStep }) {
     async function fetch() {
       try {
         const dataBody = {
-          strategy: "email_verification_code",
+          strategy: strategies[0],
           email_or_phone: firstSignIn.email
         }
-        const { data } = await apiCore.prepareFirstfactor2(dataBody)
+        await apiCore.prepareFirstfactor2(dataBody)
       } catch (error) {
         console.log({ error })
       }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
 import { setToken } from "../../lib/cookie"
@@ -24,7 +23,6 @@ export default function FactorTwo({ children, onChangeStep }) {
       fullName
     })
     setToken(token.session_token)
-    Cookies.set("userId", user?.id)
     setLoaded(true)
     routerPush("/dashboard")
   }
@@ -63,7 +61,6 @@ export default function FactorTwo({ children, onChangeStep }) {
       }
     }
     fetch()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
