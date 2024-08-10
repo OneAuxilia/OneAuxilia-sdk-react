@@ -16,5 +16,19 @@ export function setSignIn(accessToken) {
   return Cookies.set("accessToken", accessToken)
 }
 export function getSignedIn() {
-  return Cookies.get("isSignedIn") || false
+  try {
+    const isSignedIn = Cookies.get("isSignedIn")
+    return JSON.parse(isSignedIn)
+  } catch (error) {
+    return false
+  }
+}
+
+export function getFirstSignIn() {
+  try {
+    const firstSignIn = Cookies.get("firstSignIn")
+    return JSON.parse(firstSignIn)
+  } catch (error) {
+    return {}
+  }
 }

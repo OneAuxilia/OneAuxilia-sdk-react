@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
-import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
-import { setToken } from "../../lib/cookie"
 import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
@@ -10,23 +8,12 @@ import { stepStatus } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
 
 export default function FactorOne({ children, onChangeStep }) {
-  const { setLogin, setLoaded, routerPush, firstSignIn, user_general_setting } = useStore()
+  const { setLogin, routerPush, setLoaded, firstSignIn, user_general_setting } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-  const [otp, setOtp] = useState()
+  console.log({ strategies })
 
-  function onSignIn(data) {
-    const { token, user } = data
-    const fullName = user.first_name + " " + user.last_name
-    setLogin({
-      ...token,
-      ...user,
-      isSignedIn: true,
-      userId: user?.id,
-      fullName
-    })
-    // setToken(token.session_token)
-    routerPush("/dashboard")
-  }
+  const [otp, setOtp] = useState()
+  const [error, setError] = useState("")
 
   async function onOk() {
     try {
@@ -38,12 +25,14 @@ export default function FactorOne({ children, onChangeStep }) {
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
       if (data?.user?.status === stepStatus.COMPLETED) {
-        onSignIn(data)
+        setLogin(data)
+        routerPush("/dashboard")
       } else {
         onChangeStep(3)
       }
     } catch (error) {
       console.log(error)
+      setError("Incorrect code")
     }
   }
 
@@ -63,17 +52,24 @@ export default function FactorOne({ children, onChangeStep }) {
         console.log({ error })
       }
     }
-    fetch()
-
+    if (strategies.length > 0) fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user_general_setting])
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.componentContainer}>
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
-            <InputOtp onChange={onChangeOtp} value={otp} />
+            <InputOtp
+              onChange={onChangeOtp}
+              value={otp}
+              error={error}
+              onResend={onOk}
+              step={2}
+              strategie={strategies[0]}
+              firstSignIn={firstSignIn}
+            />
             <button className={styles.ox_button} onClick={onOk}>
               Continue
             </button>

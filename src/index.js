@@ -17,9 +17,9 @@ export function useUser() {
   return { isSignedIn, user, isLoaded }
 }
 export function useAuth() {
-  const { userId, isLoaded } = useStore()
+  const { userId, isLoaded, isSignedIn } = useStore()
 
-  return { userId, isLoaded }
+  return { userId, isLoaded, isSignedIn }
 }
 export function useOneXilia() {
   const { openSignIn } = useStore()

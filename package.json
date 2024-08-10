@@ -1,9 +1,9 @@
 {
   "name": "oneauxilia-react",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Made with create-react-library",
   "author": "thang148",
-  "license": "1.0.1",
+  "license": "ISC",
   "repository": "thang148/oneauxilia-react",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",

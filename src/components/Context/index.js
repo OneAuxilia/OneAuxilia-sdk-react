@@ -1,21 +1,26 @@
-import React, { useReducer, useMemo, createContext, useContext, useEffect } from "react"
+import React, {
+  useReducer,
+  useMemo,
+  createContext,
+  useContext,
+  useEffect,
+  useCallback
+} from "react"
 import Cookies from "js-cookie"
 import KEY from "./Const"
-import { getSignedIn } from "../../lib/cookie"
+import { getFirstSignIn, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
-import { convertDataSignIn, convertDataSignOut } from "../../lib/function"
+import { convertDataFirstLogin, convertDataSignIn, convertDataSignOut } from "../../lib/function"
 
 function initialState() {
   return {
-    isLoaded: true,
+    isLoaded: false,
     userId: false,
-    isSignedIn: false,
-    session: {},
+    isSignedIn: getSignedIn(),
     user: {
       fullName: "",
       firstName: "",
-      lastName: "",
-      publicMetadata: {}
+      lastName: ""
     },
     signUp: {
       status: false
@@ -24,8 +29,12 @@ function initialState() {
       infinite: true
     },
     user_general_setting: {
-      authentication_strategies: {}
-    }
+      authentication_strategies: false,
+      multi_factors: {
+        methods: false
+      }
+    },
+    firstSignIn: getFirstSignIn()
   }
 }
 
@@ -41,16 +50,20 @@ function reducer(state, action) {
       return { ...state, ...action.value }
     case KEY.LOADING:
       return { ...state, isLoaded: action.value }
+    case KEY.FIRST_LOGIN:
+      return {
+        ...state,
+        firstSignIn: { ...state.firstSignIn, ...action.value }
+      }
     case KEY.LOG_OUT:
-      convertDataSignOut()
-      return { ...state, isSignedIn: false }
+      return { ...state, ...action.value }
     default:
       throw new Error()
   }
 }
 
-const MyContext = createContext(initialState())
-MyContext.displayName = "MyContext"
+const OneAuxiliaContext = createContext(initialState())
+OneAuxiliaContext.displayName = "onauxilia"
 
 export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   const [state, dispatch] = useReducer(reducer, initialState())
@@ -62,7 +75,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     return dispatch({ type: KEY.SET_CONFIG, value })
   }
   const onSignOut = () => {
-    dispatch({ type: KEY.LOG_OUT })
+    dispatch({ type: KEY.LOG_OUT, value: convertDataSignOut() })
   }
   const setLoaded = (value) => {
     return dispatch({ type: KEY.LOADING, value })
@@ -71,30 +84,15 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     return dispatch({ type: KEY.GET_USER_PROFILE, value })
   }
 
+  const setFirstLogin = (value) => {
+    return dispatch({ type: KEY.FIRST_LOGIN, value: convertDataFirstLogin(value) })
+  }
   const setLogin = (value) => {
-    Cookies.set("isSignedIn", true)
     return dispatch({ type: KEY.SET_LOGIN, value: convertDataSignIn(value) })
   }
 
   useEffect(() => {
-    async function getProfile() {
-      try {
-        setLoaded(false)
-        const { data } = await apiCore.getProfile()
-        const fullName = data.first_name + " " + data.last_name
-        setLogin({
-          ...data,
-          isSignedIn: true,
-          userId: data?.id,
-          fullName
-        })
-      } catch (error) {
-        console.log(error)
-        onSignOut()
-      } finally {
-        setLoaded(true)
-      }
-    }
+    Cookies.set("publishableKey", rest.publishableKey)
     async function getConfig() {
       try {
         const { data } = await apiCore.getConfig()
@@ -103,10 +101,22 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         console.log(error)
       }
     }
+    async function getProfile() {
+      try {
+        setLoaded(false)
+        const { data } = await apiCore.getProfile()
+        setLogin({ user: data })
+      } catch (error) {
+        console.log(error)
+        onSignOut()
+      } finally {
+        setLoaded(true)
+      }
+    }
     getConfig()
-    if (getSignedIn()) getProfile()
-    Cookies.set("publishableKey", rest.publishableKey)
-  }, [])
+    if (state.isSignedIn) getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isSignedIn])
 
   const value = useMemo(
     () => ({
@@ -117,22 +127,19 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
       routerPush,
       routerReplace,
       setLoaded,
-      onSignOut
+      onSignOut,
+      setFirstLogin
     }),
     [routerPush, routerReplace, state]
   )
-  useEffect(() => {
-    if (state.isSignedIn) routerPush("/dashboard")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.isSignedIn])
 
   console.log("______store", value)
 
-  return <MyContext.Provider value={value} {...rest} />
+  return <OneAuxiliaContext.Provider value={value} {...rest} />
 }
 
 const useStore = () => {
-  const context = useContext(MyContext)
+  const context = useContext(OneAuxiliaContext)
   if (context === undefined) {
     throw new Error(`useUI must be used within a UIProvider`)
   }

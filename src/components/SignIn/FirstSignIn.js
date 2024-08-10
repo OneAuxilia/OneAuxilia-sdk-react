@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react"
-import Cookies from "js-cookie"
 import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
@@ -7,11 +6,14 @@ import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
 import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
-import { signInSetting, stepStatus } from "../../lib/const"
+import { strategieCode, stepStatus } from "../../lib/const"
+import { getAuthMultiFactor, getAuthStrategies } from "../../lib/function"
 
 export default function FirstSignIn({ children, onChangeStep }) {
-  const { setLogin, setLoaded, isSignedIn, routerPush, user_general_setting } = useStore()
-  const { authentication_strategies } = user_general_setting
+  const { setFirstLogin, setLoaded, routerPush, user_general_setting, setLogin } = useStore()
+  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
+  const multiFactor = getAuthMultiFactor(user_general_setting.multi_factors.methods)
+
   const [name, setName] = useState("thangnd1@gmail.com")
   const [password, setPassWord] = useState("abc@123X")
 
@@ -22,8 +24,11 @@ export default function FirstSignIn({ children, onChangeStep }) {
     setPassWord(e.target.value)
   }
   function onSignIn(data) {
-    const { user } = data
-    setLogin({ firstSignIn: { email: user.email, phone: user.phone } })
+    if (strategies[0] === strategieCode.PASSWORD && multiFactor.length === 0) {
+      setLogin(data)
+    } else {
+      setFirstLogin(data)
+    }
     setLoaded(true)
   }
 
@@ -31,22 +36,22 @@ export default function FirstSignIn({ children, onChangeStep }) {
     try {
       const bodydata = { username: name }
       setLoaded(false)
-      if (authentication_strategies[signInSetting.PASSWORD]?.is_enable) {
+      if (strategies[0] === strategieCode.PASSWORD) {
         bodydata.password = password
       }
       const { data } = await apiCore.signIn(bodydata)
       onSignIn(data)
-      if (data?.user?.status === stepStatus.COMPLETED) routerPush("/dashboard")
-      if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
+      if (data?.user?.status === stepStatus.COMPLETED) {
+        setLogin(data)
+        routerPush("/dashboard")
+      } else {
+        setFirstLogin(data)
+        onChangeStep(2)
+      }
     } catch (error) {
       console.log(error)
     }
   }
-
-  useEffect(() => {
-    if (isSignedIn) routerPush("/dashboard")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn])
 
   return (
     <div className={styles.pageContainer}>
@@ -56,7 +61,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
             <Fragment>
               <TopFormLogin />
               <InputPhoneMail onChange={onChangeName} value={name} />
-              {authentication_strategies[signInSetting.PASSWORD]?.is_enable && (
+              {strategies[0] === strategieCode.PASSWORD && (
                 <InputPassword onChange={onChangePassword} value={password} />
               )}
             </Fragment>

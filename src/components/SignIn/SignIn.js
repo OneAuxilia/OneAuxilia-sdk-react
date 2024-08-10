@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import useStore from "../Context"
 import FirstSignIn from "./FirstSignIn"
 import FactorOne from "./FactorOne"
@@ -12,7 +12,7 @@ function initStep() {
 }
 
 export default function SignIn({ children }) {
-  const { routerReplace, routerPush, isSignedIn } = useStore()
+  const { routerReplace } = useStore()
   const [step, setStep] = useState(initStep())
 
   function onChangeStep(v) {
@@ -21,11 +21,6 @@ export default function SignIn({ children }) {
     if (v === 2) routerReplace("/sign-in/factor-one")
     if (v === 3) routerReplace("/sign-in/factor-two")
   }
-
-  useEffect(() => {
-    if (isSignedIn) routerPush("/dashboard")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div>

@@ -3,14 +3,14 @@ import { useAuth } from "oneauxilia-react"
 import { Outlet, useNavigate } from "react-router-dom"
 
 export default function DashboardLayout() {
-  const { userId, isLoaded } = useAuth()
+  const { isLoaded, isSignedIn } = useAuth()
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (isLoaded && !userId) {
+    if (isLoaded && !isSignedIn) {
       navigate("/sign-in")
     }
-  }, [isLoaded, navigate, userId])
+  }, [isLoaded, navigate, isSignedIn])
 
   if (!isLoaded) return "Loading..."
 

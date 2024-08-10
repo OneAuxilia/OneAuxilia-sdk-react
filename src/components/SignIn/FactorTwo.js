@@ -6,10 +6,11 @@ import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import { stepStatus } from "../../lib/const"
+import { getAuthStrategies } from "../../lib/function"
 
 export default function FactorTwo({ children, onChangeStep }) {
   const { setLogin, setLoaded, routerPush, firstSignIn, user_general_setting } = useStore()
-  const { multi_factors } = user_general_setting
+  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [otp, setOtp] = useState()
 
   function onSignIn(data) {
@@ -23,8 +24,6 @@ export default function FactorTwo({ children, onChangeStep }) {
       fullName
     })
     setToken(token.session_token)
-    setLoaded(true)
-    routerPush("/dashboard")
   }
 
   async function onOk() {
@@ -70,7 +69,7 @@ export default function FactorTwo({ children, onChangeStep }) {
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
             <InputOtp onChange={onChangeOtp} value={otp} />
-            <button className={styles.ox_button} onClick={onOk}>
+            <button className={styles.ox_button} onClick={onOk} step={3}>
               Continue
             </button>
           </div>

@@ -1,4 +1,4 @@
-import { authStrategies } from "./const"
+import { authMultiFactor, authStrategies } from "./const"
 import Cookies from "js-cookie"
 const res = {
   account_portal_setting: {
@@ -229,10 +229,16 @@ const res = {
   }
 }
 
-export function getAuthStrategies(au_strategies) {
+export function getAuthStrategies(auStrategies) {
   let strategies = []
-  if (!au_strategies) strategies = authStrategies?.filter((i) => au_strategies[i].is_enable)
+  if (auStrategies) strategies = authStrategies?.filter((i) => auStrategies[i].is_enable)
   return strategies
+}
+
+export function getAuthMultiFactor(auMultiFactor) {
+  let amultiFactor = []
+  if (auMultiFactor) amultiFactor = auMultiFactor?.filter((i) => i.is_enable)
+  return amultiFactor
 }
 
 export function convertDataSignIn({ token, user }) {
@@ -252,7 +258,20 @@ export function convertDataSignIn({ token, user }) {
 }
 
 export function convertDataSignOut() {
-  Cookies.remove("publishableKey")
-  Cookies.remove("__session")
-  Cookies.remove("__one_auxilia_session_id")
+  Cookies.set("isSignedIn", false)
+  return {
+    isSignedIn: false,
+    userId: false
+  }
+}
+
+export function convertDataFirstLogin({ user }) {
+  let initFirstSignIn = {
+    email: user.email,
+    phone: user.phone,
+    username: user.username,
+    appName: "App test"
+  }
+  Cookies.set("firstSignIn", JSON.stringify(initFirstSignIn))
+  return initFirstSignIn
 }

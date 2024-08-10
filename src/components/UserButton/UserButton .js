@@ -21,7 +21,7 @@ export default function UserButton({ list }) {
 
   async function onLogOut() {
     try {
-      await apiCore.signOut(getSessionId())
+      // await apiCore.signOut(getSessionId())
       onSignOut()
     } catch (error) {
       console.log(error)
