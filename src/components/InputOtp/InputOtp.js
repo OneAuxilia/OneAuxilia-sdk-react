@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import OTPInput from "react-otp-input"
 import styles from "./styles.module.css"
 import { strategieCode } from "../../lib/const"
@@ -25,7 +25,7 @@ export default function InputOtp({
           </div>
         )}
         {step === 2 && strategie === strategieCode.EMAIL_LINK && "Verify your email"}
-        {step === 3 && "Two-step verification"}
+        {step === 3 && <div className={styles.ox_name_title}>Two-step verification</div>}
       </div>
       <div className={styles.ox_sub_code}>
         {step === 3 &&

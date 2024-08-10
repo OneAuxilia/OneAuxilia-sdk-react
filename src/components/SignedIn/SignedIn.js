@@ -2,7 +2,6 @@ import React from "react"
 import useStore from "../Context"
 
 export default function SignedIn({ children }) {
-  const { userId } = useStore()
-
-  return <div>{userId && children}</div>
+  const { isSignedIn } = useStore()
+  return <div>{isSignedIn && children}</div>
 }

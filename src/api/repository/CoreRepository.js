@@ -27,6 +27,11 @@ function attemptSecondfactor5(data) {
   // strategy email_or_phone code
   return Client.post(`${resource}/attempt_second_factor`, data)
 }
+function genFactorSecretkey(user_id, data) {
+  // strategy email_or_phone code
+  return Client.put(`${resource}/auth/update_secret_key/${user_id}/`, data)
+}
+
 function genCode(data) {
   return Client.post(`${resource}/generate/`, data)
 }
@@ -78,6 +83,7 @@ const api = {
   attemptFirstfactor3,
   prepareSecondfactor4,
   attemptSecondfactor5,
+  genFactorSecretkey,
   signUp,
   signOut,
   genCode,

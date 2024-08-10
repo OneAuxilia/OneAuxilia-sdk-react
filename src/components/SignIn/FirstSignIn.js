@@ -43,10 +43,14 @@ export default function FirstSignIn({ children, onChangeStep }) {
       onSignIn(data)
       if (data?.user?.status === stepStatus.COMPLETED) {
         setLogin(data)
-        routerPush("/dashboard")
-      } else {
+      }
+      if (data?.user?.status === stepStatus.FIRST_FACTOR) {
         setFirstLogin(data)
         onChangeStep(2)
+      }
+      if (data?.user?.status === stepStatus.SECOND_FACTOR) {
+        setFirstLogin(data)
+        onChangeStep(3)
       }
     } catch (error) {
       console.log(error)

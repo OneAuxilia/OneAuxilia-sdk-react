@@ -13,6 +13,12 @@ export const authStrategies = [
   "sms_verification_code",
   "passkey"
 ]
+
+export const authCodeMultiFactor = {
+  AUTH_CODE: "auth_code",
+  EMAIL: "email",
+  SMS: "sms"
+}
 export const authMultiFactor = ["auth_code", "email", "sms"]
 export const stepStatus = {
   FIRST_FACTOR: "needs_first_factor",

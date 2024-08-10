@@ -1,42 +1,28 @@
 import React, { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 import useStore from "../Context"
-import { setToken } from "../../lib/cookie"
 import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
-import { stepStatus } from "../../lib/const"
-import { getAuthStrategies } from "../../lib/function"
+import { authCodeMultiFactor, stepStatus } from "../../lib/const"
+import { getAuthMultiFactor } from "../../lib/function"
 
 export default function FactorTwo({ children, onChangeStep }) {
-  const { setLogin, setLoaded, routerPush, firstSignIn, user_general_setting } = useStore()
-  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
+  const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
+  const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
   const [otp, setOtp] = useState()
-
-  function onSignIn(data) {
-    const { token, user } = data
-    const fullName = user.first_name + " " + user.last_name
-    setLogin({
-      ...token,
-      ...user,
-      isSignedIn: true,
-      userId: user?.id,
-      fullName
-    })
-    setToken(token.session_token)
-  }
 
   async function onOk() {
     try {
       setLoaded(false)
       const body = {
-        strategy: "email",
+        strategy: auMultiFactors[0],
         email_or_phone: firstSignIn.email,
         code: otp
       }
       const { data } = await apiCore.attemptSecondfactor5(body)
       if (data?.user?.status === stepStatus.COMPLETED) {
-        onSignIn(data)
+        setLogin(data)
       }
     } catch (error) {
       console.log(error)
@@ -51,7 +37,7 @@ export default function FactorTwo({ children, onChangeStep }) {
     async function fetch() {
       try {
         const dataBody = {
-          strategy: "email",
+          strategy: auMultiFactors[0],
           email_or_phone: firstSignIn.email
         }
         await apiCore.prepareSecondfactor4(dataBody)
@@ -59,17 +45,18 @@ export default function FactorTwo({ children, onChangeStep }) {
         console.log({ error })
       }
     }
-    fetch()
+
+    if (auMultiFactors.length > 0 && auMultiFactors[0] !== authCodeMultiFactor.AUTH_CODE) fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [auMultiFactors])
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.componentContainer}>
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
-            <InputOtp onChange={onChangeOtp} value={otp} />
-            <button className={styles.ox_button} onClick={onOk} step={3}>
+            <InputOtp onChange={onChangeOtp} value={otp} step={3} />
+            <button className={styles.ox_button} onClick={onOk}>
               Continue
             </button>
           </div>

@@ -1,21 +1,27 @@
-import React, { Fragment } from "react"
-import { useAuth, SignedIn, UserButton } from "oneauxilia-react"
+import React from "react"
+import { SignedIn, UserButton } from "oneauxilia-react"
 import styles from "./styles.module.css"
+import { Outlet } from "react-router-dom"
 
 export default function Layout() {
-  const { userId, isLoaded } = useAuth()
   return (
-    <Fragment>
-      {userId && isLoaded && (
-        <header className={styles.ox_header}>
-          <div>Logo</div>
-          <div className="flex">
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </header>
-      )}
-    </Fragment>
+    <div>
+      <header className={styles.ox_header}>
+        <div>Logo</div>
+        <div className="flex">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      </header>
+
+      <main
+        style={{
+          padding: "2rem"
+        }}
+      >
+        <Outlet />
+      </main>
+    </div>
   )
 }

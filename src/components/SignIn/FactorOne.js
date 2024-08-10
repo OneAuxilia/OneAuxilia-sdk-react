@@ -10,7 +10,6 @@ import { getAuthStrategies } from "../../lib/function"
 export default function FactorOne({ children, onChangeStep }) {
   const { setLogin, routerPush, setLoaded, firstSignIn, user_general_setting } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-  console.log({ strategies })
 
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
@@ -26,7 +25,6 @@ export default function FactorOne({ children, onChangeStep }) {
       const { data } = await apiCore.attemptFirstfactor3(body)
       if (data?.user?.status === stepStatus.COMPLETED) {
         setLogin(data)
-        routerPush("/dashboard")
       } else {
         onChangeStep(3)
       }

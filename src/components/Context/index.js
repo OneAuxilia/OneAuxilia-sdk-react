@@ -1,11 +1,4 @@
-import React, {
-  useReducer,
-  useMemo,
-  createContext,
-  useContext,
-  useEffect,
-  useCallback
-} from "react"
+import React, { useReducer, useMemo, createContext, useContext, useEffect } from "react"
 import Cookies from "js-cookie"
 import KEY from "./Const"
 import { getFirstSignIn, getSignedIn } from "../../lib/cookie"
@@ -13,10 +6,11 @@ import { apiCore } from "../../api"
 import { convertDataFirstLogin, convertDataSignIn, convertDataSignOut } from "../../lib/function"
 
 function initialState() {
+  const isSignedIn = getSignedIn()
   return {
-    isLoaded: false,
+    isLoaded: isSignedIn ? false : true,
     userId: false,
-    isSignedIn: getSignedIn(),
+    isSignedIn,
     user: {
       fullName: "",
       firstName: "",
@@ -93,6 +87,22 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
 
   useEffect(() => {
     Cookies.set("publishableKey", rest.publishableKey)
+    async function getProfile() {
+      try {
+        const { data } = await apiCore.getProfile()
+        setLogin({ user: data })
+      } catch (error) {
+        console.log(error)
+        onSignOut()
+      } finally {
+      }
+    }
+
+    if (state.isSignedIn) getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isSignedIn])
+
+  useEffect(() => {
     async function getConfig() {
       try {
         const { data } = await apiCore.getConfig()
@@ -101,22 +111,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         console.log(error)
       }
     }
-    async function getProfile() {
-      try {
-        setLoaded(false)
-        const { data } = await apiCore.getProfile()
-        setLogin({ user: data })
-      } catch (error) {
-        console.log(error)
-        onSignOut()
-      } finally {
-        setLoaded(true)
-      }
-    }
     getConfig()
-    if (state.isSignedIn) getProfile()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.isSignedIn])
+  }, [])
 
   const value = useMemo(
     () => ({

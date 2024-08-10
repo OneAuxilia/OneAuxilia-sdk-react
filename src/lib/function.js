@@ -236,9 +236,9 @@ export function getAuthStrategies(auStrategies) {
 }
 
 export function getAuthMultiFactor(auMultiFactor) {
-  let amultiFactor = []
-  if (auMultiFactor) amultiFactor = auMultiFactor?.filter((i) => i.is_enable)
-  return amultiFactor
+  let multiFactor = []
+  if (auMultiFactor) multiFactor = auMultiFactor?.filter((i) => i.is_enable)
+  return multiFactor.map((i) => i.type)
 }
 
 export function convertDataSignIn({ token, user }) {
@@ -261,7 +261,8 @@ export function convertDataSignOut() {
   Cookies.set("isSignedIn", false)
   return {
     isSignedIn: false,
-    userId: false
+    userId: false,
+    isLoaded: true
   }
 }
 
