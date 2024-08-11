@@ -10,7 +10,8 @@ export default function InputOtp({
   onResend,
   step,
   strategie,
-  firstSignIn
+  firstSignIn,
+  isProfile
 }) {
   return (
     <div className="">
@@ -44,11 +45,13 @@ export default function InputOtp({
         renderInput={(props) => <input {...props} />}
       />
       <div className={styles.ox_error}>{error && error}</div>
-      <div className={styles.ox_box_link}>
-        <button className={styles.ox_link} onClick={onResend}>
-          Didn't receive a code? Resend
-        </button>
-      </div>
+      {!isProfile && (
+        <div className={styles.ox_box_link}>
+          <button className={styles.ox_link} onClick={onResend}>
+            Didn't receive a code? Resend
+          </button>
+        </div>
+      )}
     </div>
   )
 }

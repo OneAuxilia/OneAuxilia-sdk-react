@@ -59,6 +59,7 @@ export default function Security({ isSignIn, step }) {
   function onChangeOtp(v) {
     setOtp(v)
   }
+
   function onClickContinue() {
     setStepVerify(2)
     try {
@@ -101,16 +102,22 @@ export default function Security({ isSignIn, step }) {
                     </div>
                   ) : (
                     <div>
-                      <InputOtp onChange={onChangeOtp} value={otp} />
-                      <button onClick={onConfirm}>Confirm</button>
+                      <InputOtp onChange={onChangeOtp} value={otp} isProfile={true} />
+                      <div style={{ display: "flex", justifyContent: "end" }}>
+                        <button onClick={onConfirm} className={styles.ox_btn}>
+                          Confirm
+                        </button>
+                      </div>
                     </div>
                   )}
-                  <div className={styles.ox_continue}>
-                    <a>Can’t scan QR code?</a>
-                    <button className={styles.ox_btn} onClick={onClickContinue}>
-                      Continue
-                    </button>
-                  </div>
+                  {stepVerify === 1 && (
+                    <div className={styles.ox_continue}>
+                      <a>Can’t scan QR code?</a>
+                      <button className={styles.ox_btn} onClick={onClickContinue}>
+                        Continue
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <button className={styles.ox_btn_add_2fa} onClick={addTo2fa}>
