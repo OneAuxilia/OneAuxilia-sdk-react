@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getPublishableKey, getToken } from "../lib/cookie"
+import { getJWT, getPublishableKey, getToken } from "../lib/cookie"
 
 export default function getInstanceAxios(baseAPI) {
   const instance = axios.create({
@@ -13,7 +13,8 @@ export default function getInstanceAxios(baseAPI) {
         config.headers = {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Tenant-Header": getPublishableKey()
+          "Tenant-Header": getPublishableKey(),
+          "OneAuxilia-DB-JWT": `Oneauxilia ${getJWT()}`
         }
         if (window.location.origin === "http://localhost:3000") config.headers.mode = "development"
         const access_token = getToken()

@@ -3,8 +3,8 @@ import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from "react-
 import { OneAuxiliaProvider } from "oneauxilia-react"
 import "oneauxilia-react/dist/index.css"
 import { useAuth } from "oneauxilia-react"
-import IndexPage from "./routes"
 import ContactPage from "../pages/ContactPage"
+import PageProfile from "../pages/PageProfile"
 import SignInPage from "../pages/SignInPage"
 import SignUpPage from "../pages/SignUpPage"
 import DashboardPage from "../pages/DashboardPage"
@@ -55,11 +55,11 @@ const router = createBrowserRouter([
       { path: "/sign-up/*", element: <SignUpPage /> },
       {
         element: <ProtectedRoutes />,
+        path: "/",
         children: [
-          { path: "/", element: <IndexPage /> },
           { path: "/dashboard", element: <DashboardPage /> },
           { path: "/contact", element: <ContactPage /> },
-          { path: "/user", element: <ContactPage /> }
+          { path: "/user", element: <PageProfile /> }
         ]
       }
     ]

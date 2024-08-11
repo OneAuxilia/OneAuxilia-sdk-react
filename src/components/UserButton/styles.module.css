@@ -42,6 +42,9 @@
   background-color: white;
   cursor: pointer;
 }
+.ox_dropdown_li:hover {
+  color: #6842ff;
+}
 .ox_dropdown_li_user {
   padding-left: 1.5rem;
   padding-right: 1.5rem;

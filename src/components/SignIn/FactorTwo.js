@@ -11,6 +11,7 @@ export default function FactorTwo({ children, onChangeStep }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
   const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
   const [otp, setOtp] = useState()
+  const [error, setError] = useState("")
 
   async function onOk() {
     try {
@@ -25,6 +26,7 @@ export default function FactorTwo({ children, onChangeStep }) {
         setLogin(data)
       }
     } catch (error) {
+      setError("Incorrect code")
       console.log(error)
     }
   }
@@ -55,7 +57,7 @@ export default function FactorTwo({ children, onChangeStep }) {
       <div className={styles.componentContainer}>
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
-            <InputOtp onChange={onChangeOtp} value={otp} step={3} />
+            <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
             <button className={styles.ox_button} onClick={onOk}>
               Continue
             </button>

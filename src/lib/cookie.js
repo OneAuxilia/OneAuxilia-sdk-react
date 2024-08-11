@@ -3,6 +3,9 @@ import Cookies from "js-cookie"
 export function getPublishableKey() {
   return Cookies.get("publishableKey")
 }
+export function getJWT() {
+  return Cookies.get("OneAuxilia-DB-JWT")
+}
 export function setToken(accessToken) {
   return Cookies.set("accessToken", accessToken)
 }

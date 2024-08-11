@@ -35,7 +35,7 @@ function genFactorSecretkey(user_id, data) {
 function genCode(data) {
   return Client.post(`${resource}/generate/`, data)
 }
-function validAuth(data) {
+function validAuthProfile(data) {
   return Client.post(`${resource}/auth/validate/`, data)
 }
 function validSignIn(data) {
@@ -56,6 +56,9 @@ function validCode(data) {
 }
 function getConfig() {
   return Client.get(`${resource}/environment/`)
+}
+function devBrowser() {
+  return Client.post(`${resource}/dev_browser/`)
 }
 function gets(params) {
   return Client.get(`${resource}/`, { params })
@@ -90,12 +93,13 @@ const api = {
   verifyCode,
   validSignIn,
   getConfig,
+  devBrowser,
   getProfile,
   create,
   update,
   update2Fa,
   validCode,
-  validAuth,
+  validAuthProfile,
   recoveryCode,
   changePassword,
   remove

@@ -5,8 +5,8 @@ import useStore from "../Context"
 import { apiCore } from "../../api"
 import { getSessionId } from "../../lib/cookie"
 
-export default function UserButton({ list }) {
-  const { onSignOut, fullName, email } = useStore()
+export default function UserButton({ list, pathSetting, isModal = false }) {
+  const { onSignOut, fullName, email, routerPush } = useStore()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
   const [open, setOpen] = useState(false)
 
@@ -19,9 +19,16 @@ export default function UserButton({ list }) {
     }
   }
 
+  function handleSetting() {
+    if (!isModal && pathSetting) {
+      routerPush(pathSetting)
+      setIsComponentVisible(false)
+    }
+  }
+
   async function onLogOut() {
     try {
-      // await apiCore.signOut(getSessionId())
+      await apiCore.signOut(getSessionId())
       onSignOut()
     } catch (error) {
       console.log(error)
@@ -68,7 +75,7 @@ export default function UserButton({ list }) {
                   </div>
                 </div>
               </button>
-              <button className={styles.ox_dropdown_li}>
+              <button className={styles.ox_dropdown_li} onClick={handleSetting}>
                 <div>{icSetting}</div>
                 Setting
               </button>

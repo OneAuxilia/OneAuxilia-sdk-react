@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useState } from "react"
 import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
@@ -10,12 +10,12 @@ import { strategieCode, stepStatus } from "../../lib/const"
 import { getAuthMultiFactor, getAuthStrategies } from "../../lib/function"
 
 export default function FirstSignIn({ children, onChangeStep }) {
-  const { setFirstLogin, setLoaded, routerPush, user_general_setting, setLogin } = useStore()
+  const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const multiFactor = getAuthMultiFactor(user_general_setting.multi_factors.methods)
 
-  const [name, setName] = useState("thangnd1@gmail.com")
-  const [password, setPassWord] = useState("abc@123X")
+  const [name, setName] = useState("")
+  const [password, setPassWord] = useState("")
 
   function onChangeName(e) {
     setName(e.target.value)

@@ -10,7 +10,7 @@ export default function Layout() {
         <div>Logo</div>
         <div className="flex">
           <SignedIn>
-            <UserButton />
+            <UserButton pathSetting="/user" />
           </SignedIn>
         </div>
       </header>

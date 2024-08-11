@@ -103,6 +103,17 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }, [state.isSignedIn])
 
   useEffect(() => {
+    async function getDev() {
+      try {
+        const { data } = await apiCore.devBrowser()
+        Cookies.set("OneAuxilia-DB-JWT", data?.token)
+        getConfig()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getDev()
+
     async function getConfig() {
       try {
         const { data } = await apiCore.getConfig()
@@ -111,7 +122,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         console.log(error)
       }
     }
-    getConfig()
+    // getConfig()
   }, [])
 
   const value = useMemo(
@@ -120,6 +131,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
       setAuthStore,
       getProfile,
       setLogin,
+      setConfig,
       routerPush,
       routerReplace,
       setLoaded,

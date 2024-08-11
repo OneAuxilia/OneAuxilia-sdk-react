@@ -1,5 +1,170 @@
 /* add css module styles here (optional) */
-.ox_dropdown {
-  border-radius: 0.75rem;
-  position: absolute;
+.ox_user_profile {
+  display: flex;
+  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  width: 800px;
+  border-radius: 1rem;
+  margin: auto;
+}
+.ox_user_profile_left {
+  padding: 1rem;
+  width: 25%;
+}
+.ox_user_profile_left_title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 1em;
+}
+.ox_user_profile_left_sub {
+  font-size: 14px;
+}
+.ox_user_profile_left_action {
+  margin-top: 2rem;
+}
+.ox_btn_li {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: rgba(0, 0, 0, 0.62);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  animation: all 1s ease-in-out;
+}
+
+.ox_btn_li_active {
+  color: #6842ff;
+  background-color: rgba(0, 0, 0, 0.07);
+  border-radius: 0.5rem;
+}
+.ox_btn_li:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+  border-radius: 0.5rem;
+}
+
+.ox_container {
+  padding: 2rem;
+  border-radius: 1rem;
+  background: white;
+  max-width: 680px;
+  width: 680px;
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+}
+
+.ox_row {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.ox_row_to2fa {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+.ox_verification {
+  margin-bottom: 1rem;
+}
+.ox_row_add {
+  font-size: 14px;
+}
+.ox_row_end {
+  padding: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.ox_row_left {
+  width: 30%;
+}
+.ox_row_right {
+  width: 70%;
+  text-align: right;
+}
+.ox_btn_add_2fa {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #7859f7;
+}
+.ox_box_action {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ox_btn_remove {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  color: #ef4444;
+}
+.ox_box_qr {
+  width: 250px;
+  height: 250px;
+}
+.ox_btn {
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+.ox_btn:hover {
+  background-color: rgb(233, 233, 233);
+}
+.ox_btn_reset:hover {
+  background-color: #e7e5e5;
+}
+.ox_profile {
+  margin-bottom: 0.5rem;
+}
+.ox_span_avatar {
+  box-sizing: border-box;
+  display: flex;
+  margin-left: 1rem;
+  flex-flow: row;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.41);
+  background-clip: padding-box;
+  position: relative;
+}
+.ox_avatar {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.ox_continue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.animateSpin {
+  animation: spin 1s linear infinite;
+  color: white;
+}
+@keyframes spin {
+  transform: rotate(1turn);
 }

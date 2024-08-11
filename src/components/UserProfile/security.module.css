@@ -1,19 +1,11 @@
 /* add css module styles here (optional) */
-.ox_container {
-  padding: 2rem;
-  border-radius: 1.5rem;
-  background: white;
-  max-width: 680px;
-  box-shadow:
-    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
-    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
-    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
-}
+
 .ox_row {
   padding: 1rem;
   border-bottom: 1px solid #ccc;
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 .ox_row_end {
   padding: 1rem;
@@ -32,4 +24,25 @@
   cursor: pointer;
   font-size: 16px;
   color: #7859f7;
+}
+.ox_box_action {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ox_btn_remove {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  color: #ef4444;
+}
+.ox_btn_reset {
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+.ox_btn_reset:hover {
+  background-color: #e7e5e5;
 }

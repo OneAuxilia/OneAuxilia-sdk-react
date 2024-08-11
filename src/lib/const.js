@@ -17,7 +17,8 @@ export const authStrategies = [
 export const authCodeMultiFactor = {
   AUTH_CODE: "auth_code",
   EMAIL: "email",
-  SMS: "sms"
+  SMS: "sms",
+  NONE: "none"
 }
 export const authMultiFactor = ["auth_code", "email", "sms"]
 export const stepStatus = {
