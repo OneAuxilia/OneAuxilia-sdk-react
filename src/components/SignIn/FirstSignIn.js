@@ -8,6 +8,7 @@ import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
 import { getAuthMultiFactor, getAuthStrategies } from "../../lib/function"
+import SocialLogin from "../SocialLogin"
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
@@ -64,6 +65,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
           <div className={styles.ox_form}>
             <Fragment>
               <TopFormLogin />
+              <SocialLogin />
               <InputPhoneMail onChange={onChangeName} value={name} />
               {strategies[0] === strategieCode.PASSWORD && (
                 <InputPassword onChange={onChangePassword} value={password} />

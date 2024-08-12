@@ -26,3 +26,7 @@ export const stepStatus = {
   SECOND_FACTOR: "needs_second_factor",
   COMPLETED: "completed"
 }
+export const GOOGLE_CLIENT_KEY =
+  "178589677986-tu1fqs3mkat8hnuadfegc0g2bgqpd2aa.apps.googleusercontent.com"
+
+export const GOOGLE_GIT = "ac56fad434a3a3c1561e"
