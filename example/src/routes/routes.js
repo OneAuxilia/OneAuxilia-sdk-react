@@ -10,8 +10,17 @@ import SignUpPage from "../pages/SignUpPage"
 import DashboardPage from "../pages/DashboardPage"
 import Layout from "../layouts/layout"
 
-const PUBLISHABLE_KEY =
-  window.location.origin === "http://localhost:3000" ? "ins_ea9wlcu6ajvf" : "ins_pXqIOEBZi5Rc"
+function getSubDomain() {
+  try {
+    if (window.location.origin === "http://localhost:3000") return "ins_ea9wlcu6ajvf"
+    const subDomain = window.location.origin.split(".")[0]
+    return subDomain.replace("https://")
+  } catch (error) {
+    return false
+  }
+}
+
+const PUBLISHABLE_KEY = getSubDomain()
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
