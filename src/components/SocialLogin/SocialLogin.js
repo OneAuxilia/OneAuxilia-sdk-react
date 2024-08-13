@@ -1,7 +1,7 @@
 import React from "react"
 import { GOOGLE_CLIENT_KEY, GOOGLE_GIT } from "../../lib/const"
 import GitHubLogin from "react-github-login"
-import GoogleLogin from "react-google-login"
+import { GoogleOAuthProvider, GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google"
 
 export default function LoginSocial() {
   function responseGoogle(params) {}
@@ -24,20 +24,27 @@ export default function LoginSocial() {
         />
       </div>
       <div className="col-span-1">
-        <GoogleLogin
-          clientId={GOOGLE_CLIENT_KEY}
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-          render={() => (
-            <div>
-              <button className="w-full">{icGoogle} Google</button>
-            </div>
-          )}
-        />
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_KEY}>
+          <MyButton />
+          <button onClick={() => googleLogout()}>Goo logout</button>
+        </GoogleOAuthProvider>
       </div>
     </div>
+  )
+}
+
+function MyButton(params) {
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onError: (e) => {
+      console.log("Login Failed", e)
+    }
+  })
+  return (
+    <button className="test" onClick={() => login()}>
+      {" "}
+      {icGit} Google Login
+    </button>
   )
 }
 
