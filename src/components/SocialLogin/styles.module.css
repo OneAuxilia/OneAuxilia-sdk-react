@@ -1,0 +1,31 @@
+.ox_row_social_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+.ox_social_login {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 0.375rem 0.75rem;
+  outline: 0px;
+  cursor: pointer;
+  background-color: white;
+  color: var(--color-gray-400);
+  border: 1px solid var(--color-primary-300);
+  border-radius: var(--border-400);
+  position: relative;
+  isolation: isolate;
+  transition-property: background-color, border, box-shadow, transform;
+  transition-duration: 100ms;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.38462;
+  width: 100%;
+}
+.ox_social_login:hover {
+  background-color: var(--color-primary-50);
+}

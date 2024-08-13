@@ -56,6 +56,8 @@ export default function Security({ isSignIn, step }) {
     }
   }
 
+  function onResend(params) {}
+
   function onChangeOtp(v) {
     setOtp(v)
   }
@@ -81,63 +83,70 @@ export default function Security({ isSignIn, step }) {
           <button className={styles.ox_btn}>Set password</button>
         </div>
       </div>
-      <div className={styles.ox_row_to2fa}>
-        <div style={{ marginBottom: "0.5rem" }}>Two-step verificatio</div>
-        <div className={styles.ox_row_rig1ht}>
-          {second_factor_type === "none" ? (
-            <div>
-              {qrCode ? (
-                <div>
-                  <div style={{ fontWeight: 700, marginBottom: "1rem" }}>
-                    Add authenticator application
-                  </div>
-                  <p style={{ fontSize: 14 }}>
-                    Set up a new sign-in method in your authenticator app and scan the following QR
-                    code to link it to your account.
-                  </p>
+      {auMultiFactors.length > 0 && (
+        <div className={styles.ox_row_to2fa}>
+          <div style={{ marginBottom: "0.5rem" }}>Two-step verificatio</div>
 
-                  {stepVerify === 1 ? (
-                    <div className={styles.ox_box_qr}>
-                      <QRCode style={{ width: 200, height: 200 }} value={qrCode} />
+          <div className={styles.ox_row_rig1ht}>
+            {second_factor_type === "none" ? (
+              <div>
+                {qrCode ? (
+                  <div>
+                    <div style={{ fontWeight: 700, marginBottom: "1rem" }}>
+                      Add authenticator application
                     </div>
-                  ) : (
-                    <div>
-                      <InputOtp onChange={onChangeOtp} value={otp} isProfile={true} />
-                      <div style={{ display: "flex", justifyContent: "end" }}>
-                        <button onClick={onConfirm} className={styles.ox_btn}>
-                          Confirm
+                    <p style={{ fontSize: 14 }}>
+                      Set up a new sign-in method in your authenticator app and scan the following
+                      QR code to link it to your account.
+                    </p>
+
+                    {stepVerify === 1 ? (
+                      <div className={styles.ox_box_qr}>
+                        <QRCode style={{ width: 200, height: 200 }} value={qrCode} />
+                      </div>
+                    ) : (
+                      <div>
+                        <InputOtp
+                          onChange={onChangeOtp}
+                          value={otp}
+                          isProfile={true}
+                          onResend={onResend}
+                        />
+                        <div style={{ display: "flex", justifyContent: "end" }}>
+                          <button onClick={onConfirm} className={styles.ox_btn}>
+                            Confirm
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {stepVerify === 1 && (
+                      <div className={styles.ox_continue}>
+                        <a>Can’t scan QR code?</a>
+                        <button className={styles.ox_btn} onClick={onClickContinue}>
+                          Continue
                         </button>
                       </div>
-                    </div>
-                  )}
-                  {stepVerify === 1 && (
-                    <div className={styles.ox_continue}>
-                      <a>Can’t scan QR code?</a>
-                      <button className={styles.ox_btn} onClick={onClickContinue}>
-                        Continue
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <button className={styles.ox_btn_add_2fa} onClick={addTo2fa}>
-                  Add two-step verification
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className={styles.ox_box_action}>
-              <div>{icKey} Authenticator application (default)</div>
-
-              <div>
-                <button className={styles.ox_btn_remove} onClick={onRemove}>
-                  Remove
-                </button>
+                    )}
+                  </div>
+                ) : (
+                  <button className={styles.ox_btn_add_2fa} onClick={addTo2fa}>
+                    Add two-step verification
+                  </button>
+                )}
               </div>
-            </div>
-          )}
+            ) : (
+              <div className={styles.ox_box_action}>
+                <div>{icKey} Authenticator application (default)</div>
+                <div>
+                  <button className={styles.ox_btn_remove} onClick={onRemove}>
+                    Remove
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.ox_row_end}>
         <div className={styles.ox_row_left}>Active devices</div>
         <div className={styles.ox_row_right}>Chrome 127.0.0.0</div>

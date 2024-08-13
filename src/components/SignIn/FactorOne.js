@@ -38,18 +38,19 @@ export default function FactorOne({ children, onChangeStep }) {
     setOtp(value)
   }
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const dataBody = {
-          strategy: strategies[0],
-          email_or_phone: firstSignIn.email
-        }
-        await apiCore.prepareFirstfactor2(dataBody)
-      } catch (error) {
-        console.log({ error })
+  async function fetch() {
+    try {
+      const dataBody = {
+        strategy: strategies[0],
+        email_or_phone: firstSignIn.email
       }
+      await apiCore.prepareFirstfactor2(dataBody)
+    } catch (error) {
+      console.log({ error })
     }
+  }
+
+  useEffect(() => {
     if (strategies.length > 0) fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_general_setting])
@@ -63,7 +64,7 @@ export default function FactorOne({ children, onChangeStep }) {
               onChange={onChangeOtp}
               value={otp}
               error={error}
-              onResend={onOk}
+              onResend={fetch}
               step={2}
               strategie={strategies[0]}
               firstSignIn={firstSignIn}

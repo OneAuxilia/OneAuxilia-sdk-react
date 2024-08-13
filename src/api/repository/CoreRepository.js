@@ -5,6 +5,9 @@ const resource = version
 function signIn(data) {
   return Client.post(`${resource}/sign_in_tokens/`, data)
 }
+function signInSocial(data) {
+  return Client.post(`${resource}/sign_in_tokens/social/`, data)
+}
 function signUp(data) {
   return Client.post(`${resource}/sign_ups/`, data)
 }
@@ -50,7 +53,6 @@ function verifyCode(data) {
 function update2Fa(user_id, data) {
   return Client.post(`${resource}/auth/update_secret_key/${user_id}`, data)
 }
-
 function validCode(data) {
   return Client.post(`${resource}/auth/valid_recovery_codes/`, data)
 }
@@ -82,6 +84,7 @@ function remove(id) {
 const api = {
   gets,
   signIn,
+  signInSocial,
   prepareFirstfactor2,
   attemptFirstfactor3,
   prepareSecondfactor4,

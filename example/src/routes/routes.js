@@ -12,7 +12,7 @@ import Layout from "../layouts/layout"
 
 function getSubDomain() {
   try {
-    if (window.location.origin === "http://localhost:3000") return "ins_ea9wlcu6ajvf"
+    if (window.location.origin === "http://localhost:3000") return "tp2iuf8pd56f"
     const subDomain = window.location.origin.split(".")[0]
     return subDomain.replace("https://")
   } catch (error) {
