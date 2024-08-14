@@ -42,7 +42,7 @@ function validAuthProfile(data) {
   return Client.post(`${resource}/auth/validate/`, data)
 }
 function validSignIn(data) {
-  return Client.post(`${resource}/auth/validate/sign_ins`, data)
+  return Client.post(`${resource}/auth/validate_sign_ins/`, data)
 }
 function recoveryCode(data) {
   return Client.post(`${resource}/auth/regenerate_recovery_codes/`, data)

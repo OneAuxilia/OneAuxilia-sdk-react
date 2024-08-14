@@ -6,8 +6,8 @@ import GoogleLoginBox from "./GoogleLoginBox"
 import FacebookLoginBox from "./FacebookLoginBox"
 import styles from "./styles.module.css"
 
-export default function LoginSocial() {
-  const { setFirstLogin, setLogin, social_connections } = useStore()
+export default function LoginSocial({ onNext }) {
+  const { social_connections } = useStore()
 
   async function onLogin(key, token) {
     try {
@@ -15,11 +15,10 @@ export default function LoginSocial() {
         provider_name: key,
         provider_access_token: token
       })
-      setLogin(data)
+      onNext(data)
     } catch (error) {
       console.log({ error })
     }
-    // setLogin(data)
   }
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 

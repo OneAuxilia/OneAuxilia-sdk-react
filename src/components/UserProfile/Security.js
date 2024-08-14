@@ -1,23 +1,38 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
 import { apiCore } from "../../api"
-import { getAuthMultiFactor } from "../../lib/function"
+
 import QRCode from "react-qr-code"
 import InputOtp from "../InputOtp"
+import { authCodeMultiFactor } from "../../lib/const"
 
 //<div className={styles.ox_}>Profile</div>
+
+function getAuthMultiFactor(auMultiFactor) {
+  let multiFactor = []
+  if (auMultiFactor) multiFactor = auMultiFactor?.filter((i) => i.is_enable)
+  return multiFactor
+}
+
 export default function Security({ isSignIn, step }) {
-  const { userId, user_general_setting, second_factor_type, setConfig } = useStore()
+  const {
+    userId,
+    user_general_setting,
+    second_factor_type,
+    setConfig,
+    second_factor_verification
+  } = useStore()
   const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
   const [qrCode, setQrCode] = useState()
   const [stepVerify, setStepVerify] = useState(1)
   const [otp, setOtp] = useState("")
+  const [factorType, setFactorType] = useState()
 
   async function addTo2fa() {
     try {
       const bodydata = {
-        strategy: auMultiFactors[0]
+        strategy: factorType
       }
       const { data } = await apiCore.genFactorSecretkey(userId, bodydata)
       const { email, secret_key } = data
@@ -46,11 +61,11 @@ export default function Security({ isSignIn, step }) {
       await apiCore.validAuthProfile({
         user_id: userId,
         code: otp,
-        strategy: auMultiFactors[0]
+        strategy: factorType
       })
       setQrCode()
       setStepVerify(1)
-      setConfig({ second_factor_type: auMultiFactors[0] })
+      setConfig({ second_factor_type: factorType })
     } catch (error) {
       console.log(error)
     }
@@ -71,6 +86,18 @@ export default function Security({ isSignIn, step }) {
   }
   // console.log({ auMultiFactors })
   console.log({ qrCode })
+  // onClick = { addTo2fa }
+
+  function onChange(e) {
+    setFactorType(e.target.value)
+    // if (e.target.value) addTo2fa(e.target.value)
+  }
+
+  useEffect(() => {
+    if (factorType) addTo2fa(factorType)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [factorType])
+  console.log("factorType", factorType)
 
   return (
     <Fragment>
@@ -100,7 +127,7 @@ export default function Security({ isSignIn, step }) {
                       QR code to link it to your account.
                     </p>
 
-                    {stepVerify === 1 ? (
+                    {stepVerify === 1 && factorType === authCodeMultiFactor.AUTH_CODE ? (
                       <div className={styles.ox_box_qr}>
                         <QRCode style={{ width: 200, height: 200 }} value={qrCode} />
                       </div>
@@ -119,7 +146,7 @@ export default function Security({ isSignIn, step }) {
                         </div>
                       </div>
                     )}
-                    {stepVerify === 1 && (
+                    {stepVerify === 1 && factorType === authCodeMultiFactor.AUTH_CODE && (
                       <div className={styles.ox_continue}>
                         <a>Can’t scan QR code?</a>
                         <button className={styles.ox_btn} onClick={onClickContinue}>
@@ -129,14 +156,22 @@ export default function Security({ isSignIn, step }) {
                     )}
                   </div>
                 ) : (
-                  <button className={styles.ox_btn_add_2fa} onClick={addTo2fa}>
-                    Add two-step verification
+                  <button className={styles.ox_btn_add_2fa}>
+                    <select onChange={onChange} className={styles.ox_btn_add_2fa}>
+                      <option value="">Add two-step verification</option>
+                      <option value="auth_code">Authenticator application</option>
+                      {/* {auMultiFactors?.map((i) => {
+                        return <option value={i.type}>{i.name}</option>
+                      })} */}
+                    </select>
                   </button>
                 )}
               </div>
             ) : (
               <div className={styles.ox_box_action}>
-                <div>{icKey} Authenticator application (default)</div>
+                <div>
+                  {icKey} Authenticator application [{second_factor_verification?.strategy}]
+                </div>
                 <div>
                   <button className={styles.ox_btn_remove} onClick={onRemove}>
                     Remove

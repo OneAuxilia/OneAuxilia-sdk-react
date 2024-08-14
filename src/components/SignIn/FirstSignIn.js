@@ -7,13 +7,12 @@ import InputPassword from "../InputPassword"
 import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
-import { getAuthMultiFactor, getAuthStrategies } from "../../lib/function"
+import { getAuthStrategies } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-  const multiFactor = getAuthMultiFactor(user_general_setting.multi_factors.methods)
 
   const [name, setName] = useState("")
   const [password, setPassWord] = useState("")
@@ -24,13 +23,15 @@ export default function FirstSignIn({ children, onChangeStep }) {
   function onChangePassword(e) {
     setPassWord(e.target.value)
   }
-  function onSignIn(data) {
-    if (strategies[0] === strategieCode.PASSWORD && multiFactor.length === 0) {
+
+  function onNext(data) {
+    if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
     } else {
       setFirstLogin(data)
     }
-    setLoaded(true)
+    if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
+    if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)
   }
 
   async function onOk() {
@@ -40,19 +41,11 @@ export default function FirstSignIn({ children, onChangeStep }) {
       if (strategies[0] === strategieCode.PASSWORD) {
         bodydata.password = password
       }
+
       const { data } = await apiCore.signIn(bodydata)
-      onSignIn(data)
-      if (data?.user?.status === stepStatus.COMPLETED) {
-        setLogin(data)
-      }
-      if (data?.user?.status === stepStatus.FIRST_FACTOR) {
-        setFirstLogin(data)
-        onChangeStep(2)
-      }
-      if (data?.user?.status === stepStatus.SECOND_FACTOR) {
-        setFirstLogin(data)
-        onChangeStep(3)
-      }
+      //next step
+      onNext(data)
+      setLoaded(true)
     } catch (error) {
       console.log(error)
     }
@@ -65,7 +58,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
           <div className={styles.ox_form}>
             <Fragment>
               <TopFormLogin />
-              <SocialLogin />
+              <SocialLogin onNext={onNext} />
               <InputPhoneMail onChange={onChangeName} value={name} />
               {strategies[0] === strategieCode.PASSWORD && (
                 <InputPassword onChange={onChangePassword} value={password} />

@@ -14,7 +14,7 @@
   outline: 0px;
   cursor: pointer;
   background-color: white;
-  color: var(--color-gray-400);
+  color: var(--color-dark-400);
   border: 1px solid var(--color-primary-300);
   border-radius: var(--border-400);
   position: relative;
