@@ -29,14 +29,18 @@ export default function getInstanceAxios(baseAPI) {
     }
   )
 
-  instance.interceptors.response.use(function (response) {
-    try {
-      if (response.status >= 200 && response.status < 300) return response.data
-      return Promise.reject(response.data)
-    } catch (error) {
-      return Promise.reject(error)
+  instance.interceptors.response.use(
+    function (response) {
+      try {
+        if (response.status >= 200 && response.status < 300) return response.data
+        return Promise.reject(response.data)
+      } catch (error) {
+        return Promise.reject(error?.response?.data)
+      }
+    },
+    function (error) {
+      return Promise.reject(error?.response?.data)
     }
-  })
-
+  )
   return instance
 }

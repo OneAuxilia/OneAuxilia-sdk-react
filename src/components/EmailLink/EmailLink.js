@@ -9,9 +9,11 @@ export default function EmailLink({ step, strategie, onResend }) {
   const __time = useRef()
 
   function onResendMail() {
-    setCount(expireTime)
-    onResend()
-    countDown()
+    if (count < 1) {
+      setCount(expireTime)
+      onResend()
+      countDown()
+    }
   }
   function countDown() {
     __time.current = setInterval(() => {

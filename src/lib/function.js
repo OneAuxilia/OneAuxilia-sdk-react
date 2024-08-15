@@ -9,8 +9,7 @@ export function getAuthStrategies(auStrategies) {
 
 export function getEmailSettingSignUp(contact) {
   try {
-    const setting = contact?.email?.setting
-    return setting
+    if (contact.email.is_enable) return contact.email.setting
   } catch (error) {
     return {}
   }
@@ -49,10 +48,9 @@ export function convertDataSignOut() {
 
 export function convertDataFirstLogin({ user }) {
   let initFirstSignIn = {
-    email: user.email,
-    phone: user.phone,
     username: user.username,
-    appName: "App test"
+    appName: "App test",
+    ...user
   }
   Cookies.set("firstSignIn", JSON.stringify(initFirstSignIn))
   return initFirstSignIn

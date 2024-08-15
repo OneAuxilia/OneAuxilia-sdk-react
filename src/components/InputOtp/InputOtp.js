@@ -16,9 +16,11 @@ export default function InputOtp({
   const __time = useRef()
 
   function onResendMail() {
-    setCount(expireTime)
-    onResend()
-    countDown()
+    if (count < 1) {
+      setCount(expireTime)
+      onResend()
+      countDown()
+    }
   }
   function countDown() {
     __time.current = setInterval(() => {

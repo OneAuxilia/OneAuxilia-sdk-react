@@ -7,7 +7,7 @@ import InputOtp from "../InputOtp"
 import { authCodeMultiFactor, stepStatus } from "../../lib/const"
 import { getAuthMultiFactor } from "../../lib/function"
 
-export default function FactorTwo({ children, onChangeStep }) {
+export default function FactorTwo({ children }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
   const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
   const [otp, setOtp] = useState()
@@ -17,7 +17,7 @@ export default function FactorTwo({ children, onChangeStep }) {
     try {
       setLoaded(false)
       const body = {
-        strategy: auMultiFactors[0],
+        strategy: firstSignIn.second_factor_type,
         email_or_phone: firstSignIn.email,
         code: otp
       }
@@ -39,7 +39,7 @@ export default function FactorTwo({ children, onChangeStep }) {
     async function fetch() {
       try {
         const dataBody = {
-          strategy: auMultiFactors[0],
+          strategy: firstSignIn.second_factor_type,
           email_or_phone: firstSignIn.email
         }
         await apiCore.prepareSecondfactor4(dataBody)
@@ -48,7 +48,11 @@ export default function FactorTwo({ children, onChangeStep }) {
       }
     }
 
-    if (auMultiFactors.length > 0 && auMultiFactors[0] !== authCodeMultiFactor.AUTH_CODE) fetch()
+    if (
+      firstSignIn.second_factor_type &&
+      firstSignIn.second_factor_type !== authCodeMultiFactor.AUTH_CODE
+    )
+      fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auMultiFactors])
 

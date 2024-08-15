@@ -5,7 +5,7 @@ import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
-import { emailSettingKey, stepStatus } from "../../lib/const"
+import { emailSettingKey, stepStatus, strategieCode } from "../../lib/const"
 import { getEmailSettingSignUp } from "../../lib/function"
 
 function getOtpByParams() {
@@ -14,14 +14,15 @@ function getOtpByParams() {
 }
 
 function getStrategy(emailSetting) {
-  if (emailSetting[emailSettingKey.is_verification_link])
-    return emailSetting[emailSettingKey.is_verification_link]
-  return emailSetting[emailSettingKey.is_verification_code]
+  if (!emailSetting) return "Null"
+  if (emailSetting.is_verification_code) return strategieCode.EMAIL_CODE
+  return strategieCode.EMAIL_LINK
 }
 
 export default function VerifyEmail({ children }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
+
   const strategy = getStrategy(emailSetting)
   var otp_code = getOtpByParams()
   const [otp, setOtp] = useState()
@@ -35,7 +36,7 @@ export default function VerifyEmail({ children }) {
         email_or_phone: firstSignIn.email,
         code: otp_code ? otp_code : otp
       }
-      const { data } = await apiCore.attemptFirstfactor3(body)
+      const { data } = await apiCore.attemptSignUp(body)
       setLogin(data)
     } catch (error) {
       console.log(error)
@@ -53,11 +54,11 @@ export default function VerifyEmail({ children }) {
         strategy: strategy,
         email_or_phone: firstSignIn.email
       }
-      if (emailSetting[emailSettingKey.is_verification_link]) {
+      if (emailSetting.is_verification_link) {
         dataBody.redirect_url = window.location.href
         dataBody.url = window.location.href
       }
-      await apiCore.prepareFirstfactor2(dataBody)
+      await apiCore.prepareSignUp(dataBody)
     } catch (error) {
       console.log({ error })
     }
@@ -79,7 +80,7 @@ export default function VerifyEmail({ children }) {
       <div className={styles.componentContainer}>
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
-            {emailSetting[emailSettingKey.is_verification_link] ? (
+            {emailSetting.is_verification_link ? (
               <EmailLink onResend={fetch} />
             ) : (
               <Fragment>

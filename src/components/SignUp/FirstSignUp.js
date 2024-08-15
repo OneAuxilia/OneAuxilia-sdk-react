@@ -8,16 +8,17 @@ import InputName from "../InputName"
 import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { getEmailSettingSignUp } from "../../lib/function"
+import { stepStatus } from "../../lib/const"
 
 export default function FirstSignUp({ children, onChangeStep }) {
-  const { user_general_setting, setLoaded, setLogin, setFirstLogin } = useStore()
+  const { user_general_setting, setLoaded, setFirstLogin, routerPush } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
   const [values, setValues] = useState({
-    email: "thangnd@gmail.com",
-    first_name: "Thang",
-    last_name: "ND",
-    password: "abc@123Xy",
-    password_confirm: "abc@123Xy"
+    email: "'",
+    first_name: "",
+    last_name: "",
+    password: "",
+    password_confirm: ""
   })
 
   function onChangeValues(key, e) {
@@ -28,11 +29,13 @@ export default function FirstSignUp({ children, onChangeStep }) {
     try {
       setLoaded(false)
       const { data } = await apiCore.signUp(values)
-      if (emailSetting.is_need_verify_at_sign_up) {
-        setFirstLogin(data)
-        onChangeStep(2)
+      if (data?.status === stepStatus.COMPLETED) {
+        routerPush("/sign-in")
       } else {
-        setLogin(data)
+        if (emailSetting.is_need_verify_at_sign_up) {
+          onChangeStep(2)
+          setFirstLogin({ user: data })
+        }
       }
     } catch (error) {
       console.log(error)

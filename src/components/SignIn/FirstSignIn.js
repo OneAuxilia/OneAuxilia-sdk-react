@@ -16,6 +16,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
 
   const [name, setName] = useState("")
   const [password, setPassWord] = useState("")
+  const [error, setError] = useState("")
 
   function onChangeName(e) {
     setName(e.target.value)
@@ -41,13 +42,12 @@ export default function FirstSignIn({ children, onChangeStep }) {
       if (strategies[0] === strategieCode.PASSWORD) {
         bodydata.password = password
       }
-
       const { data } = await apiCore.signIn(bodydata)
       //next step
       onNext(data)
       setLoaded(true)
     } catch (error) {
-      console.log(error)
+      setError(error?.error)
     }
   }
 
@@ -59,6 +59,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
             <Fragment>
               <TopFormLogin />
               <SocialLogin onNext={onNext} />
+              {error && <div className={styles.ox_error}>{error}</div>}
               <InputPhoneMail onChange={onChangeName} value={name} />
               {strategies[0] === strategieCode.PASSWORD && (
                 <InputPassword onChange={onChangePassword} value={password} />

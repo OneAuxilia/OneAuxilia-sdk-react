@@ -6,7 +6,7 @@ import styles from "./styles.module.css"
 export default function FacebookLoginBox({ onLogin }) {
   function responseFacebook(response) {
     console.log("facebook", response)
-    onLogin(socialCode.FACEBOOK, response.accessToken)
+    if (response?.accessToken) onLogin(socialCode.FACEBOOK, response.accessToken)
   }
   return (
     <FacebookLogin

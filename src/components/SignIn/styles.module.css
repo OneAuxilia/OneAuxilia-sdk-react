@@ -67,3 +67,9 @@
 .ox_button:active {
   background-color: #7859f7;
 }
+.ox_error {
+  color: #ef4444;
+  font-size: 14px;
+  text-align: center;
+  height: 19px;
+}

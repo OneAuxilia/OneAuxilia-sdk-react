@@ -34,6 +34,14 @@ function genFactorSecretkey(user_id, data) {
   // strategy email_or_phone code
   return Client.put(`${resource}/auth/update_secret_key/${user_id}/`, data)
 }
+function prepareSignUp(data) {
+  //strategy email_or_phone code
+  return Client.post(`${resource}/prepare_verification`, data)
+}
+function attemptSignUp(data) {
+  //strategy email_or_phone code
+  return Client.post(`${resource}/attempt_verification`, data)
+}
 
 function genCode(data) {
   return Client.post(`${resource}/generate/`, data)
@@ -62,15 +70,10 @@ function getConfig() {
 function devBrowser() {
   return Client.post(`${resource}/dev_browser/`)
 }
-function gets(params) {
-  return Client.get(`${resource}/`, { params })
-}
 function getProfile(id) {
   return Client.get(`${resource}/members/view_profiles/`)
 }
-function create(data) {
-  return Client.post(`${resource}/`, data)
-}
+
 function update(id, data) {
   return Client.put(`${resource}/${id}/`, data)
 }
@@ -80,9 +83,11 @@ function changePassword(id, data) {
 function remove(id) {
   return Client.delete(`${resource}/${id}/`)
 }
+function create(data) {
+  return Client.post(`${resource}/`, data)
+}
 
 const api = {
-  gets,
   signIn,
   signInSocial,
   prepareFirstfactor2,
@@ -98,7 +103,8 @@ const api = {
   getConfig,
   devBrowser,
   getProfile,
-  create,
+  prepareSignUp,
+  attemptSignUp,
   update,
   update2Fa,
   validCode,
