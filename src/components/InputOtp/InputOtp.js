@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import OTPInput from "react-otp-input"
 import styles from "./styles.module.css"
-import { strategieCode } from "../../lib/const"
+import { expireTime, strategieCode } from "../../lib/const"
 
 export default function InputOtp({
   value,
@@ -12,13 +12,21 @@ export default function InputOtp({
   strategie,
   firstSignIn
 }) {
-  const [count, setCount] = useState(8)
+  const [count, setCount] = useState(expireTime)
   const __time = useRef()
 
-  useEffect(() => {
+  function onResendMail() {
+    setCount(expireTime)
+    onResend()
+    countDown()
+  }
+  function countDown() {
     __time.current = setInterval(() => {
       setCount((c) => c - 1)
     }, 1000)
+  }
+  useEffect(() => {
+    countDown()
     return () => clearInterval(__time.current)
   }, [])
 
@@ -41,15 +49,6 @@ export default function InputOtp({
                 <div>
                   <div className={styles.ox_info_signin}>to continue to {firstSignIn?.appName}</div>
                   <div className={styles.ox_email_name}>{firstSignIn?.email}</div>
-                </div>
-              )}
-              {strategie === strategieCode.EMAIL_LINK && (
-                <div>
-                  <div>Use the verification link sent to your email</div>
-                  <div className={styles.ox_email_name}>{firstSignIn?.email}</div>
-                  <button className={`${__class}`}>
-                    Didn't receive a link? Resend {count > 0 && <span>({count})</span>}
-                  </button>
                 </div>
               )}
             </div>
@@ -76,8 +75,8 @@ export default function InputOtp({
       <div className={styles.ox_error}>{error && error}</div>
 
       <div className={styles.ox_box_link}>
-        <button className={styles.ox_link} onClick={onResend}>
-          Didn't receive a code? Resend
+        <button className={__class} onClick={onResendMail}>
+          Didn't receive a code? Resend {count > 0 && <span>({count})</span>}
         </button>
       </div>
     </div>

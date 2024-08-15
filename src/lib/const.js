@@ -1,3 +1,5 @@
+export const expireTime = 60
+
 export const strategieCode = {
   PASSWORD: "password",
   EMAIL_LINK: "email_verification_link",

@@ -98,9 +98,26 @@
   font-size: 14px;
   text-align: center;
   height: 19px;
-  margin-bottom: 0.5rem;
 }
 .ox_info_signin {
   color: #747686;
   margin-bottom: 0.25rem;
+}
+.ox_btn_resend_disable {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-400);
+  color: var(--color-primary-600);
+  background-color: white;
+  opacity: 0.5;
+}
+.ox_btn_resend {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.ox_btn_resend:hover {
+  background-color: var(--color-primary-50);
 }

@@ -1,15 +1,15 @@
-import React, { Fragment, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styles from "./styles.module.css"
-import { strategieCode } from "../../lib/const"
+import { expireTime } from "../../lib/const"
 import useStore from "../Context"
 
 export default function EmailLink({ step, strategie, onResend }) {
   const { firstSignIn } = useStore()
-  const [count, setCount] = useState(8)
+  const [count, setCount] = useState(expireTime)
   const __time = useRef()
 
   function onResendMail() {
-    setCount(8)
+    setCount(expireTime)
     onResend()
     countDown()
   }
