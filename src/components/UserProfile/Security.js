@@ -158,8 +158,12 @@ export default function Security({ isSignIn, step }) {
                 ) : (
                   <button className={styles.ox_btn_add_2fa}>
                     <select onChange={onChange} className={styles.ox_btn_add_2fa}>
-                      <option value="">Add two-step verification</option>
-                      <option value="auth_code">Authenticator application</option>
+                      <option className={styles.ox_option} value="">
+                        Add two-step verification
+                      </option>
+                      <option className={styles.ox_option} value="auth_code">
+                        Authenticator application
+                      </option>
                       {/* {auMultiFactors?.map((i) => {
                         return <option value={i.type}>{i.name}</option>
                       })} */}
