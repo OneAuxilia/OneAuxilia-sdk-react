@@ -36,8 +36,16 @@ export const stepStatus = {
   COMPLETED: "completed"
 }
 export const socialClientKey = {
-  [socialCode.GOOGLE]: "373252863162-cs4lt52k28k9v2uhj6coagup9rkd9cec.apps.googleusercontent.com",
-  [socialCode.FACEBOOK]: "973830119962083"
+  GOOGLE: "373252863162-cs4lt52k28k9v2uhj6coagup9rkd9cec.apps.googleusercontent.com",
+  FACEBOOK: "973830119962083"
 }
 // FB_CLIENT_SERCRET : 28e9489e04bc8076d3ee6a8b2e16f78f
 export const GOOGLE_GIT = "ac56fad434a3a3c1561e"
+
+export const emailSettingKey = {
+  is_allow_sign_in: "is_allow_sign_in",
+  is_need_verify_at_sign_up: "is_need_verify_at_sign_up",
+  is_required: "is_required",
+  is_verification_code: "is_verification_code",
+  is_verification_link: "is_verification_link"
+}

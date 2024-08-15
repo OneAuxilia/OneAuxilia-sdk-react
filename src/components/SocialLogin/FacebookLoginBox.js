@@ -6,11 +6,11 @@ import styles from "./styles.module.css"
 export default function FacebookLoginBox({ onLogin }) {
   function responseFacebook(response) {
     console.log("facebook", response)
-    onLogin(socialClientKey[socialCode.FACEBOOK], response.accessToken)
+    onLogin(socialCode.FACEBOOK, response.accessToken)
   }
   return (
     <FacebookLogin
-      appId={socialClientKey[socialCode.FACEBOOK]}
+      appId={socialClientKey.FACEBOOK}
       callback={responseFacebook}
       render={(renderProps) => (
         <button className={styles.ox_social_login} onClick={renderProps.onClick}>

@@ -164,9 +164,6 @@ export default function Security({ isSignIn, step }) {
                       <option className={styles.ox_option} value="auth_code">
                         Authenticator application
                       </option>
-                      {/* {auMultiFactors?.map((i) => {
-                        return <option value={i.type}>{i.name}</option>
-                      })} */}
                     </select>
                   </button>
                 )}

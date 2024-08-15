@@ -7,6 +7,15 @@ export function getAuthStrategies(auStrategies) {
   return strategies
 }
 
+export function getEmailSettingSignUp(contact) {
+  try {
+    const setting = contact?.email?.setting
+    return setting
+  } catch (error) {
+    return {}
+  }
+}
+
 export function getAuthMultiFactor(auMultiFactor) {
   let multiFactor = []
   if (auMultiFactor) multiFactor = auMultiFactor?.filter((i) => i.is_enable)

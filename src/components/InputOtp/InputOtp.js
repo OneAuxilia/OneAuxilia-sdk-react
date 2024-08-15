@@ -55,6 +55,15 @@ export default function InputOtp({
           </Fragment>
         )}
         {step === 3 && <div className={styles.ox_name_title}>Two-step verification</div>}
+        {step === "sign-up" && (
+          <div>
+            <div className={styles.ox_name_title}>Verify your email</div>
+            <div className={styles.ox_info_signin}>
+              Enter the verification code sent to your email
+            </div>
+            <div className={styles.ox_email_name}>{firstSignIn?.email}</div>
+          </div>
+        )}
       </div>
       {step === 3 && (
         <div className={styles.ox_sub_code}>

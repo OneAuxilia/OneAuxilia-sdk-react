@@ -25,7 +25,7 @@ function GoogleLoginButton({ onLogin }) {
 
 export default function GoogleLoginBox({ onLogin }) {
   return (
-    <GoogleOAuthProvider clientId={socialClientKey[socialCode.GOOGLE]}>
+    <GoogleOAuthProvider clientId={socialClientKey.GOOGLE}>
       <GoogleLoginButton onLogin={onLogin} />
     </GoogleOAuthProvider>
   )

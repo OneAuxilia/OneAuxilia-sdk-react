@@ -46,7 +46,7 @@
 .ox_btn_reset:hover {
   background-color: #e7e5e5;
 }
-.ox_option {
+.ox_option select {
   padding: 0.25rem 1rem;
   background-color: red;
 }
