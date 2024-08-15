@@ -69,7 +69,7 @@ export default function FirstSignUp({ children, onChangeStep }) {
               Continue
             </button>
           </div>
-          <BottomFormLogin />
+          <BottomFormLogin isSignIn={false} step={1} />
         </div>
         {children}
       </div>
