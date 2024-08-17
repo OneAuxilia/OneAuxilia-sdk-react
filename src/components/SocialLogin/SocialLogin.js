@@ -1,10 +1,15 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import { socialCode } from "../../lib/const"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import GoogleLoginBox from "./GoogleLoginBox"
 import FacebookLoginBox from "./FacebookLoginBox"
 import styles from "./styles.module.css"
+
+function getCodeByParams() {
+  var url = new URL(window.location.href)
+  return url.searchParams.get("code")
+}
 
 export default function LoginSocial({ onNext }) {
   const { social_connections } = useStore()
@@ -20,6 +25,14 @@ export default function LoginSocial({ onNext }) {
       console.log({ error })
     }
   }
+
+  function onClick(params) {}
+
+  useEffect(() => {
+    const code = getCodeByParams()
+    if (code) onLogin(socialCode.GOOGLE, code)
+  }, [])
+
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 
   return (

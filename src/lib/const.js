@@ -49,3 +49,5 @@ export const emailSettingKey = {
   is_verification_code: "is_verification_code",
   is_verification_link: "is_verification_link"
 }
+
+export const domainProxy = "https://auth-social-proxy-dev.oneauxilia.co"

@@ -1,6 +1,6 @@
 import React from "react"
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
-import { socialClientKey, socialCode } from "../../lib/const"
+import { domainProxy, socialClientKey, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
 function GoogleLoginButton({ onLogin }) {
@@ -16,8 +16,20 @@ function GoogleLoginButton({ onLogin }) {
     ux_mode: "popup",
     redirect_uri: "postmessage"
   })
+  function onClick() {
+    let url = new URL(domainProxy)
+    const callback_url = `${window.location.origin}/sign-in/verify`
+    url.search = new URLSearchParams({
+      provider_name: "auth_google",
+      callback_url
+    })
+    console.log("url", url)
+
+    window.location.href = url.href
+  }
+
   return (
-    <button className={styles.ox_social_login} onClick={() => login()}>
+    <button className={styles.ox_social_login} onClick={onClick}>
       {icGoogle} Google Login
     </button>
   )
