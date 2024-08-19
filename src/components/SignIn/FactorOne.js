@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react"
-import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
@@ -7,6 +6,8 @@ import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { stepStatus, strategieCode } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
+import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 function getOtpByParams() {
   var url = new URL(window.location.href)
@@ -89,7 +90,7 @@ export default function FactorOne({ children, onChangeStep }) {
                   strategie={strategies[0]}
                   firstSignIn={firstSignIn}
                 />
-                <button className={styles.ox_button} onClick={onOk}>
+                <button className={global.ox_button} onClick={onOk}>
                   Continue
                 </button>
               </Fragment>

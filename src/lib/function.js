@@ -27,6 +27,7 @@ export function convertDataSignIn({ token, user }) {
     return { isSignedIn: false }
   }
   Cookies.set("isSignedIn", true)
+  Cookies.set("__one_auxilia_session_id", token?.session_id)
   return {
     ...user,
     ...token,
@@ -54,4 +55,35 @@ export function convertDataFirstLogin({ user }) {
   }
   Cookies.set("firstSignIn", JSON.stringify(initFirstSignIn))
   return initFirstSignIn
+}
+
+export function hexToRgba(hex, alpha) {
+  if (!hex?.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i)) {
+    return null
+  }
+
+  hex = hex.replace(/^#/, "")
+  let r, g, b
+  if (hex.length === 3) {
+    r = parseInt(hex.charAt(0) + hex.charAt(0), 16)
+    g = parseInt(hex.charAt(1) + hex.charAt(1), 16)
+    b = parseInt(hex.charAt(2) + hex.charAt(2), 16)
+  } else {
+    r = parseInt(hex.substring(0, 2), 16)
+    g = parseInt(hex.substring(2, 4), 16)
+    b = parseInt(hex.substring(4, 6), 16)
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
+
+export function settingTheme(account_portal_setting) {
+  try {
+    const { theme } = account_portal_setting
+    const colorPrimary700 = theme["primary-color"]
+    const color600 = hexToRgba(colorPrimary700, 0.7)
+    document.documentElement.style.setProperty("--color-primary-700", colorPrimary700)
+    document.documentElement.style.setProperty("--color-primary-600", color600)
+  } catch (error) {
+    console.log(error)
+  }
 }

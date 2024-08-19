@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import { authCodeMultiFactor, stepStatus } from "../../lib/const"
 import { getAuthMultiFactor } from "../../lib/function"
+import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 export default function FactorTwo({ children }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
@@ -62,7 +63,7 @@ export default function FactorTwo({ children }) {
         <div className={styles.oxBox}>
           <div className={styles.ox_form}>
             <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
-            <button className={styles.ox_button} onClick={onOk}>
+            <button className={global.ox_button} onClick={onOk}>
               Continue
             </button>
           </div>

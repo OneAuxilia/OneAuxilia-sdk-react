@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import OTPInput from "react-otp-input"
-import styles from "./styles.module.css"
 import { expireTime, strategieCode } from "../../lib/const"
+import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 export default function InputOtp({
   value,
@@ -38,8 +39,8 @@ export default function InputOtp({
 
   const __class =
     count < 1
-      ? `${styles.ox_btn_resend_disable} ${styles.ox_btn_resend}`
-      : styles.ox_btn_resend_disable
+      ? `${global.ox_btn_resend_disable} ${global.ox_btn_resend}`
+      : global.ox_btn_resend_disable
   return (
     <div className="">
       <div className={styles.ox_box_header}>
@@ -79,17 +80,19 @@ export default function InputOtp({
         value={value}
         onChange={onChange}
         numInputs={6}
-        inputStyle={error ? styles.ox_input_error : styles.ox_input}
+        inputStyle={error ? styles.ox_input_error : styles.ox_input_otp}
         renderSeparator={<div className={styles.otp_space}></div>}
         renderInput={(props) => <input {...props} />}
       />
-      <div className={styles.ox_error}>{error && error}</div>
+      <div className={global.ox_error}>{error && error}</div>
 
-      <div className={styles.ox_box_link}>
-        <button className={__class} onClick={onResendMail}>
-          Didn't receive a code? Resend {count > 0 && <span>({count})</span>}
-        </button>
-      </div>
+      {step === 2 && (
+        <div className={styles.ox_box_link}>
+          <button className={__class} onClick={onResendMail}>
+            Didn't receive a code? Resend {count > 0 && <span>({count})</span>}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

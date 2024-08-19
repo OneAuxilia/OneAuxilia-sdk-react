@@ -17,7 +17,7 @@
 }
 .link {
   cursor: pointer;
-  color: #6842ff;
+  color: var(--color-primary-700);
 }
 .logoIcon {
   height: 14px;
@@ -26,4 +26,5 @@
 .ox_logo_bottom {
   display: flex;
   gap: 3px;
+  align-items: start;
 }

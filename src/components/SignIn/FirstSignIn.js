@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react"
-import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import InputPhoneMail from "../InputPhoneMail"
@@ -9,6 +8,8 @@ import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
+import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
@@ -59,13 +60,13 @@ export default function FirstSignIn({ children, onChangeStep }) {
             <Fragment>
               <TopFormLogin />
               <SocialLogin onNext={onNext} />
-              {error && <div className={styles.ox_error}>{error}</div>}
+              {error && <div className={global.ox_error}>{error}</div>}
               <InputPhoneMail onChange={onChangeName} value={name} />
               {strategies[0] === strategieCode.PASSWORD && (
                 <InputPassword onChange={onChangePassword} value={password} />
               )}
             </Fragment>
-            <button className={styles.ox_button} onClick={onOk}>
+            <button className={global.ox_button} onClick={onOk}>
               Continue
             </button>
           </div>

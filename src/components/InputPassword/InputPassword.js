@@ -1,15 +1,16 @@
 import React, { useState } from "react"
 import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 export default function InputPassword({ onChange, value, label = "Password" }) {
   const [show, setShow] = useState(false)
   return (
     <div className={styles.ox_input_fields_password}>
       <div className={styles.ox_label_input_password}>
-        <div className={styles.ox_label_password}>{label}</div>
+        <div>{label}</div>
       </div>
       <input
-        className={styles.ox_input}
+        className={global.ox_input}
         value={value}
         type={show ? "text" : "password"}
         placeholder="Password..."

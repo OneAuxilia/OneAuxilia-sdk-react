@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
 export default function InputPhoneMail({ onChange, value }) {
   return (
@@ -8,7 +9,7 @@ export default function InputPhoneMail({ onChange, value }) {
         <div className={styles.ox_label_email}>Email</div>
         <div>Phone</div>
       </div>
-      <input className={styles.ox_input} value={value} placeholder="Email..." onChange={onChange} />
+      <input className={global.ox_input} value={value} placeholder="Email..." onChange={onChange} />
     </div>
   )
 }

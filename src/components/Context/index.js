@@ -3,7 +3,12 @@ import Cookies from "js-cookie"
 import KEY from "./Const"
 import { getFirstSignIn, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
-import { convertDataFirstLogin, convertDataSignIn, convertDataSignOut } from "../../lib/function"
+import {
+  convertDataFirstLogin,
+  convertDataSignIn,
+  convertDataSignOut,
+  settingTheme
+} from "../../lib/function"
 
 function initialState() {
   const isSignedIn = getSignedIn()
@@ -66,6 +71,11 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     return dispatch({ type: KEY.SET_AUTH, value })
   }
   const setConfig = (value) => {
+    let xx = {
+      "background-color": "xxx",
+      "primary-color": "#314bf1"
+    }
+    settingTheme({ theme: xx })
     return dispatch({ type: KEY.SET_CONFIG, value })
   }
   const onSignOut = () => {
