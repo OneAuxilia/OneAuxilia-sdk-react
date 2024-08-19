@@ -1,23 +1,24 @@
 import React from "react"
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props"
-import { socialCode, socialClientKey } from "../../lib/const"
+import { domainProxy } from "../../lib/const"
 import styles from "./styles.module.css"
 
 export default function FacebookLoginBox({ onLogin }) {
-  function responseFacebook(response) {
-    console.log("facebook", response)
-    if (response?.accessToken) onLogin(socialCode.FACEBOOK, response.accessToken)
+  function onClick() {
+    let url = new URL(domainProxy)
+    const callback_url = `${window.location.origin}/sign-in/verify`
+    url.search = new URLSearchParams({
+      provider_name: "auth_facebook",
+      callback_url
+    })
+    console.log("url", url)
+
+    window.location.href = url.href
   }
+
   return (
-    <FacebookLogin
-      appId={socialClientKey.FACEBOOK}
-      callback={responseFacebook}
-      render={(renderProps) => (
-        <button className={styles.ox_social_login} onClick={renderProps.onClick}>
-          {ic} Facebook
-        </button>
-      )}
-    />
+    <button className={styles.ox_social_login} onClick={onClick}>
+      {ic} Facebook
+    </button>
   )
 }
 

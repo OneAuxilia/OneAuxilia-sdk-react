@@ -1,21 +1,8 @@
 import React from "react"
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
-import { domainProxy, socialClientKey, socialCode } from "../../lib/const"
+import { domainProxy } from "../../lib/const"
 import styles from "./styles.module.css"
 
-function GoogleLoginButton({ onLogin }) {
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log(tokenResponse)
-      onLogin(socialCode.GOOGLE, tokenResponse.code)
-    },
-    onError: (e) => {
-      console.log("Login Failed", e)
-    },
-    flow: "auth-code",
-    ux_mode: "popup",
-    redirect_uri: "postmessage"
-  })
+export default function GoogleLoginBox() {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
@@ -23,8 +10,6 @@ function GoogleLoginButton({ onLogin }) {
       provider_name: "auth_google",
       callback_url
     })
-    console.log("url", url)
-
     window.location.href = url.href
   }
 
@@ -32,14 +17,6 @@ function GoogleLoginButton({ onLogin }) {
     <button className={styles.ox_social_login} onClick={onClick}>
       {icGoogle} Google Login
     </button>
-  )
-}
-
-export default function GoogleLoginBox({ onLogin }) {
-  return (
-    <GoogleOAuthProvider clientId={socialClientKey.GOOGLE}>
-      <GoogleLoginButton onLogin={onLogin} />
-    </GoogleOAuthProvider>
   )
 }
 
