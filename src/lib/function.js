@@ -27,7 +27,7 @@ export function convertDataSignIn({ token, user }) {
     return { isSignedIn: false }
   }
   Cookies.set("isSignedIn", true)
-  Cookies.set("__one_auxilia_session_id", token?.session_id)
+  if (token?.session_id) Cookies.set("__one_auxilia_session_id", token?.session_id)
   return {
     ...user,
     ...token,
