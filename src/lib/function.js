@@ -76,13 +76,14 @@ export function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
-export function settingTheme(account_portal_setting) {
+export function settingTheme({ color }) {
   try {
-    const { theme } = account_portal_setting
-    const colorPrimary700 = theme["primary-color"]
+    const colorPrimary700 = color
     const color600 = hexToRgba(colorPrimary700, 0.7)
+    const color400 = hexToRgba(colorPrimary700, 0.4)
     document.documentElement.style.setProperty("--color-primary-700", colorPrimary700)
     document.documentElement.style.setProperty("--color-primary-600", color600)
+    document.documentElement.style.setProperty("--color-primary-400", color400)
   } catch (error) {
     console.log(error)
   }

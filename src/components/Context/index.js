@@ -27,6 +27,7 @@ function initialState() {
     invitations: {
       infinite: true
     },
+    configLoaded: false,
     user_general_setting: {
       authentication_strategies: false,
       multi_factors: {
@@ -42,7 +43,7 @@ function reducer(state, action) {
     case KEY.SET_AUTH:
       return { ...state, ...action.value }
     case KEY.SET_CONFIG:
-      return { ...state, ...action.value }
+      return { ...state, ...action.value, configLoaded: true }
     case KEY.GET_USER_PROFILE:
       return { ...state, ...action.value }
     case KEY.SET_LOGIN:
@@ -71,11 +72,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     return dispatch({ type: KEY.SET_AUTH, value })
   }
   const setConfig = (value) => {
-    let xx = {
-      "background-color": "xxx",
-      "primary-color": "#314bf1"
-    }
-    settingTheme({ theme: xx })
+    settingTheme(value.branding_customization)
     return dispatch({ type: KEY.SET_CONFIG, value })
   }
   const onSignOut = () => {

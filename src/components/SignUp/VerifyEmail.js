@@ -7,6 +7,7 @@ import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { emailSettingKey, stepStatus, strategieCode } from "../../lib/const"
 import { getEmailSettingSignUp } from "../../lib/function"
+import Button from "../ui/Button"
 
 function getOtpByParams() {
   var url = new URL(window.location.href)
@@ -92,9 +93,7 @@ export default function VerifyEmail({ children }) {
                   step={"sign-up"}
                   firstSignIn={firstSignIn}
                 />
-                <button className={styles.ox_button} onClick={onOk}>
-                  Continue
-                </button>
+                <Button onClick={onOk}>Continue</Button>
               </Fragment>
             )}
           </div>

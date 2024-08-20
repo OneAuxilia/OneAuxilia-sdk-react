@@ -1,15 +1,10 @@
 .ox_header {
   margin-bottom: 1.5rem;
 }
-.ox_logo_header {
-  width: 1rem;
-  height: 1rem;
-}
 .ox_box_logo {
-  font-weight: bold;
   display: flex;
-  gap: 4px;
   justify-content: center;
+  font-weight: bold;
   margin-bottom: 1.5rem;
 }
 .ox_text_header {
@@ -22,4 +17,9 @@
   font-size: 12px;
   color: #9ca3af;
   text-align: center;
+}
+.ox_logo_header {
+  height: 2rem;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
 }

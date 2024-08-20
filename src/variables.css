@@ -1,10 +1,4 @@
 /* add css module styles here (optional) */
-html {
-  font-size: 16px;
-}
-.test {
-  background-color: rebeccapurple;
-}
 :root {
   --color-primary-50: #f7f5ff;
   --color-primary-100: #f1eeff;
@@ -17,8 +11,4 @@ html {
   --color-dark-400: #646970;
   --color-dark-500: #0e2026;
   --border-400: 0.375rem;
-}
-
-:global(.myclass) {
-  background-color: var(--blue);
 }

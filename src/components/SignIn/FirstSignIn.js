@@ -10,6 +10,7 @@ import { getAuthStrategies } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
 import styles from "./styles.module.css"
 import global from "../../global.module.css"
+import Button from "../ui/Button"
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
@@ -66,9 +67,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
                 <InputPassword onChange={onChangePassword} value={password} />
               )}
             </Fragment>
-            <button className={global.ox_button} onClick={onOk}>
-              Continue
-            </button>
+            <Button onClick={onOk}>Continue</Button>
           </div>
           <BottomFormLogin isSignIn={true} step={1} />
         </div>

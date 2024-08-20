@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import FirstSignIn from "./FirstSignIn"
 import FactorOne from "./FactorOne"
@@ -14,7 +14,7 @@ function initStep() {
 }
 
 export default function SignIn({ children }) {
-  const { routerReplace, routerPush, isSignedIn } = useStore()
+  const { routerReplace, routerPush, isSignedIn, configLoaded } = useStore()
   const [step, setStep] = useState(initStep())
 
   function onChangeStep(v) {
@@ -32,10 +32,14 @@ export default function SignIn({ children }) {
 
   return (
     <div>
-      {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
-      {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
-      {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
-      {step === 4 && <VerifySocial onChangeStep={onChangeStep} />}
+      {configLoaded && (
+        <Fragment>
+          {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
+          {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
+          {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
+          {step === 4 && <VerifySocial onChangeStep={onChangeStep} />}
+        </Fragment>
+      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import FirstSignUp from "./FirstSignUp"
 import VerifyEmail from "./VerifyEmail"
@@ -10,7 +10,7 @@ function initStep() {
 }
 
 export default function SignUp() {
-  const { routerReplace, routerPush, isSignedIn } = useStore()
+  const { routerReplace, routerPush, isSignedIn, configLoaded } = useStore()
   const [step, setStep] = useState(initStep())
 
   function onChangeStep(v) {
@@ -26,8 +26,12 @@ export default function SignUp() {
 
   return (
     <div>
-      {step === 1 && <FirstSignUp onChangeStep={onChangeStep} />}
-      {step === 2 && <VerifyEmail />}
+      {configLoaded && (
+        <Fragment>
+          {step === 1 && <FirstSignUp onChangeStep={onChangeStep} />}
+          {step === 2 && <VerifyEmail />}
+        </Fragment>
+      )}
     </div>
   )
 }

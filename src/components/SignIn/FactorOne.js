@@ -8,6 +8,7 @@ import { stepStatus, strategieCode } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
 import styles from "./styles.module.css"
 import global from "../../global.module.css"
+import Button from "../ui/Button"
 
 function getOtpByParams() {
   var url = new URL(window.location.href)
@@ -90,9 +91,7 @@ export default function FactorOne({ children, onChangeStep }) {
                   strategie={strategies[0]}
                   firstSignIn={firstSignIn}
                 />
-                <button className={global.ox_button} onClick={onOk}>
-                  Continue
-                </button>
+                <Button onClick={onOk}>Continue</Button>
               </Fragment>
             )}
           </div>

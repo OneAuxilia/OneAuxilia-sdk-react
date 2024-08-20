@@ -9,6 +9,7 @@ import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { getEmailSettingSignUp } from "../../lib/function"
 import { stepStatus } from "../../lib/const"
+import Button from "../ui/Button"
 
 export default function FirstSignUp({ children, onChangeStep }) {
   const { user_general_setting, setLoaded, setFirstLogin, routerPush } = useStore()
@@ -67,10 +68,7 @@ export default function FirstSignUp({ children, onChangeStep }) {
               placeholder="Last name..."
               value={last_name}
             />
-
-            <button className={styles.ox_button} onClick={onSignUp}>
-              Continue
-            </button>
+            <Button onClick={onSignUp}>Continue</Button>
           </div>
           <BottomFormLogin isSignIn={false} step={1} />
         </div>
