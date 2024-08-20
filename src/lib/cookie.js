@@ -13,7 +13,7 @@ export function getToken() {
   return Cookies.get("accessToken")
 }
 export function getSessionId() {
-  return Cookies.get("__one_auxilia_session_id")
+  return Cookies.get("session_id")
 }
 export function setSignIn(accessToken) {
   return Cookies.set("accessToken", accessToken)
