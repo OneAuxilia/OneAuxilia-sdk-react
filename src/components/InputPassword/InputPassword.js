@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styles from "./styles.module.css"
-import global from "../../global.module.css"
+import { Input } from "../ui"
 
 export default function InputPassword({ onChange, value, label = "Password" }) {
   const [show, setShow] = useState(false)
@@ -9,8 +9,7 @@ export default function InputPassword({ onChange, value, label = "Password" }) {
       <div className={styles.ox_label_input_password}>
         <div>{label}</div>
       </div>
-      <input
-        className={global.ox_input}
+      <Input
         value={value}
         type={show ? "text" : "password"}
         placeholder="Password..."
@@ -21,6 +20,8 @@ export default function InputPassword({ onChange, value, label = "Password" }) {
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
+          width="1.25rem"
+          height="1.25rem"
           className={styles.ox_show}
         >
           <path d="M8 9.607c.421 0 .825-.17 1.123-.47a1.617 1.617 0 0 0 0-2.273 1.578 1.578 0 0 0-2.246 0 1.617 1.617 0 0 0 0 2.272c.298.302.702.471 1.123.471Z"></path>

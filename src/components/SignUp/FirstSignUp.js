@@ -1,17 +1,15 @@
-import React, { useState } from "react"
-import styles from "./styles.module.css"
+import React, { Fragment, useState } from "react"
 import { apiCore } from "../../api"
 import useStore from "../Context"
 import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
 import InputName from "../InputName"
-import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { getEmailSettingSignUp } from "../../lib/function"
 import { stepStatus } from "../../lib/const"
-import Button from "../ui/Button"
+import { Button } from "../ui"
 
-export default function FirstSignUp({ children, onChangeStep }) {
+export default function FirstSignUp({ onChangeStep }) {
   const { user_general_setting, setLoaded, setFirstLogin, routerPush } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
   const [values, setValues] = useState({
@@ -44,36 +42,28 @@ export default function FirstSignUp({ children, onChangeStep }) {
   }
   const { email, password, password_confirm, first_name, last_name } = values
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            <TopFormLogin />
-            <InputPhoneMail onChange={(e) => onChangeValues("email", e)} value={email} />
-            <InputPassword onChange={(e) => onChangeValues("password", e)} value={password} />
-            <InputPassword
-              label="Confirm password"
-              onChange={(e) => onChangeValues("password_confirm", e)}
-              value={password_confirm}
-            />
-            <InputName
-              onChange={(e) => onChangeValues("first_name", e)}
-              label="First name"
-              placeholder="First name..."
-              value={first_name}
-            />
-            <InputName
-              onChange={(e) => onChangeValues("last_name", e)}
-              label="Last name"
-              placeholder="Last name..."
-              value={last_name}
-            />
-            <Button onClick={onSignUp}>Continue</Button>
-          </div>
-          <BottomFormLogin isSignIn={false} step={1} />
-        </div>
-        {children}
-      </div>
-    </div>
+    <Fragment>
+      <TopFormLogin />
+      <InputPhoneMail onChange={(e) => onChangeValues("email", e)} value={email} />
+      <InputPassword onChange={(e) => onChangeValues("password", e)} value={password} />
+      <InputPassword
+        label="Confirm password"
+        onChange={(e) => onChangeValues("password_confirm", e)}
+        value={password_confirm}
+      />
+      <InputName
+        onChange={(e) => onChangeValues("first_name", e)}
+        label="First name"
+        placeholder="First name..."
+        value={first_name}
+      />
+      <InputName
+        onChange={(e) => onChangeValues("last_name", e)}
+        label="Last name"
+        placeholder="Last name..."
+        value={last_name}
+      />
+      <Button onClick={onSignUp}>Continue</Button>
+    </Fragment>
   )
 }

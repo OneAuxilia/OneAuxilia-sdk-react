@@ -1,14 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import { apiCore } from "../../api"
-import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { stepStatus, strategieCode } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
-import styles from "./styles.module.css"
-import global from "../../global.module.css"
-import Button from "../ui/Button"
+import { Button } from "../ui"
 
 function getOtpByParams() {
   var url = new URL(window.location.href)
@@ -74,31 +71,23 @@ export default function FactorOne({ children, onChangeStep }) {
   }, [user_general_setting])
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            {strategies[0] === strategieCode.EMAIL_LINK ? (
-              <EmailLink onResend={fetch} />
-            ) : (
-              <Fragment>
-                <InputOtp
-                  onChange={onChangeOtp}
-                  value={otp}
-                  error={error}
-                  onResend={fetch}
-                  step={2}
-                  strategie={strategies[0]}
-                  firstSignIn={firstSignIn}
-                />
-                <Button onClick={onOk}>Continue</Button>
-              </Fragment>
-            )}
-          </div>
-          <BottomFormLogin isSignIn={true} />
-        </div>
-        {children}
-      </div>
-    </div>
+    <Fragment>
+      {strategies[0] === strategieCode.EMAIL_LINK ? (
+        <EmailLink onResend={fetch} />
+      ) : (
+        <Fragment>
+          <InputOtp
+            onChange={onChangeOtp}
+            value={otp}
+            error={error}
+            onResend={fetch}
+            step={2}
+            strategie={strategies[0]}
+            firstSignIn={firstSignIn}
+          />
+          <Button onClick={onOk}>Continue</Button>
+        </Fragment>
+      )}
+    </Fragment>
   )
 }

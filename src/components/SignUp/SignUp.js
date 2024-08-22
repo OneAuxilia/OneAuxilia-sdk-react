@@ -1,7 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import useStore from "../Context"
 import FirstSignUp from "./FirstSignUp"
 import VerifyEmail from "./VerifyEmail"
+import { LayoutSignIn } from "../ui"
 
 function initStep() {
   const path = window.location.pathname
@@ -27,10 +28,10 @@ export default function SignUp() {
   return (
     <div>
       {configLoaded && (
-        <Fragment>
+        <LayoutSignIn step={step} isSignIn={false}>
           {step === 1 && <FirstSignUp onChangeStep={onChangeStep} />}
           {step === 2 && <VerifyEmail />}
-        </Fragment>
+        </LayoutSignIn>
       )}
     </div>
   )

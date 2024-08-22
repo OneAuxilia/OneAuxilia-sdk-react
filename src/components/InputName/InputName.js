@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
+import { Input } from "../ui"
 
 export default function InputName({ onChange, value, label, placeholder }) {
   return (
@@ -7,12 +8,7 @@ export default function InputName({ onChange, value, label, placeholder }) {
       <div className={styles.ox_label_input_name}>
         <div>{label}</div>
       </div>
-      <input
-        className={styles.ox_input}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-      />
+      <Input value={value} placeholder={placeholder} onChange={onChange} />
     </div>
   )
 }

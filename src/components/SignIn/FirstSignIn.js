@@ -3,14 +3,12 @@ import useStore from "../Context"
 import { apiCore } from "../../api"
 import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
-import BottomFormLogin from "../BottomFormLogin"
 import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
-import styles from "./styles.module.css"
 import global from "../../global.module.css"
-import Button from "../ui/Button"
+import { Button } from "../ui"
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
@@ -54,25 +52,16 @@ export default function FirstSignIn({ children, onChangeStep }) {
   }
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            <Fragment>
-              <TopFormLogin />
-              <SocialLogin onNext={onNext} />
-              {error && <div className={global.ox_error}>{error}</div>}
-              <InputPhoneMail onChange={onChangeName} value={name} />
-              {strategies[0] === strategieCode.PASSWORD && (
-                <InputPassword onChange={onChangePassword} value={password} />
-              )}
-            </Fragment>
-            <Button onClick={onOk}>Continue</Button>
-          </div>
-          <BottomFormLogin isSignIn={true} step={1} />
-        </div>
-        {children}
-      </div>
-    </div>
+    <Fragment>
+      <TopFormLogin />
+      <SocialLogin onNext={onNext} />
+      {error && <div className={global.ox_error}>{error}</div>}
+      <InputPhoneMail onChange={onChangeName} value={name} />
+      {strategies[0] === strategieCode.PASSWORD && (
+        <InputPassword onChange={onChangePassword} value={password} />
+      )}
+
+      <Button onClick={onOk}>Continue</Button>
+    </Fragment>
   )
 }

@@ -1,9 +1,9 @@
 import React from "react"
-import global from "../../global.module.css"
+import btn from "./styles.module.css"
 
 export default function Button({ children, ...rest }) {
   return (
-    <button className={global.ox_button} {...rest}>
+    <button className={btn.ox_button} {...rest}>
       {children}
     </button>
   )

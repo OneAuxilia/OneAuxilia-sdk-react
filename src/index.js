@@ -20,10 +20,9 @@ export function useUser() {
 }
 export function useAuth() {
   const { userId, isLoaded, isSignedIn } = useStore()
-
   return { userId, isLoaded, isSignedIn }
 }
-export function useOneXilia() {
+export function useOneAuXilia() {
   const { openSignIn } = useStore()
   return { openSignIn }
 }

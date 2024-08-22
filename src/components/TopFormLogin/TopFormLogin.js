@@ -24,7 +24,7 @@ function Image({ src, alt }) {
   return (
     <img
       onLoad={onLoad}
-      style={{ opacity: loader && 1 }}
+      style={{ height: "2rem", opacity: loader && 1 }}
       src={src}
       alt={alt}
       className={styles.ox_logo_header}

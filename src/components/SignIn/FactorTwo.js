@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import { apiCore } from "../../api"
-import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import { authCodeMultiFactor, stepStatus } from "../../lib/const"
 import { getAuthMultiFactor } from "../../lib/function"
-import styles from "./styles.module.css"
-import global from "../../global.module.css"
-import Button from "../ui/Button"
+import { Button } from "../ui"
 
 export default function FactorTwo({ children }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
@@ -59,17 +56,9 @@ export default function FactorTwo({ children }) {
   }, [auMultiFactors])
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
-            <Button onClick={onOk}>Continue</Button>
-          </div>
-          <BottomFormLogin isSignIn={true} />
-        </div>
-        {children}
-      </div>
-    </div>
+    <Fragment>
+      <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
+      <Button onClick={onOk}>Continue</Button>
+    </Fragment>
   )
 }

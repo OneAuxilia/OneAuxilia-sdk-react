@@ -1,13 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react"
-import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
-import BottomFormLogin from "../BottomFormLogin"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
-import { emailSettingKey, stepStatus, strategieCode } from "../../lib/const"
+import { strategieCode } from "../../lib/const"
 import { getEmailSettingSignUp } from "../../lib/function"
-import Button from "../ui/Button"
+import { Button } from "../ui"
 
 function getOtpByParams() {
   var url = new URL(window.location.href)
@@ -77,30 +75,22 @@ export default function VerifyEmail({ children }) {
   }, [user_general_setting])
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            {emailSetting.is_verification_link ? (
-              <EmailLink onResend={fetch} />
-            ) : (
-              <Fragment>
-                <InputOtp
-                  onChange={onChangeOtp}
-                  value={otp}
-                  error={error}
-                  onResend={fetch}
-                  step={"sign-up"}
-                  firstSignIn={firstSignIn}
-                />
-                <Button onClick={onOk}>Continue</Button>
-              </Fragment>
-            )}
-          </div>
-          <BottomFormLogin isSignIn={false} />
-        </div>
-        {children}
-      </div>
-    </div>
+    <Fragment>
+      {emailSetting.is_verification_link ? (
+        <EmailLink onResend={fetch} />
+      ) : (
+        <Fragment>
+          <InputOtp
+            onChange={onChangeOtp}
+            value={otp}
+            error={error}
+            onResend={fetch}
+            step={"sign-up"}
+            firstSignIn={firstSignIn}
+          />
+          <Button onClick={onOk}>Continue</Button>
+        </Fragment>
+      )}
+    </Fragment>
   )
 }
