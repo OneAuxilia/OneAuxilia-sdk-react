@@ -2,7 +2,7 @@ import React from "react"
 import { domainProxy } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function GoogleLoginBox() {
+export default function GoogleLoginBox({ isFullName }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
@@ -15,7 +15,7 @@ export default function GoogleLoginBox() {
 
   return (
     <button className={styles.ox_social_login} onClick={onClick}>
-      {icGoogle} Google Login
+      {icGoogle} {isFullName ? "Continue with Google" : "Google"}
     </button>
   )
 }

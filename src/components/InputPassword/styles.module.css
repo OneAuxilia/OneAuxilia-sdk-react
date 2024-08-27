@@ -1,6 +1,8 @@
 .ox_input_fields_password {
-  position: relative;
   margin-bottom: 1.5rem;
+}
+.ox_wapper_input {
+  position: relative;
 }
 .ox_label_input_password {
   font-weight: 500;
@@ -9,11 +11,14 @@
 }
 .ox_btn_show {
   position: absolute;
-  top: 2rem;
+  top: 0;
   right: 0;
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ox_show {
   width: 1.25rem;

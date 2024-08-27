@@ -13,7 +13,7 @@ export default function FirstSignUp({ onChangeStep }) {
   const { user_general_setting, setLoaded, setFirstLogin, routerPush } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
   const [values, setValues] = useState({
-    email: "'",
+    email: "",
     first_name: "",
     last_name: "",
     password: "",
@@ -43,7 +43,7 @@ export default function FirstSignUp({ onChangeStep }) {
   const { email, password, password_confirm, first_name, last_name } = values
   return (
     <Fragment>
-      <TopFormLogin />
+      <TopFormLogin isSignIn={false} />
       <InputPhoneMail onChange={(e) => onChangeValues("email", e)} value={email} />
       <InputPassword onChange={(e) => onChangeValues("password", e)} value={password} />
       <InputPassword

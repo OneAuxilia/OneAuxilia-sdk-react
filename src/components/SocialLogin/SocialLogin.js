@@ -26,15 +26,15 @@ export default function LoginSocial({ onNext }) {
     }
   }
 
-  function onClick(params) {}
-
   useEffect(() => {
     const code = getCodeByParams()
     if (code) onLogin(socialCode.GOOGLE, code)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 
+  const isFullName = listSocial?.length < 2
   return (
     <Fragment>
       {listSocial.length > 0 && (
@@ -42,8 +42,12 @@ export default function LoginSocial({ onNext }) {
           {listSocial.map(({ auth_provider }, key) => {
             return (
               <Fragment key={key}>
-                {auth_provider === socialCode.FACEBOOK && <FacebookLoginBox onLogin={onLogin} />}
-                {auth_provider === socialCode.GOOGLE && <GoogleLoginBox onLogin={onLogin} />}
+                {auth_provider === socialCode.FACEBOOK && (
+                  <FacebookLoginBox onLogin={onLogin} isFullName={isFullName} />
+                )}
+                {auth_provider === socialCode.GOOGLE && (
+                  <GoogleLoginBox onLogin={onLogin} isFullName={isFullName} />
+                )}
               </Fragment>
             )
           })}

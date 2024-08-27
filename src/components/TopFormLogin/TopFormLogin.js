@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styles from "./styles.module.css"
 import useStore from "../Context"
 
-export default function TopFormLogin() {
+export default function TopFormLogin({ isSignIn }) {
   const { branding_customization, application_name } = useStore()
   return (
     <div className={styles.ox_header}>
@@ -10,7 +10,10 @@ export default function TopFormLogin() {
         <Image src={branding_customization?.logo} alt="onauxilia" />
         {/* <img src={branding_customization?.logo} alt="onauxilia" className={styles.ox_logo_header} /> */}
       </div>
-      <div className={styles.ox_text_header}>Sign in to {application_name}</div>
+      <div className={styles.ox_text_header}>
+        {" "}
+        {isSignIn ? "Sign in" : "Sign up"} to {application_name}
+      </div>
       <div className={styles.ox_text_header_sub}>Welcome back! Please sign in to continue</div>
     </div>
   )

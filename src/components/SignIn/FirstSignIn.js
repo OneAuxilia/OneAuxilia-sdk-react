@@ -53,7 +53,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
 
   return (
     <Fragment>
-      <TopFormLogin />
+      <TopFormLogin isSignIn={true} />
       <SocialLogin onNext={onNext} />
       {error && <div className={global.ox_error}>{error}</div>}
       <InputPhoneMail onChange={onChangeName} value={name} />

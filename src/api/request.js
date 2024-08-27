@@ -13,9 +13,9 @@ export default function getInstanceAxios(baseAPI) {
         config.headers = {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Tenant-Header": getPublishableKey(),
-          "OneAuxilia-DB-JWT": `Oneauxilia ${getJWT()}`
+          "Tenant-Header": getPublishableKey()
         }
+        if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
         if (window.location.origin === "http://localhost:3000") config.headers.mode = "development"
         // const access_token = getToken()
         // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`

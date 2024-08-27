@@ -2,7 +2,7 @@ import React from "react"
 import { domainProxy } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function FacebookLoginBox({ onLogin }) {
+export default function FacebookLoginBox({ onLogin, isFullName }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
@@ -17,7 +17,7 @@ export default function FacebookLoginBox({ onLogin }) {
 
   return (
     <button className={styles.ox_social_login} onClick={onClick}>
-      {ic} Facebook
+      {ic} {isFullName ? "Continue with Facebook" : "Facebook"}
     </button>
   )
 }
