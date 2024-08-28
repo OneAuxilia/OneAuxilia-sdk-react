@@ -26,10 +26,12 @@ export default function VerifyEmail({ children }) {
   var otp_code = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   async function onOk() {
     try {
       setLoaded(false)
+      setLoading(true)
       const body = {
         strategy: strategy,
         email_or_phone: firstSignIn.email,
@@ -40,6 +42,8 @@ export default function VerifyEmail({ children }) {
     } catch (error) {
       console.log(error)
       setError("Incorrect code")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -88,7 +92,9 @@ export default function VerifyEmail({ children }) {
             step={"sign-up"}
             firstSignIn={firstSignIn}
           />
-          <Button onClick={onOk}>Continue</Button>
+          <Button onClick={onOk} loading={loading}>
+            Continue
+          </Button>
         </Fragment>
       )}
     </Fragment>

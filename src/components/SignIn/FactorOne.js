@@ -18,10 +18,12 @@ export default function FactorOne({ children, onChangeStep }) {
   var otp_code = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   async function onOk() {
     try {
       setLoaded(false)
+      setLoading(true)
       const body = {
         strategy: strategies[0],
         email_or_phone: firstSignIn.email,
@@ -36,6 +38,8 @@ export default function FactorOne({ children, onChangeStep }) {
     } catch (error) {
       console.log(error)
       setError("Incorrect code")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -85,7 +89,9 @@ export default function FactorOne({ children, onChangeStep }) {
             strategie={strategies[0]}
             firstSignIn={firstSignIn}
           />
-          <Button onClick={onOk}>Continue</Button>
+          <Button onClick={onOk} loading={loading}>
+            Continue
+          </Button>
         </Fragment>
       )}
     </Fragment>

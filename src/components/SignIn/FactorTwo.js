@@ -11,10 +11,12 @@ export default function FactorTwo({ children }) {
   const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   async function onOk() {
     try {
       setLoaded(false)
+      setLoading(true)
       const body = {
         strategy: firstSignIn.second_factor_type,
         email_or_phone: firstSignIn.email,
@@ -27,6 +29,8 @@ export default function FactorTwo({ children }) {
     } catch (error) {
       setError("Incorrect code")
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -58,7 +62,9 @@ export default function FactorTwo({ children }) {
   return (
     <Fragment>
       <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
-      <Button onClick={onOk}>Continue</Button>
+      <Button onClick={onOk} loading={loading}>
+        Continue
+      </Button>
     </Fragment>
   )
 }

@@ -36,3 +36,21 @@
 .ox_button:hover {
   background-color: var(--color-primary-600);
 }
+.ox_button:disabled {
+  background-color: var(--color-primary-600);
+}
+.spinner {
+  animation-name: spin;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -21,6 +21,7 @@ export default function FirstSignUp({ onChangeStep }) {
     password: "",
     password_confirm: ""
   })
+  const [loading, setLoading] = useState(false)
 
   function onChangeValues(key, e) {
     setValues({ ...values, [key]: e.target.value })
@@ -38,6 +39,7 @@ export default function FirstSignUp({ onChangeStep }) {
   async function onSignUp() {
     try {
       setLoaded(false)
+      setLoading(true)
       const { data } = await apiCore.signUp(values)
       if (data?.status === stepStatus.COMPLETED) {
         routerPush("/sign-in")
@@ -49,6 +51,8 @@ export default function FirstSignUp({ onChangeStep }) {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
   const { email, password, password_confirm, first_name, last_name } = values
@@ -76,7 +80,9 @@ export default function FirstSignUp({ onChangeStep }) {
         value={password_confirm}
       />
       <p></p>
-      <Button onClick={onSignUp}>Continue</Button>
+      <Button onClick={onSignUp} loading={loading}>
+        Continue
+      </Button>
     </Fragment>
   )
 }

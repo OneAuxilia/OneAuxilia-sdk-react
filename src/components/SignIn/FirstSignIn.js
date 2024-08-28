@@ -15,6 +15,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
 
   const [name, setName] = useState("")
+  const [loading, setLoading] = useState(false)
   const [password, setPassWord] = useState("")
   const [error, setError] = useState("")
 
@@ -37,6 +38,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
 
   async function onOk() {
     try {
+      setLoading(true)
       const bodydata = { username: name }
       setLoaded(false)
       if (strategies[0] === strategieCode.PASSWORD) {
@@ -48,6 +50,8 @@ export default function FirstSignIn({ children, onChangeStep }) {
       setLoaded(true)
     } catch (error) {
       setError(error?.error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -61,7 +65,9 @@ export default function FirstSignIn({ children, onChangeStep }) {
         <InputPassword onChange={onChangePassword} value={password} />
       )}
 
-      <Button onClick={onOk}>Continue</Button>
+      <Button onClick={onOk} loading={loading}>
+        Continue
+      </Button>
     </Fragment>
   )
 }

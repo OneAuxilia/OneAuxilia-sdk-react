@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   margin-bottom: 1.5rem;
 }
 .ox_social_login {
