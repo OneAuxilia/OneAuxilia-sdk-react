@@ -10,7 +10,7 @@ import {
   settingTheme
 } from "../../lib/function"
 
-function initialState() {
+function initialState(props) {
   const isSignedIn = getSignedIn()
   return {
     isLoaded: isSignedIn ? false : true,
@@ -34,7 +34,8 @@ function initialState() {
         methods: false
       }
     },
-    firstSignIn: getFirstSignIn()
+    firstSignIn: getFirstSignIn(),
+    ...props
   }
 }
 
@@ -66,7 +67,7 @@ const OneAuxiliaContext = createContext(initialState())
 OneAuxiliaContext.displayName = "onauxilia"
 
 export function StoreProvider({ routerPush, routerReplace, ...rest }) {
-  const [state, dispatch] = useReducer(reducer, initialState())
+  const [state, dispatch] = useReducer(reducer, initialState(rest))
 
   const setAuthStore = (value) => {
     return dispatch({ type: KEY.SET_AUTH, value })

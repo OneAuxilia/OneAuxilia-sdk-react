@@ -38,20 +38,27 @@ export default function LoginSocial({ onNext }) {
   return (
     <Fragment>
       {listSocial.length > 0 && (
-        <div className={styles.ox_row_social_login}>
-          {listSocial.map(({ auth_provider }, key) => {
-            return (
-              <Fragment key={key}>
-                {auth_provider === socialCode.FACEBOOK && (
-                  <FacebookLoginBox onLogin={onLogin} isFullName={isFullName} />
-                )}
-                {auth_provider === socialCode.GOOGLE && (
-                  <GoogleLoginBox onLogin={onLogin} isFullName={isFullName} />
-                )}
-              </Fragment>
-            )
-          })}
-        </div>
+        <Fragment>
+          <div className={styles.ox_row_social_login}>
+            {listSocial.map(({ auth_provider }, key) => {
+              return (
+                <Fragment key={key}>
+                  {auth_provider === socialCode.FACEBOOK && (
+                    <FacebookLoginBox onLogin={onLogin} isFullName={isFullName} />
+                  )}
+                  {auth_provider === socialCode.GOOGLE && (
+                    <GoogleLoginBox onLogin={onLogin} isFullName={isFullName} />
+                  )}
+                </Fragment>
+              )
+            })}
+          </div>
+          <div className={styles.ox_box_line}>
+            <div className={styles.ox_line}></div>
+            <div className={styles.ox_or}>or</div>
+            <div className={styles.ox_line}></div>
+          </div>
+        </Fragment>
       )}
     </Fragment>
   )

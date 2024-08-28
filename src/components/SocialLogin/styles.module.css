@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .ox_social_login {
   display: inline-flex;
@@ -14,7 +14,7 @@
   outline: 0px;
   cursor: pointer;
   background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border-400);
   border-radius: var(--border-400);
   position: relative;
   isolation: isolate;
@@ -27,4 +27,27 @@
 }
 .ox_social_login:hover {
   background-color: var(--color-primary-50);
+}
+.ox_box_line {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.ox_line {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1 1 0%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.07);
+}
+.ox_or {
+  margin: 0px 1rem;
+  font-size: 14px;
+  color: #6b6470;
 }

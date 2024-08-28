@@ -10,12 +10,7 @@ export default function InputPassword({ onChange, value, label = "Password" }) {
         <div>{label}</div>
       </div>
       <div className={styles.ox_wapper_input}>
-        <Input
-          value={value}
-          type={show ? "text" : "password"}
-          placeholder="Password..."
-          onChange={onChange}
-        />
+        <Input value={value} type={show ? "text" : "password"} onChange={onChange} />
         {value && (
           <div onClick={() => setShow((c) => !c)} className={styles.ox_btn_show}>
             <svg

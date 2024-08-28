@@ -1,16 +1,16 @@
-.pageContainer {
+.ox_container {
   height: 100%;
   width: 100%;
   overflow: auto;
   align-items: flex-start;
   padding-top: clamp(2rem, 10vw, 5rem);
 }
-.componentContainer,
-.pageContainer {
+.ox_component_container,
+.ox_container {
   display: flex;
   justify-content: center;
 }
-.componentContainer {
+.ox_component_container {
   margin-bottom: 5rem;
   border-radius: 0.75rem;
   width: 25rem;
@@ -45,12 +45,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   padding: 1rem 2rem;
 }
 .footer_secured {
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
 }
 .footer_signin {
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);

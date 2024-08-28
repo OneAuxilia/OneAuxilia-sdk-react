@@ -9,7 +9,7 @@ export default function InputPhoneMail({ onChange, value }) {
         <div className={styles.ox_label_email}>Email address</div>
         {/* <div>Phone</div> */}
       </div>
-      <Input value={value} placeholder="Email..." onChange={onChange} />
+      <Input value={value} onChange={onChange} />
     </div>
   )
 }

@@ -37,6 +37,7 @@ export default function VerifySocial({ onChangeStep }) {
     const code = getCodeByParams()
     const provider_name = getCodeByParams()
     if (code) onLogin(socialCode.GOOGLE, provider_name)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return <Fragment></Fragment>

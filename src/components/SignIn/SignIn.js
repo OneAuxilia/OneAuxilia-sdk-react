@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import FirstSignIn from "./FirstSignIn"
 import FactorOne from "./FactorOne"
@@ -34,12 +34,16 @@ export default function SignIn({ children }) {
   return (
     <div>
       {configLoaded && (
-        <LayoutSignIn step={step} isSignIn={true}>
-          {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
-          {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
-          {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
+        <Fragment>
           {step === 4 && <VerifySocial onChangeStep={onChangeStep} />}
-        </LayoutSignIn>
+          {step !== 4 && (
+            <LayoutSignIn step={step} isSignIn={true}>
+              {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
+              {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
+              {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
+            </LayoutSignIn>
+          )}
+        </Fragment>
       )}
     </div>
   )

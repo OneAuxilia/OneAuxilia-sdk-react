@@ -36,6 +36,3 @@
 .ox_button:hover {
   background-color: var(--color-primary-600);
 }
-.ox_button:active {
-  background-color: var(--color-primary-600);
-}

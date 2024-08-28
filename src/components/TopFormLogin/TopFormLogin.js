@@ -6,10 +6,11 @@ export default function TopFormLogin({ isSignIn }) {
   const { branding_customization, application_name } = useStore()
   return (
     <div className={styles.ox_header}>
-      <div className={styles.ox_box_logo}>
-        <Image src={branding_customization?.logo} alt="onauxilia" />
-        {/* <img src={branding_customization?.logo} alt="onauxilia" className={styles.ox_logo_header} /> */}
-      </div>
+      {branding_customization?.logo && (
+        <div className={styles.ox_box_logo}>
+          <Image src={branding_customization?.logo} alt="onauxilia" />
+        </div>
+      )}
       <div className={styles.ox_text_header}>
         {" "}
         {isSignIn ? "Sign in" : "Sign up"} to {application_name}

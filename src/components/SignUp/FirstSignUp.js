@@ -8,9 +8,11 @@ import TopFormLogin from "../TopFormLogin"
 import { getEmailSettingSignUp } from "../../lib/function"
 import { stepStatus } from "../../lib/const"
 import { Button } from "../ui"
+import styles from "./styles.module.css"
+import SocialLogin from "../SocialLogin"
 
 export default function FirstSignUp({ onChangeStep }) {
-  const { user_general_setting, setLoaded, setFirstLogin, routerPush } = useStore()
+  const { user_general_setting, setLoaded, setFirstLogin, routerPush, setLogin } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
   const [values, setValues] = useState({
     email: "",
@@ -22,6 +24,15 @@ export default function FirstSignUp({ onChangeStep }) {
 
   function onChangeValues(key, e) {
     setValues({ ...values, [key]: e.target.value })
+  }
+
+  function onNext(data) {
+    if (data?.user?.status === stepStatus.COMPLETED) {
+      setLogin(data)
+    } else {
+      setFirstLogin(data)
+    }
+    if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
   }
 
   async function onSignUp() {
@@ -44,6 +55,19 @@ export default function FirstSignUp({ onChangeStep }) {
   return (
     <Fragment>
       <TopFormLogin isSignIn={false} />
+      <SocialLogin onNext={onNext} />
+      <div className={styles.ox_fullname}>
+        <InputName
+          onChange={(e) => onChangeValues("first_name", e)}
+          label="First name"
+          value={first_name}
+        />
+        <InputName
+          onChange={(e) => onChangeValues("last_name", e)}
+          label="Last name"
+          value={last_name}
+        />
+      </div>
       <InputPhoneMail onChange={(e) => onChangeValues("email", e)} value={email} />
       <InputPassword onChange={(e) => onChangeValues("password", e)} value={password} />
       <InputPassword
@@ -51,18 +75,7 @@ export default function FirstSignUp({ onChangeStep }) {
         onChange={(e) => onChangeValues("password_confirm", e)}
         value={password_confirm}
       />
-      <InputName
-        onChange={(e) => onChangeValues("first_name", e)}
-        label="First name"
-        placeholder="First name..."
-        value={first_name}
-      />
-      <InputName
-        onChange={(e) => onChangeValues("last_name", e)}
-        label="Last name"
-        placeholder="Last name..."
-        value={last_name}
-      />
+      <p></p>
       <Button onClick={onSignUp}>Continue</Button>
     </Fragment>
   )
