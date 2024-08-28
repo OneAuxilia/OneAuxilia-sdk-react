@@ -12,10 +12,13 @@ export default function TopFormLogin({ isSignIn }) {
         </div>
       )}
       <div className={styles.ox_text_header}>
-        {" "}
         {isSignIn ? "Sign in" : "Sign up"} to {application_name}
       </div>
-      <div className={styles.ox_text_header_sub}>Welcome back! Please sign in to continue</div>
+      <div className={styles.ox_text_header_sub}>
+        {isSignIn
+          ? "Welcome back! Please sign in to continue"
+          : "Welcome! Please fill in the details to get started"}
+      </div>
     </div>
   )
 }
