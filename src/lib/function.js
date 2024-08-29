@@ -50,10 +50,10 @@ export function convertDataSignOut() {
 
 export function convertDataFirstLogin({ user }) {
   let initFirstSignIn = {
-    username: user.username,
-    appName: "App test",
-    ...user
+    email: user.email,
+    second_factor_type: user.second_factor_type
   }
+  // const
   Cookies.set("firstSignIn", JSON.stringify(initFirstSignIn))
   return initFirstSignIn
 }

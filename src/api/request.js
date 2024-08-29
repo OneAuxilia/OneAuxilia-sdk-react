@@ -1,6 +1,7 @@
 import axios from "axios"
 import { getJWT, getPublishableKey } from "../lib/cookie"
 
+const isLocal = window.location.origin === "http://localhost:3000"
 export default function getInstanceAxios(baseAPI) {
   const instance = axios.create({
     withCredentials: true,
@@ -12,11 +13,14 @@ export default function getInstanceAxios(baseAPI) {
       try {
         config.headers = {
           Accept: "application/json",
-          "Content-Type": "application/json",
-          "Tenant-Header": getPublishableKey()
+          "Content-Type": "application/json"
         }
+
         if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
-        if (window.location.origin === "http://localhost:3000") config.headers.mode = "development"
+        if (isLocal) {
+          config.headers.mode = "development"
+          config.headers["Tenant-Header"] = getPublishableKey()
+        }
         // const access_token = getToken()
         // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
         return config
