@@ -4,6 +4,7 @@ import FirstSignIn from "./FirstSignIn"
 import FactorOne from "./FactorOne"
 import FactorTwo from "./FactorTwo"
 import VerifySocial from "./VerifySocial"
+import ResetPassword from "./ResetPassword"
 import { LayoutSignIn } from "../ui"
 
 function initStep() {
@@ -41,6 +42,7 @@ export default function SignIn({ children }) {
               {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
               {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
               {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
+              {step === 5 && <ResetPassword onChangeStep={onChangeStep} />}
             </LayoutSignIn>
           )}
         </Fragment>

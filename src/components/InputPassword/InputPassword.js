@@ -2,12 +2,19 @@ import React, { useState } from "react"
 import styles from "./styles.module.css"
 import { Input } from "../ui"
 
-export default function InputPassword({ onChange, value, label = "Password" }) {
+export default function InputPassword({
+  onChange,
+  value,
+  label = "Password",
+  isReset,
+  onChangeStep
+}) {
   const [show, setShow] = useState(false)
   return (
     <div className={styles.ox_input_fields_password}>
       <div className={styles.ox_label_input_password}>
         <div>{label}</div>
+        <div onClick={() => onChangeStep(4)}>{isReset && "Forgot password?"}</div>
       </div>
       <div className={styles.ox_wapper_input}>
         <Input value={value} type={show ? "text" : "password"} onChange={onChange} />

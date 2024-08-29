@@ -4,13 +4,8 @@ import { apiCore } from "../../api"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { strategieCode } from "../../lib/const"
-import { getEmailSettingSignUp } from "../../lib/function"
+import { getEmailSettingSignUp, getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
-
-function getOtpByParams() {
-  var url = new URL(window.location.href)
-  return url.searchParams.get("otp_code")
-}
 
 function getStrategy(emailSetting) {
   if (!emailSetting) return "Null"
@@ -23,7 +18,7 @@ export default function VerifyEmail({ children }) {
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
 
   const strategy = getStrategy(emailSetting)
-  var otp_code = getOtpByParams()
+  var [otp_code, email] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -34,7 +29,7 @@ export default function VerifyEmail({ children }) {
       setLoading(true)
       const body = {
         strategy: strategy,
-        email_or_phone: firstSignIn.email,
+        email_or_phone: email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptSignUp(body)

@@ -11,7 +11,7 @@ function getCodeByParams() {
   return url.searchParams.get("code")
 }
 
-export default function LoginSocial({ onNext }) {
+export default function LoginSocial({ onNext, isReset }) {
   const { social_connections } = useStore()
 
   async function onLogin(key, token) {
@@ -55,7 +55,7 @@ export default function LoginSocial({ onNext }) {
           </div>
           <div className={styles.ox_box_line}>
             <div className={styles.ox_line}></div>
-            <div className={styles.ox_or}>or</div>
+            <div className={styles.ox_or}>{isReset ? "Or, sign in with another method" : "or"}</div>
             <div className={styles.ox_line}></div>
           </div>
         </Fragment>

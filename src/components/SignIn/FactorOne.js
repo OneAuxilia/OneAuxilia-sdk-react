@@ -4,18 +4,13 @@ import { apiCore } from "../../api"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { stepStatus, strategieCode } from "../../lib/const"
-import { getAuthStrategies } from "../../lib/function"
+import { getAuthStrategies, getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
-
-function getOtpByParams() {
-  var url = new URL(window.location.href)
-  return url.searchParams.get("otp_code")
-}
 
 export default function FactorOne({ children, onChangeStep }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-  var otp_code = getOtpByParams()
+  var [otp_code, email] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -26,7 +21,7 @@ export default function FactorOne({ children, onChangeStep }) {
       setLoading(true)
       const body = {
         strategy: strategies[0],
-        email_or_phone: firstSignIn.email,
+        email_or_phone: email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptFirstfactor3(body)

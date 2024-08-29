@@ -62,9 +62,13 @@ export default function FirstSignIn({ children, onChangeStep }) {
       {error && <div className={global.ox_error}>{error}</div>}
       <InputPhoneMail onChange={onChangeName} value={name} />
       {strategies[0] === strategieCode.PASSWORD && (
-        <InputPassword onChange={onChangePassword} value={password} />
+        <InputPassword
+          onChangeStep={onChangeStep}
+          // isReset={true}
+          onChange={onChangePassword}
+          value={password}
+        />
       )}
-
       <Button onClick={onOk} loading={loading}>
         Continue
       </Button>

@@ -89,3 +89,8 @@ export function settingTheme({ color }) {
     console.log(error)
   }
 }
+
+export function getOtpByParams() {
+  var url = new URL(window.location.href)
+  return [url.searchParams.get("otp_code"), url.searchParams.get("email")]
+}

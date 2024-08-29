@@ -43,7 +43,7 @@
 .footer_signin {
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
-.link {
+.ox_link {
   cursor: pointer;
   color: var(--color-primary-700);
 }
