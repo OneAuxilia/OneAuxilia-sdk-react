@@ -45,8 +45,8 @@ export default function FirstSignUp({ onChangeStep }) {
         routerPush("/sign-in")
       } else {
         if (emailSetting.is_need_verify_at_sign_up) {
-          onChangeStep(2)
           setFirstLogin({ user: data })
+          onChangeStep(2)
         }
       }
     } catch (error) {
