@@ -58,18 +58,19 @@ export default function FirstSignIn({ children, onChangeStep }) {
   return (
     <Fragment>
       <TopFormLogin isSignIn={true} />
-      <SocialLogin onNext={onNext} />
+      <SocialLogin onNext={onNext} isShowOrText={true} />
       {error && <div className={global.ox_error}>{error}</div>}
       <InputPhoneMail onChange={onChangeName} value={name} />
       {strategies[0] === strategieCode.PASSWORD && (
         <InputPassword
           onChangeStep={onChangeStep}
-          // isReset={true}
+          isReset={true}
           onChange={onChangePassword}
           value={password}
         />
       )}
-      <Button onClick={onOk} loading={loading}>
+      <div className="ox_mb_8"></div>
+      <Button onClick={onOk} type="primary" loading={loading} isIconNext={true}>
         Continue
       </Button>
     </Fragment>

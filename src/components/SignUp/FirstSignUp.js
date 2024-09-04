@@ -59,7 +59,7 @@ export default function FirstSignUp({ onChangeStep }) {
   return (
     <Fragment>
       <TopFormLogin isSignIn={false} />
-      <SocialLogin onNext={onNext} />
+      <SocialLogin onNext={onNext} isShowOrText={true} />
       <div className={styles.ox_fullname}>
         <InputName
           onChange={(e) => onChangeValues("first_name", e)}
@@ -79,8 +79,8 @@ export default function FirstSignUp({ onChangeStep }) {
         onChange={(e) => onChangeValues("password_confirm", e)}
         value={password_confirm}
       />
-      <p></p>
-      <Button onClick={onSignUp} loading={loading}>
+      <div className="ox_mb_8"></div>
+      <Button onClick={onSignUp} loading={loading} type="primary">
         Continue
       </Button>
     </Fragment>

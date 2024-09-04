@@ -1,18 +1,16 @@
 .ox_button {
-  margin-top: 2rem;
   padding: 0.375rem 0.75rem;
   border-width: 0px;
   outline: 0px;
   user-select: none;
   cursor: pointer;
-  background-color: var(--color-primary-700);
-  color: white;
-  border-radius: 0.375rem;
+  border-radius: var(--border-400);
   position: relative;
   isolation: isolate;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid var(--color-border-400);
   transition-property: background-color, background, border-color, color, fill, stroke, opacity,
     box-shadow, transform;
   transition-duration: 100ms;
@@ -22,22 +20,35 @@
   font-size: 0.8125rem;
   line-height: 1.38462;
   width: 100%;
-  box-shadow:
-    rgba(255, 255, 255, 0.07) 0px 1px 1px 0px inset,
-    rgba(34, 42, 53, 0.2) 0px 2px 3px 0px,
-    rgba(0, 0, 0, 0.24) 0px 1px 1px 0px;
-  border-style: solid;
   display: flex;
   gap: 6px;
 }
-.ox_button:active {
+.ox_primary {
+  background-color: var(--color-primary-700);
+  color: white;
+}
+.ox_default {
+  color: var(--color-dark-500);
+  background-color: white;
+}
+.ox_primary:active {
   background-color: var(--color-primary-600);
 }
-.ox_button:hover {
+.ox_primary:hover {
   background-color: var(--color-primary-600);
 }
-.ox_button:disabled {
+.ox_primary:disabled {
   background-color: var(--color-primary-600);
+}
+.ox_default:active {
+  background-color: #f5f5f5;
+}
+.ox_default:hover {
+  background-color: #f5f5f5;
+}
+.ox_default:disabled {
+  cursor: not-allowed;
+  background-color: #f5f5f5;
 }
 .spinner {
   animation-name: spin;

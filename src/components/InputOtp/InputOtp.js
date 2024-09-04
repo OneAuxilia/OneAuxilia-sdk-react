@@ -84,7 +84,11 @@ export default function InputOtp({
         renderSeparator={<div className={styles.otp_space}></div>}
         renderInput={(props) => <input {...props} />}
       />
-      {error && <div className={global.ox_error}>{error}</div>}
+      {error && (
+        <div className={global.ox_error} style={{ textAlign: "center" }}>
+          {error}
+        </div>
+      )}
 
       {step === 2 && (
         <div className={styles.ox_box_link}>

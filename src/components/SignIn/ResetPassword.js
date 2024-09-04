@@ -1,43 +1,22 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useRef, useState } from "react"
 import useStore from "../Context"
-import { apiCore } from "../../api"
-import InputOtp from "../InputOtp"
-import { authCodeMultiFactor, stepStatus } from "../../lib/const"
-import { getAuthMultiFactor } from "../../lib/function"
+import { stepStatus, strategieCode } from "../../lib/const"
+import { getAuthStrategies, getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
 import SocialLogin from "../SocialLogin"
+import styles from "./resetpass.module.css"
+import BoxLine from "../BoxLine/BoxLine"
+import InputPhoneMail from "../InputPhoneMail"
+import FormResetPassword from "./FormResetPassword"
+import FactorOneResetPassword from "./FactorOneResetPassword"
 
 export default function ResetPassword({ onChangeStep }) {
-  const { setLogin, setLoaded, firstSignIn, user_general_setting, setFirstLogin } = useStore()
-  const auMultiFactors = getAuthMultiFactor(user_general_setting.multi_factors.methods)
-  const [otp, setOtp] = useState()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-
-  async function onOk() {
-    try {
-      setLoaded(false)
-      setLoading(true)
-      const body = {
-        strategy: firstSignIn.second_factor_type,
-        email_or_phone: firstSignIn.email,
-        code: otp
-      }
-      const { data } = await apiCore.attemptSecondfactor5(body)
-      if (data?.user?.status === stepStatus.COMPLETED) {
-        setLogin(data)
-      }
-    } catch (error) {
-      setError("Incorrect code")
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  function onChangeOtp(value) {
-    setOtp(value)
-  }
+  var [otp_code, email] = getOtpByParams()
+  const { setLogin, user_general_setting, setFirstLogin, mail } = useStore()
+  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
+  const [stepReset, setStepReset] = useState(1)
+  const [name, setName] = useState(email || "")
+  const __initStrategie = useRef()
 
   function onNext(data) {
     if (data?.user?.status === stepStatus.COMPLETED) {
@@ -49,39 +28,70 @@ export default function ResetPassword({ onChangeStep }) {
     if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)
   }
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const dataBody = {
-          strategy: firstSignIn.second_factor_type,
-          email_or_phone: firstSignIn.email
-        }
-        await apiCore.prepareSecondfactor4(dataBody)
-      } catch (error) {
-        console.log({ error })
-      }
-    }
+  function onChangeStepReset(stepIndex, strategie) {
+    __initStrategie.current = strategie
+    setStepReset(stepIndex)
+  }
 
-    if (
-      firstSignIn.second_factor_type &&
-      firstSignIn.second_factor_type !== authCodeMultiFactor.AUTH_CODE
-    )
-      fetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auMultiFactors])
+  function onChangeName(e) {
+    setName(e.target.value)
+  }
+
+  function onBack() {
+    onChangeStep(1)
+  }
 
   return (
     <Fragment>
-      <div>Forgot Password?</div>
-      <Button onClick={onOk} loading={loading}>
-        Reset your password
-      </Button>
-      <SocialLogin onNext={onNext} isReset={true} />
-      <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
-      <Button onClick={onOk} loading={loading}>
-        Continue
-      </Button>
-      <button>Back</button>
+      {stepReset === 1 && (
+        <Fragment>
+          <div className={styles.ox_fogot}>Forgot Password?</div>
+          <InputPhoneMail onChange={onChangeName} value={name} />
+          <div className={styles.ox_mb_4}>
+            <Button disabled={!name} onClick={() => onChangeStepReset(2, false)} type="primary">
+              Reset your password
+            </Button>
+          </div>
+          <BoxLine text="Or, sign in with another method" />
+          <SocialLogin onNext={onNext} isReset={true} />
+
+          {strategies.find((i) => i === strategieCode.EMAIL_LINK) && (
+            <div className="ox_mb_2">
+              <Button
+                disabled={!name}
+                onClick={() => onChangeStepReset(2, strategieCode.EMAIL_LINK)}
+              >
+                Email link {mail}
+              </Button>
+            </div>
+          )}
+          {strategies.find((i) => i === strategieCode.EMAIL_CODE) && (
+            <div className={styles.ox_mb_4}>
+              <Button
+                disabled={!name}
+                onClick={() => onChangeStepReset(2, strategieCode.EMAIL_CODE)}
+              >
+                Email code to {mail}
+              </Button>
+            </div>
+          )}
+
+          <div className="ox_mb_4"></div>
+          <div className={`${styles.ox_back} ox_link`} onClick={onBack}>
+            Back
+          </div>
+        </Fragment>
+      )}
+      {stepReset === 2 && (
+        <FactorOneResetPassword
+          initStrategie={__initStrategie.current}
+          onChangeStep={onChangeStep}
+          onChangeStepReset={() => onChangeStepReset(3)}
+          isResetForm={!__initStrategie.current}
+        />
+      )}
+      {stepReset === 3 && <FormResetPassword onChangeStep={onChangeStep} />}
     </Fragment>
   )
 }
+//thang1681991@gmail.com

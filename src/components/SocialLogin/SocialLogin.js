@@ -5,13 +5,14 @@ import { apiCore } from "../../api"
 import GoogleLoginBox from "./GoogleLoginBox"
 import FacebookLoginBox from "./FacebookLoginBox"
 import styles from "./styles.module.css"
+import BoxLine from "../BoxLine/BoxLine"
 
 function getCodeByParams() {
   var url = new URL(window.location.href)
   return url.searchParams.get("code")
 }
 
-export default function LoginSocial({ onNext, isReset }) {
+export default function LoginSocial({ onNext, isShowOrText }) {
   const { social_connections } = useStore()
 
   async function onLogin(key, token) {
@@ -53,11 +54,7 @@ export default function LoginSocial({ onNext, isReset }) {
               )
             })}
           </div>
-          <div className={styles.ox_box_line}>
-            <div className={styles.ox_line}></div>
-            <div className={styles.ox_or}>{isReset ? "Or, sign in with another method" : "or"}</div>
-            <div className={styles.ox_line}></div>
-          </div>
+          {isShowOrText && <BoxLine text="or" />}
         </Fragment>
       )}
     </Fragment>

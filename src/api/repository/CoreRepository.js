@@ -78,7 +78,10 @@ function update(id, data) {
   return Client.put(`${resource}/${id}/`, data)
 }
 function changePassword(id, data) {
-  return Client.put(`${resource}/${id}/change-password/`, data)
+  return Client.put(`${resource}/${id}/change_password/`, data)
+}
+function resetchangePassword(data) {
+  return Client.put(`${resource}/members/reset_password/`, data)
 }
 function remove(id) {
   return Client.delete(`${resource}/${id}/`)
@@ -111,6 +114,7 @@ const api = {
   validAuthProfile,
   recoveryCode,
   changePassword,
+  resetchangePassword,
   remove
 }
 export default api

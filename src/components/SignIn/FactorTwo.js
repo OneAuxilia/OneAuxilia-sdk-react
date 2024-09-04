@@ -62,7 +62,8 @@ export default function FactorTwo({ children }) {
   return (
     <Fragment>
       <InputOtp onChange={onChangeOtp} value={otp} step={3} error={error} />
-      <Button onClick={onOk} loading={loading}>
+      <div className="ox_mb_8"></div>
+      <Button type="primary" onClick={onOk} loading={loading}>
         Continue
       </Button>
     </Fragment>

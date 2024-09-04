@@ -4,33 +4,40 @@ import { apiCore } from "../../api"
 import InputOtp from "../InputOtp"
 import EmailLink from "../EmailLink"
 import { stepStatus, strategieCode } from "../../lib/const"
-import { getAuthStrategies, getOtpByParams } from "../../lib/function"
+import { getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
 
-export default function FactorOne({ children, onChangeStep }) {
-  const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
-  const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-  const strategie = strategies[0]
+export default function FactorOneResetPassword({
+  onChangeStep,
+  initStrategie,
+  isResetForm,
+  onChangeStepReset
+}) {
+  const { setLoaded, firstSignIn, user_general_setting, setLogin } = useStore()
   var [otp_code, email] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const strategie = initStrategie ? initStrategie : strategieCode.EMAIL_CODE
 
   async function onOk() {
     try {
       setLoaded(false)
       setLoading(true)
       const body = {
-        strategy: otp_code ? strategieCode.EMAIL_LINK : strategie,
-        email_or_phone: email,
+        strategy: strategie,
+        email_or_phone: email || firstSignIn.email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
-
-      if (data?.user?.status === stepStatus.COMPLETED) {
-        setLogin(data)
+      if (isResetForm) {
+        onChangeStepReset()
       } else {
-        onChangeStep(3)
+        if (data?.user?.status === stepStatus.COMPLETED) {
+          setLogin(data)
+        } else {
+          onChangeStep(3)
+        }
       }
     } catch (error) {
       console.log(error)
@@ -51,8 +58,8 @@ export default function FactorOne({ children, onChangeStep }) {
         email_or_phone: firstSignIn.email
       }
       if (strategie === strategieCode.EMAIL_LINK) {
-        dataBody.redirect_url = window.location.href
-        dataBody.url = window.location.href
+        dataBody.redirect_url = window.location.origin + "/sign-in/factor-one"
+        dataBody.url = window.location.origin + "/sign-in/factor-one"
       }
       await apiCore.prepareFirstfactor2(dataBody)
     } catch (error) {
@@ -63,18 +70,16 @@ export default function FactorOne({ children, onChangeStep }) {
   function onBack() {
     onChangeStep(1)
   }
-
   useEffect(() => {
-    if (strategies.length > 0) {
-      if (otp_code) {
-        onOk(otp_code)
-      } else {
-        fetch()
-      }
+    if (otp_code) {
+      onOk(otp_code)
+    } else {
+      fetch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_general_setting])
 
+  console.log("isResetForm", isResetForm)
   return (
     <Fragment>
       {strategie === strategieCode.EMAIL_LINK ? (

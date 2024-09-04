@@ -9,6 +9,7 @@ import { LayoutSignIn } from "../ui"
 
 function initStep() {
   const path = window.location.pathname
+  if (path.includes("reset-password")) return 5
   if (path.includes("verify")) return 4
   if (path.includes("factor-two")) return 3
   if (path.includes("factor-one")) return 2
@@ -25,6 +26,7 @@ export default function SignIn({ children }) {
     if (v === 2) routerReplace("/sign-in/factor-one")
     if (v === 3) routerReplace("/sign-in/factor-two")
     if (v === 4) routerReplace("/sign-in/verify")
+    if (v === 5) routerReplace("/sign-in/reset-password")
   }
 
   useEffect(() => {

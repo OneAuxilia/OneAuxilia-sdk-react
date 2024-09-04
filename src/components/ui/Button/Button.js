@@ -1,7 +1,7 @@
-import React from "react"
+import React, { Fragment } from "react"
 import btn from "./styles.module.css"
 
-export default function Button({ children, loading, ...rest }) {
+export default function Button({ children, type, loading, isIconNext, disabled, ...rest }) {
   const icLoading = (
     <svg
       className={btn.spinner}
@@ -17,22 +17,27 @@ export default function Button({ children, loading, ...rest }) {
       />
     </svg>
   )
+  const clPrimary = type === "primary" ? btn.ox_primary : btn.ox_default
   return (
-    <button className={btn.ox_button} {...rest} disabled={loading}>
+    <button className={`${btn.ox_button} ${clPrimary}`} {...rest} disabled={loading || disabled}>
       {children}
       {loading ? (
         icLoading
       ) : (
-        <svg width="0.625rem" height="0.625rem">
-          <path
-            fill="currentColor"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.5"
-            d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
-          ></path>
-        </svg>
+        <Fragment>
+          {isIconNext && (
+            <svg width="0.625rem" height="0.625rem">
+              <path
+                fill="currentColor"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+              ></path>
+            </svg>
+          )}
+        </Fragment>
       )}
     </button>
   )

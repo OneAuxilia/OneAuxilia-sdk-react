@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import styles from "./styles.module.css"
+import global from "../../global.module.css"
+
 import { Input } from "../ui"
 
 export default function InputPassword({
@@ -7,17 +9,21 @@ export default function InputPassword({
   value,
   label = "Password",
   isReset,
-  onChangeStep
+  onChangeStep,
+  error
 }) {
   const [show, setShow] = useState(false)
   return (
     <div className={styles.ox_input_fields_password}>
       <div className={styles.ox_label_input_password}>
         <div>{label}</div>
-        <div onClick={() => onChangeStep(4)}>{isReset && "Forgot password?"}</div>
+        <div onClick={() => onChangeStep(5)}>
+          {isReset && <div className="ox_link">Forgot password?</div>}
+        </div>
       </div>
       <div className={styles.ox_wapper_input}>
         <Input value={value} type={show ? "text" : "password"} onChange={onChange} />
+        {error && <div className={global.ox_error}>{error}</div>}
         {value && (
           <div onClick={() => setShow((c) => !c)} className={styles.ox_btn_show}>
             <svg

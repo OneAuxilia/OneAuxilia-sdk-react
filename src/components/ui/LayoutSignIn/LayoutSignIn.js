@@ -13,7 +13,7 @@ export default function LayoutSignIn({ children, step, isSignIn, ...rest }) {
             <div className={styles.footer_signin}>
               <div>Already have an account?</div>
               <div
-                className={styles.ox_link}
+                className="ox_link"
                 onClick={() => routerPush(isSignIn ? "/sign-up" : "/sign-in")}
               >
                 {isSignIn ? "Sign up" : "Sign in"}
