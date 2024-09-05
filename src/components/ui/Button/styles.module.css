@@ -38,6 +38,7 @@
   background-color: var(--color-primary-600);
 }
 .ox_primary:disabled {
+  cursor: not-allowed;
   background-color: var(--color-primary-600);
 }
 .ox_default:active {
