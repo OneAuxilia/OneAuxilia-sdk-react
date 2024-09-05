@@ -11,7 +11,8 @@ export default function FactorOneResetPassword({
   onChangeStep,
   initStrategie,
   isResetForm,
-  onChangeStepReset
+  onChangeStepReset,
+  initEmail
 }) {
   const { firstSignIn, user_general_setting, setLogin } = useStore()
   var [otp_code, email] = getOtpByParams()
@@ -25,7 +26,7 @@ export default function FactorOneResetPassword({
       setLoading(true)
       const body = {
         strategy: strategie,
-        email_or_phone: email || firstSignIn.email,
+        email_or_phone: email || initEmail,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
@@ -54,7 +55,7 @@ export default function FactorOneResetPassword({
     try {
       const dataBody = {
         strategy: strategie,
-        email_or_phone: firstSignIn.email
+        email_or_phone: initEmail
       }
       if (strategie === strategieCode.EMAIL_LINK) {
         dataBody.redirect_url = window.location.origin + "/sign-in/factor-one"

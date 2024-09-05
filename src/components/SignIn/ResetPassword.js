@@ -11,11 +11,10 @@ import FormResetPassword from "./FormResetPassword"
 import FactorOneResetPassword from "./FactorOneResetPassword"
 
 export default function ResetPassword({ onChangeStep }) {
-  var [otp_code, email] = getOtpByParams()
-  const { setLogin, user_general_setting, setFirstLogin, mail } = useStore()
+  const { setLogin, user_general_setting, setFirstLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [stepReset, setStepReset] = useState(1)
-  const [name, setName] = useState(email || "")
+  const [name, setName] = useState()
   const __initStrategie = useRef()
 
   function onNext(data) {
@@ -61,7 +60,7 @@ export default function ResetPassword({ onChangeStep }) {
                 disabled={!name}
                 onClick={() => onChangeStepReset(2, strategieCode.EMAIL_LINK)}
               >
-                Email link {mail}
+                Email link {name}
               </Button>
             </div>
           )}
@@ -71,7 +70,7 @@ export default function ResetPassword({ onChangeStep }) {
                 disabled={!name}
                 onClick={() => onChangeStepReset(2, strategieCode.EMAIL_CODE)}
               >
-                Email code to {mail}
+                Email code to {name}
               </Button>
             </div>
           )}
@@ -84,6 +83,7 @@ export default function ResetPassword({ onChangeStep }) {
       )}
       {stepReset === 2 && (
         <FactorOneResetPassword
+          initEmail={name}
           initStrategie={__initStrategie.current}
           onChangeStep={onChangeStep}
           onChangeStepReset={() => onChangeStepReset(3)}
