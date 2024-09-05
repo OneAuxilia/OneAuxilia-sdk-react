@@ -1,12 +1,10 @@
 import React, { Fragment, useState } from "react"
 import { apiCore } from "../../api"
-import useStore from "../Context"
 import InputPassword from "../InputPassword"
 import { Button } from "../ui"
 import styles from "./resetpass.module.css"
 
 export default function FormResetPassword({ onChangeStep }) {
-  const { setLoaded } = useStore()
   const [values, setValues] = useState({
     new_password: "",
     new_password_confirm: ""
@@ -38,7 +36,6 @@ export default function FormResetPassword({ onChangeStep }) {
     //   return
     // }
     try {
-      setLoaded(false)
       setLoading(true)
       await apiCore.resetchangePassword(values)
       onChangeStep(1)

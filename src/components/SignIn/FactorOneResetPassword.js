@@ -13,7 +13,7 @@ export default function FactorOneResetPassword({
   isResetForm,
   onChangeStepReset
 }) {
-  const { setLoaded, firstSignIn, user_general_setting, setLogin } = useStore()
+  const { firstSignIn, user_general_setting, setLogin } = useStore()
   var [otp_code, email] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
@@ -22,7 +22,6 @@ export default function FactorOneResetPassword({
 
   async function onOk() {
     try {
-      setLoaded(false)
       setLoading(true)
       const body = {
         strategy: strategie,

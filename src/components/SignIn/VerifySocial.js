@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from "react"
-import { socialCode, stepStatus } from "../../lib/const"
+import { stepStatus } from "../../lib/const"
 import { apiCore } from "../../api"
 import useStore from "../Context"
 
-function getCodeByParams() {
+function getParams() {
   var url = new URL(window.location.href)
-  return url.searchParams.get("code")
+  return [url.searchParams.get("code"), url.searchParams.get("provider_name")]
 }
 
 export default function VerifySocial({ onChangeStep }) {
@@ -21,11 +21,11 @@ export default function VerifySocial({ onChangeStep }) {
     if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)
   }
 
-  async function onLogin(key, token) {
+  async function onLogin(key, code) {
     try {
       const { data } = await apiCore.signInSocial({
         provider_name: key,
-        provider_access_token: token
+        provider_access_token: code
       })
       onNext(data)
     } catch (error) {
@@ -34,9 +34,10 @@ export default function VerifySocial({ onChangeStep }) {
   }
 
   useEffect(() => {
-    const code = getCodeByParams()
-    const provider_name = getCodeByParams()
-    if (code) onLogin(socialCode.GOOGLE, provider_name)
+    const [code, provider_name] = getParams()
+    console.log("code", code)
+
+    if (code) onLogin(provider_name, code)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

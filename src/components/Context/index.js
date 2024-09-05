@@ -1,7 +1,7 @@
 import React, { useReducer, useMemo, createContext, useContext, useEffect } from "react"
 import Cookies from "js-cookie"
 import KEY from "./Const"
-import { getFirstSignIn, getSignedIn } from "../../lib/cookie"
+import { getFirstSignIn, getJWT, getSignedIn } from "../../lib/cookie"
 import { apiCore } from "../../api"
 import {
   convertDataFirstLogin,
@@ -120,7 +120,6 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         console.log(error)
       }
     }
-    getDev()
 
     async function getConfig() {
       try {
@@ -130,7 +129,12 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
         console.log(error)
       }
     }
-    // getConfig()
+
+    if (getJWT()) {
+      getConfig()
+    } else {
+      getDev()
+    }
   }, [])
 
   const value = useMemo(

@@ -12,7 +12,7 @@ import styles from "./styles.module.css"
 import SocialLogin from "../SocialLogin"
 
 export default function FirstSignUp({ onChangeStep }) {
-  const { user_general_setting, setLoaded, setFirstLogin, routerPush, setLogin } = useStore()
+  const { user_general_setting, setFirstLogin, routerPush, setLogin } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
   const [values, setValues] = useState({
     email: "",
@@ -38,7 +38,6 @@ export default function FirstSignUp({ onChangeStep }) {
 
   async function onSignUp() {
     try {
-      setLoaded(false)
       setLoading(true)
       const { data } = await apiCore.signUp(values)
       if (data?.status === stepStatus.COMPLETED) {

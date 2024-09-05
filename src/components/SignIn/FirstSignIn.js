@@ -47,10 +47,10 @@ export default function FirstSignIn({ children, onChangeStep }) {
       const { data } = await apiCore.signIn(bodydata)
       //next step
       onNext(data)
-      setLoaded(true)
     } catch (error) {
       setError(error?.error)
     } finally {
+      setLoaded(true)
       setLoading(false)
     }
   }
@@ -59,7 +59,11 @@ export default function FirstSignIn({ children, onChangeStep }) {
     <Fragment>
       <TopFormLogin isSignIn={true} />
       <SocialLogin onNext={onNext} isShowOrText={true} />
-      {error && <div className={global.ox_error}>{error}</div>}
+      {error && (
+        <div className={global.ox_error} style={{ textAlign: "center" }}>
+          {error}
+        </div>
+      )}
       <InputPhoneMail onChange={onChangeName} value={name} />
       {strategies[0] === strategieCode.PASSWORD && (
         <InputPassword

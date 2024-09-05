@@ -1,13 +1,13 @@
-import React from "react"
-import { domainProxy } from "../../lib/const"
+import React, { Fragment } from "react"
+import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function GoogleLoginBox({ isFullName }) {
+export default function GoogleLoginBox({ view }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
     url.search = new URLSearchParams({
-      provider_name: "auth_google",
+      provider_name: socialCode.GOOGLE,
       callback_url
     })
     window.location.href = url.href
@@ -15,12 +15,14 @@ export default function GoogleLoginBox({ isFullName }) {
 
   return (
     <button className={styles.ox_social_login} onClick={onClick}>
-      {icGoogle} {isFullName ? "Continue with Google" : "Google"}
+      {view === "icon" && icon}
+      {view === "full" && <Fragment>{icon} Continue with Google</Fragment>}
+      {view === "base" && <Fragment>{icon} Google</Fragment>}
     </button>
   )
 }
 
-const icGoogle = (
+const icon = (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="16" viewBox="0 0 600 600" width="16">
     <path
       d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"

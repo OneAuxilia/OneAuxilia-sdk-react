@@ -1,13 +1,13 @@
-import React from "react"
-import { domainProxy } from "../../lib/const"
+import React, { Fragment } from "react"
+import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function FacebookLoginBox({ onLogin, isFullName }) {
+export default function FacebookLoginBox({ onLogin, view }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
     url.search = new URLSearchParams({
-      provider_name: "auth_facebook",
+      provider_name: socialCode.FACEBOOK,
       callback_url
     })
     console.log("url", url)
@@ -17,12 +17,14 @@ export default function FacebookLoginBox({ onLogin, isFullName }) {
 
   return (
     <button className={styles.ox_social_login} onClick={onClick}>
-      {ic} {isFullName ? "Continue with Facebook" : "Facebook"}
+      {view === "icon" && icon}
+      {view === "full" && <Fragment>{icon} Continue with Facebook</Fragment>}
+      {view === "base" && <Fragment>{icon} Facebook</Fragment>}
     </button>
   )
 }
 
-const ic = (
+const icon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     x="0px"

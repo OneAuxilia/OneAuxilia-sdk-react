@@ -6,12 +6,18 @@ import GoogleLoginBox from "./GoogleLoginBox"
 import FacebookLoginBox from "./FacebookLoginBox"
 import styles from "./styles.module.css"
 import BoxLine from "../BoxLine/BoxLine"
+import GithubLoginBox from "./GithubLoginBox"
 
 function getCodeByParams() {
   var url = new URL(window.location.href)
   return url.searchParams.get("code")
 }
 
+function getView(listSocial) {
+  if (listSocial.length < 2) return "full"
+  if (listSocial.length === 2) return "base"
+  return "icon"
+}
 export default function LoginSocial({ onNext, isShowOrText }) {
   const { social_connections } = useStore()
 
@@ -35,7 +41,8 @@ export default function LoginSocial({ onNext, isShowOrText }) {
 
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 
-  const isFullName = listSocial?.length < 2
+  const view = getView(listSocial)
+
   return (
     <Fragment>
       {listSocial.length > 0 && (
@@ -45,10 +52,13 @@ export default function LoginSocial({ onNext, isShowOrText }) {
               return (
                 <Fragment key={key}>
                   {auth_provider === socialCode.FACEBOOK && (
-                    <FacebookLoginBox onLogin={onLogin} isFullName={isFullName} />
+                    <FacebookLoginBox onLogin={onLogin} view={view} />
                   )}
                   {auth_provider === socialCode.GOOGLE && (
-                    <GoogleLoginBox onLogin={onLogin} isFullName={isFullName} />
+                    <GoogleLoginBox onLogin={onLogin} view={view} />
+                  )}
+                  {auth_provider === socialCode.GITHUB && (
+                    <GithubLoginBox onLogin={onLogin} view={view} />
                   )}
                 </Fragment>
               )

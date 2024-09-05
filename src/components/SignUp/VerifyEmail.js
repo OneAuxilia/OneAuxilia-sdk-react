@@ -39,6 +39,7 @@ export default function VerifyEmail({ children }) {
       setError("Incorrect code")
     } finally {
       setLoading(false)
+      setLoaded(true)
     }
   }
 
