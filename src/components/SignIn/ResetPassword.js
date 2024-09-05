@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from "react"
 import useStore from "../Context"
 import { stepStatus, strategieCode } from "../../lib/const"
-import { getAuthStrategies, getOtpByParams } from "../../lib/function"
+import { getAuthStrategies } from "../../lib/function"
 import { Button } from "../ui"
 import SocialLogin from "../SocialLogin"
 import styles from "./resetpass.module.css"

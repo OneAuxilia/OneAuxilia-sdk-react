@@ -21,11 +21,11 @@ export default function VerifySocial({ onChangeStep }) {
     if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)
   }
 
-  async function onLogin(key, code) {
+  async function onLogin(provider_name, provider_code) {
     try {
       const { data } = await apiCore.signInSocial({
-        provider_name: key,
-        provider_access_token: code
+        provider_name,
+        provider_code
       })
       onNext(data)
     } catch (error) {
