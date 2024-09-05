@@ -3,7 +3,7 @@ import styles from "./styles.module.css"
 import { expireTime } from "../../lib/const"
 import useStore from "../Context"
 
-export default function EmailLink({ step, strategie, onResend }) {
+export default function EmailLink({ step, strategie, onResend, onBack }) {
   const { firstSignIn } = useStore()
   const [count, setCount] = useState(expireTime)
   const __time = useRef()
@@ -45,7 +45,9 @@ export default function EmailLink({ step, strategie, onResend }) {
           </button>
         </div>
       </div>
-      <button className={styles.ox_btn_link}>Use another method</button>
+      <div className="ox_link" onClick={onBack} style={{ textAlign: "center" }}>
+        Use another method
+      </div>
     </div>
   )
 }

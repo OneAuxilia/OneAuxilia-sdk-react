@@ -13,7 +13,7 @@ function getStrategy(emailSetting) {
   return strategieCode.EMAIL_LINK
 }
 
-export default function VerifyEmail({ children }) {
+export default function VerifyEmail({ children, onChangeStep }) {
   const { setLogin, setLoaded, firstSignIn, user_general_setting } = useStore()
   const emailSetting = getEmailSettingSignUp(user_general_setting?.contact)
 
@@ -46,7 +46,9 @@ export default function VerifyEmail({ children }) {
   function onChangeOtp(value) {
     setOtp(value)
   }
-
+  function onBack() {
+    onChangeStep(1)
+  }
   async function fetch() {
     try {
       const dataBody = {
@@ -77,7 +79,7 @@ export default function VerifyEmail({ children }) {
   return (
     <Fragment>
       {emailSetting.is_verification_link ? (
-        <EmailLink onResend={fetch} />
+        <EmailLink onResend={fetch} onBack={onBack} />
       ) : (
         <Fragment>
           <InputOtp

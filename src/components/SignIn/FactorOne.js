@@ -78,7 +78,7 @@ export default function FactorOne({ children, onChangeStep }) {
   return (
     <Fragment>
       {strategie === strategieCode.EMAIL_LINK ? (
-        <EmailLink onResend={fetch} />
+        <EmailLink onResend={fetch} onBack={onBack} />
       ) : (
         <Fragment>
           <InputOtp

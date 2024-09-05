@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react"
+import React, { Fragment, useState } from "react"
 import useStore from "../Context"
 import { stepStatus, strategieCode } from "../../lib/const"
 import { getAuthStrategies } from "../../lib/function"
@@ -9,26 +9,26 @@ import BoxLine from "../BoxLine/BoxLine"
 import InputPhoneMail from "../InputPhoneMail"
 import FormResetPassword from "./FormResetPassword"
 import FactorOneResetPassword from "./FactorOneResetPassword"
+//thang1681991@gmail.com
 
 export default function ResetPassword({ onChangeStep }) {
   const { setLogin, user_general_setting, setFirstLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [stepReset, setStepReset] = useState(1)
   const [name, setName] = useState()
-  const __initStrategie = useRef()
 
   function onNext(data) {
     if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
     } else {
-      setFirstLogin(data)
+      setFirstLogin(data?.user)
     }
     if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
     if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)
   }
 
-  function onChangeStepReset(stepIndex, strategie) {
-    __initStrategie.current = strategie
+  function onChange(stepIndex, strategie) {
+    setFirstLogin({ second_factor_type: strategie, email: name })
     setStepReset(stepIndex)
   }
 
@@ -47,7 +47,11 @@ export default function ResetPassword({ onChangeStep }) {
           <div className={styles.ox_fogot}>Forgot Password?</div>
           <InputPhoneMail onChange={onChangeName} value={name} />
           <div className={styles.ox_mb_4}>
-            <Button disabled={!name} onClick={() => onChangeStepReset(2, false)} type="primary">
+            <Button
+              disabled={!name}
+              onClick={() => onChange(4, strategieCode.EMAIL_CODE)}
+              type="primary"
+            >
               Reset your password
             </Button>
           </div>
@@ -56,20 +60,14 @@ export default function ResetPassword({ onChangeStep }) {
 
           {strategies.find((i) => i === strategieCode.EMAIL_LINK) && (
             <div className="ox_mb_2">
-              <Button
-                disabled={!name}
-                onClick={() => onChangeStepReset(2, strategieCode.EMAIL_LINK)}
-              >
+              <Button disabled={!name} onClick={() => onChange(2, strategieCode.EMAIL_LINK)}>
                 Email link {name}
               </Button>
             </div>
           )}
           {strategies.find((i) => i === strategieCode.EMAIL_CODE) && (
             <div className={styles.ox_mb_4}>
-              <Button
-                disabled={!name}
-                onClick={() => onChangeStepReset(2, strategieCode.EMAIL_CODE)}
-              >
+              <Button disabled={!name} onClick={() => onChange(2, strategieCode.EMAIL_CODE)}>
                 Email code to {name}
               </Button>
             </div>
@@ -81,13 +79,12 @@ export default function ResetPassword({ onChangeStep }) {
           </div>
         </Fragment>
       )}
-      {stepReset === 2 && (
+      {(stepReset === 2 || stepReset === 4) && (
         <FactorOneResetPassword
           initEmail={name}
-          initStrategie={__initStrategie.current}
           onChangeStep={onChangeStep}
-          onChangeStepReset={() => onChangeStepReset(3)}
-          isResetForm={!__initStrategie.current}
+          onChangeStepReset={() => setStepReset(3)}
+          isResetForm={stepReset === 4}
         />
       )}
       {stepReset === 3 && <FormResetPassword onChangeStep={onChangeStep} />}

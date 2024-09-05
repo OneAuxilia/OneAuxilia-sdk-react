@@ -15,7 +15,7 @@ export default function VerifySocial({ onChangeStep }) {
     if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
     } else {
-      setFirstLogin(data)
+      setFirstLogin(data?.user)
     }
     if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
     if (data?.user?.status === stepStatus.SECOND_FACTOR) onChangeStep(3)

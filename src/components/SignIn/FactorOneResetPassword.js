@@ -7,26 +7,19 @@ import { stepStatus, strategieCode } from "../../lib/const"
 import { getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
 
-export default function FactorOneResetPassword({
-  onChangeStep,
-  initStrategie,
-  isResetForm,
-  onChangeStepReset,
-  initEmail
-}) {
-  const { firstSignIn, user_general_setting, setLogin } = useStore()
-  var [otp_code, email] = getOtpByParams()
+export default function FactorOneResetPassword({ onChangeStep, isResetForm, onChangeStepReset }) {
+  const { firstSignIn, setLogin } = useStore()
+  var [otp_code, emailCode] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const strategie = initStrategie ? initStrategie : strategieCode.EMAIL_CODE
 
   async function onOk() {
     try {
       setLoading(true)
       const body = {
-        strategy: strategie,
-        email_or_phone: email || initEmail,
+        strategy: firstSignIn.second_factor_type,
+        email_or_phone: emailCode || firstSignIn.email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
@@ -54,10 +47,10 @@ export default function FactorOneResetPassword({
   async function fetch() {
     try {
       const dataBody = {
-        strategy: strategie,
-        email_or_phone: initEmail
+        strategy: firstSignIn.second_factor_type,
+        email_or_phone: firstSignIn.email
       }
-      if (strategie === strategieCode.EMAIL_LINK) {
+      if (firstSignIn.second_factor_type === strategieCode.EMAIL_LINK) {
         dataBody.redirect_url = window.location.origin + "/sign-in/factor-one"
         dataBody.url = window.location.origin + "/sign-in/factor-one"
       }
@@ -77,13 +70,13 @@ export default function FactorOneResetPassword({
       fetch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_general_setting])
+  }, [firstSignIn])
 
   console.log("isResetForm", isResetForm)
   return (
     <Fragment>
-      {strategie === strategieCode.EMAIL_LINK ? (
-        <EmailLink onResend={fetch} />
+      {firstSignIn.second_factor_type === strategieCode.EMAIL_LINK ? (
+        <EmailLink onResend={fetch} onBack={onBack} />
       ) : (
         <Fragment>
           <InputOtp
@@ -92,7 +85,7 @@ export default function FactorOneResetPassword({
             error={error}
             onResend={fetch}
             step={2}
-            strategie={strategie}
+            strategie={firstSignIn.second_factor_type}
             firstSignIn={firstSignIn}
           />
           <div className="ox_mb_8"></div>

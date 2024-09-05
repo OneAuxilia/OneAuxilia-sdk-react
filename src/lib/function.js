@@ -48,12 +48,11 @@ export function convertDataSignOut() {
   }
 }
 
-export function convertDataFirstLogin({ user }) {
+export function convertDataFirstLogin(data) {
   let initFirstSignIn = {
-    email: user.email,
-    second_factor_type: user?.second_factor_type
+    email: data.email,
+    second_factor_type: data?.second_factor_type
   }
-  // const
   Cookies.set("firstSignIn", JSON.stringify(initFirstSignIn))
   return initFirstSignIn
 }

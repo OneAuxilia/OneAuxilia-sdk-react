@@ -30,7 +30,7 @@ export default function SignUp() {
       {configLoaded && (
         <LayoutSignIn step={step} isSignIn={false}>
           {step === 1 && <FirstSignUp onChangeStep={onChangeStep} />}
-          {step === 2 && <VerifyEmail />}
+          {step === 2 && <VerifyEmail onChangeStep={onChangeStep} />}
         </LayoutSignIn>
       )}
     </div>

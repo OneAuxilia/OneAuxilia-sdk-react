@@ -31,7 +31,7 @@ export default function FirstSignUp({ onChangeStep }) {
     if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
     } else {
-      setFirstLogin(data)
+      setFirstLogin(data.user)
     }
     if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
   }
@@ -44,7 +44,7 @@ export default function FirstSignUp({ onChangeStep }) {
         routerPush("/sign-in")
       } else {
         if (emailSetting.is_need_verify_at_sign_up) {
-          setFirstLogin({ user: data })
+          setFirstLogin(data)
           onChangeStep(2)
         }
       }
