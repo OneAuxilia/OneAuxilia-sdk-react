@@ -7,6 +7,7 @@ import FacebookLoginBox from "./FacebookLoginBox"
 import styles from "./styles.module.css"
 import BoxLine from "../BoxLine/BoxLine"
 import GithubLoginBox from "./GithubLoginBox"
+import MicrosoftLoginBox from "./MicrosoftLoginBox"
 
 function getCodeByParams() {
   var url = new URL(window.location.href)
@@ -42,6 +43,7 @@ export default function LoginSocial({ onNext, isShowOrText }) {
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 
   const view = getView(listSocial)
+  console.log({ listSocial })
 
   return (
     <Fragment>
@@ -59,6 +61,9 @@ export default function LoginSocial({ onNext, isShowOrText }) {
                   )}
                   {auth_provider === socialCode.GITHUB && (
                     <GithubLoginBox onLogin={onLogin} view={view} />
+                  )}
+                  {auth_provider === socialCode.MICROSOFT && (
+                    <MicrosoftLoginBox onLogin={onLogin} view={view} />
                   )}
                 </Fragment>
               )

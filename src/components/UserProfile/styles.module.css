@@ -103,6 +103,7 @@
 }
 .ox_box_action {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
@@ -187,4 +188,9 @@
 }
 @keyframes spin {
   transform: rotate(1turn);
+}
+.ox_name_second_factor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

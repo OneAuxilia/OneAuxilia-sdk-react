@@ -20,7 +20,8 @@ export const socialCode = {
   GOOGLE: "google",
   FACEBOOK: "facebook",
   LINKEDIN: "linkedin",
-  GITHUB: "github"
+  GITHUB: "github",
+  MICROSOFT: "microsoft"
 }
 
 export const authCodeMultiFactor = {

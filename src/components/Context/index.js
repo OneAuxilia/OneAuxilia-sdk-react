@@ -73,7 +73,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     return dispatch({ type: KEY.SET_AUTH, value })
   }
   const setConfig = (value) => {
-    settingTheme(value.branding_customization)
+    if (value?.branding_customization) settingTheme(value.branding_customization)
     return dispatch({ type: KEY.SET_CONFIG, value })
   }
   const onSignOut = () => {

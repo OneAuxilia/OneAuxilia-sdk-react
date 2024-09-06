@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
 import { apiCore } from "../../api"
-
 import QRCode from "react-qr-code"
 import InputOtp from "../InputOtp"
 import { authCodeMultiFactor } from "../../lib/const"
@@ -170,7 +169,7 @@ export default function Security({ isSignIn, step }) {
               </div>
             ) : (
               <div className={styles.ox_box_action}>
-                <div>
+                <div className={styles.ox_name_second_factor}>
                   {icKey} Authenticator application [{second_factor_verification?.strategy}]
                 </div>
                 <div>
