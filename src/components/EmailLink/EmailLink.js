@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react"
-import styles from "./styles.module.css"
 import { expireTime } from "../../lib/const"
 import useStore from "../Context"
+import styles from "./styles.module.css"
+import global from "../../global.module.css"
 
-export default function EmailLink({ step, strategie, onResend, onBack }) {
+export default function EmailLink({ onResend, onBack }) {
   const { firstSignIn } = useStore()
   const [count, setCount] = useState(expireTime)
   const __time = useRef()
@@ -31,8 +32,8 @@ export default function EmailLink({ step, strategie, onResend, onBack }) {
 
   const __class =
     count < 1
-      ? `${styles.ox_btn_resend_disable} ${styles.ox_btn_resend}`
-      : styles.ox_btn_resend_disable
+      ? `${global.ox_btn_resend_disable} ${global.ox_btn_resend}`
+      : global.ox_btn_resend_disable
   return (
     <div className="">
       <div className={styles.ox_box_header}>

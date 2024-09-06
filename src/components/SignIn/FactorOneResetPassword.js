@@ -7,7 +7,7 @@ import { stepStatus, strategieCode } from "../../lib/const"
 import { getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
 
-export default function FactorOneResetPassword({ onChangeStep, isResetForm, onChangeStepReset }) {
+export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBack }) {
   const { firstSignIn, setLogin } = useStore()
   var [otp_code, emailCode] = getOtpByParams()
   const [otp, setOtp] = useState()
@@ -60,9 +60,6 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onCh
     }
   }
 
-  function onBack() {
-    onChangeStep(1)
-  }
   useEffect(() => {
     if (otp_code) {
       onOk(otp_code)

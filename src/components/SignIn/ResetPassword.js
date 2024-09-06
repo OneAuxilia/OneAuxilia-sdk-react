@@ -89,6 +89,7 @@ export default function ResetPassword({ onChangeStep }) {
         <FactorOneResetPassword
           initEmail={name}
           onChangeStep={onChangeStep}
+          onBack={() => setStepReset(1)}
           // onChangeStepReset={() => setStepReset(3)}
           isResetForm={stepReset === 4}
         />

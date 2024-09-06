@@ -21,7 +21,7 @@
   margin-bottom: 1em;
 }
 .ox_user_profile_left_sub {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .ox_user_profile_left_action {
   margin-top: 2rem;
@@ -37,7 +37,7 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   animation: all 1s ease-in-out;
   border-radius: var(--border-400);
@@ -79,7 +79,7 @@
   margin-bottom: 1rem;
 }
 .ox_row_add {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .ox_row_end {
   padding: 1rem;

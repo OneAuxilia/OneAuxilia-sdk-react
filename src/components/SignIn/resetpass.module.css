@@ -12,14 +12,15 @@
   font-size: 0.8125rem;
 }
 .ox_errors {
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 .ox_item_error {
   display: flex;
   gap: 8px;
-  margin-top: 0.25rem;
+  /* height: 20px; */
+  margin-bottom: 0.25rem;
 }
 .ox_ic_check {
   color: #09ad09;

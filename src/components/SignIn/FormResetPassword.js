@@ -66,13 +66,13 @@ export default function FormResetPassword({ onChangeStep }) {
     if (password_max_length) {
       newError.push({
         er: erMs.password_max_length,
-        check: new_password.length > password_max_length ? false : true
+        check: !new_password || new_password.length > password_max_length ? false : true
       })
     }
     if (password_min_length) {
       newError.push({
         er: erMs.password_min_length,
-        check: new_password.length < password_min_length ? false : true
+        check: !new_password || new_password.length < password_min_length ? false : true
       })
     }
     if (allow_special_character) {
