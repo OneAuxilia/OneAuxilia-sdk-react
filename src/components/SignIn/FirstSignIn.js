@@ -7,8 +7,8 @@ import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
 import { getAuthStrategies, validateEmail } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
-import global from "../../global.module.css"
 import { Button } from "../ui"
+import ErrorBox from "../ErrorBox"
 
 function getParams() {
   var url = new URL(window.location.href)
@@ -24,10 +24,11 @@ export default function FirstSignIn({ children, onChangeStep }) {
   const [password, setPassWord] = useState("")
   const [error, setError] = useState("")
   const [errorEmail, setErrorEmail] = useState("")
+  const [errorPassword, setErrorPassword] = useState("")
 
   function onChangeName(e) {
     const { value } = e.target
-    if (validateEmail(value)) {
+    if (!value || validateEmail(value)) {
       setErrorEmail("")
     } else {
       setErrorEmail("Invalid email")
@@ -51,6 +52,13 @@ export default function FirstSignIn({ children, onChangeStep }) {
 
   async function onOk() {
     try {
+      let newErrorEmail = "",
+        newErrorPass = ""
+      if (!name) newErrorEmail = "Please input your email address"
+      if (!password) newErrorPass = "Please input your password"
+      setErrorEmail(newErrorEmail)
+      setErrorPassword(newErrorPass)
+      if (newErrorEmail || newErrorPass) return
       setLoading(true)
       const bodydata = { username: name }
       setLoaded(false)
@@ -66,6 +74,10 @@ export default function FirstSignIn({ children, onChangeStep }) {
       setLoading(false)
     }
   }
+  useEffect(() => {
+    if (error) setError("")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [password, name])
 
   useEffect(() => {
     const provider_name = getParams()
@@ -76,17 +88,14 @@ export default function FirstSignIn({ children, onChangeStep }) {
     <Fragment>
       <TopFormLogin isSignIn={true} />
       <SocialLogin onNext={onNext} isShowOrText={true} />
-      {error && (
-        <div className={global.ox_error} style={{ textAlign: "center" }}>
-          {error}
-        </div>
-      )}
+      <ErrorBox error={error} />
       <InputPhoneMail onChange={onChangeName} value={name} error={errorEmail} />
       {strategies[0] === strategieCode.PASSWORD && (
         <InputPassword
           onChangeStep={onChangeStep}
           isReset={true}
           onChange={onChangePassword}
+          error={errorPassword}
           value={password}
         />
       )}

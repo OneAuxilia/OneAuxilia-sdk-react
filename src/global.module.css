@@ -29,6 +29,7 @@
   margin-bottom: 1rem;
 }
 .ox_btn_resend_disable {
+  font-size: 0.8125rem;
   border: none;
   outline: none;
   width: 100%;

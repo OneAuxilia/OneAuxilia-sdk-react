@@ -8,8 +8,9 @@ import TopFormLogin from "../TopFormLogin"
 import { getEmailSettingSignUp } from "../../lib/function"
 import { stepStatus } from "../../lib/const"
 import { Button } from "../ui"
-import styles from "./styles.module.css"
 import SocialLogin from "../SocialLogin"
+import styles from "./styles.module.css"
+import ErrorBox from "../ErrorBox"
 
 export default function FirstSignUp({ onChangeStep }) {
   const { user_general_setting, setFirstLogin, routerPush, setLogin } = useStore()
@@ -21,6 +22,15 @@ export default function FirstSignUp({ onChangeStep }) {
     password: "",
     password_confirm: ""
   })
+  const [errorValues, setErrorValues] = useState({
+    email: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    password_confirm: ""
+  })
+
+  const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
   function onChangeValues(key, e) {
@@ -38,6 +48,31 @@ export default function FirstSignUp({ onChangeStep }) {
 
   async function onSignUp() {
     try {
+      let newError = {
+        email: "",
+        first_name: "",
+        last_name: "",
+        password: "",
+        password_confirm: ""
+      }
+      if (!values.email) newError.email = "Require email address"
+      if (!values.first_name) newError.first_name = "Require first name"
+      if (!values.last_name) newError.last_name = "Require last name"
+      if (!values.password) newError.password = "Require password"
+      if (!values.password_confirm) newError.password_confirm = "Require confirm password"
+      if (values.password_confirm && values.password_confirm !== values.password)
+        newError.password_confirm = "Require password match confirm password"
+      setErrorValues(newError)
+      if (
+        newError.email ||
+        newError.first_name ||
+        newError.last_name ||
+        newError.password ||
+        newError.password_confirm
+      ) {
+        return
+      }
+
       setLoading(true)
       const { data } = await apiCore.signUp(values)
       if (data?.status === stepStatus.COMPLETED) {
@@ -50,6 +85,7 @@ export default function FirstSignUp({ onChangeStep }) {
       }
     } catch (error) {
       console.log(error)
+      setError(error?.error)
     } finally {
       setLoading(false)
     }
@@ -63,22 +99,35 @@ export default function FirstSignUp({ onChangeStep }) {
         <InputName
           onChange={(e) => onChangeValues("first_name", e)}
           label="First name"
+          error={errorValues.first_name}
           value={first_name}
         />
         <InputName
           onChange={(e) => onChangeValues("last_name", e)}
           label="Last name"
+          error={errorValues.last_name}
           value={last_name}
         />
       </div>
-      <InputPhoneMail onChange={(e) => onChangeValues("email", e)} value={email} />
-      <InputPassword onChange={(e) => onChangeValues("password", e)} value={password} />
+      <InputPhoneMail
+        onChange={(e) => onChangeValues("email", e)}
+        value={email}
+        error={errorValues.email}
+      />
+      <InputPassword
+        onChange={(e) => onChangeValues("password", e)}
+        value={password}
+        error={errorValues.password}
+      />
       <InputPassword
         label="Confirm password"
         onChange={(e) => onChangeValues("password_confirm", e)}
         value={password_confirm}
+        error={errorValues.password_confirm}
       />
+      <ErrorBox error={error} />
       <div className="ox_mb_8"></div>
+
       <Button onClick={onSignUp} loading={loading} type="primary">
         Continue
       </Button>
