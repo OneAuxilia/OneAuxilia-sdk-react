@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getJWT, getPublishableKey } from "../lib/cookie"
+import { getJWT, getPublishableKey, removeJWT } from "../lib/cookie"
 
 const isLocal = window.location.origin === "http://localhost:3000"
 export default function getInstanceAxios(baseAPI) {
@@ -43,6 +43,10 @@ export default function getInstanceAxios(baseAPI) {
       }
     },
     function (error) {
+      if (error.response.status === 401) {
+        removeJWT()
+        window.location.reload()
+      }
       return Promise.reject(error?.response?.data)
     }
   )

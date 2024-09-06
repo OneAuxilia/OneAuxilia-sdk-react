@@ -6,6 +6,9 @@ export function getPublishableKey() {
 export function getJWT() {
   return Cookies.get("OneAuxilia-DB-JWT")
 }
+export function removeJWT() {
+  return Cookies.remove("OneAuxilia-DB-JWT")
+}
 export function setToken(accessToken) {
   return Cookies.set("accessToken", accessToken)
 }
