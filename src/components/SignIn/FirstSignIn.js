@@ -18,7 +18,7 @@ function getParams() {
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
-
+  const isPassword = strategies[0] === strategieCode.PASSWORD
   const [name, setName] = useState("")
   const [loading, setLoading] = useState(false)
   const [password, setPassWord] = useState("")
@@ -55,9 +55,9 @@ export default function FirstSignIn({ children, onChangeStep }) {
       let newErrorEmail = "",
         newErrorPass = ""
       if (!name) newErrorEmail = "Please input your email address"
-      if (!password) newErrorPass = "Please input your password"
+      if (isPassword && !password) newErrorPass = "Please input your password"
       setErrorEmail(newErrorEmail)
-      setErrorPassword(newErrorPass)
+      if (isPassword) setErrorPassword(newErrorPass)
       if (newErrorEmail || newErrorPass) return
       setLoading(true)
       const bodydata = { username: name }

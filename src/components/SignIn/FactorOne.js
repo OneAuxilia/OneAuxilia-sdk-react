@@ -22,7 +22,7 @@ export default function FactorOne({ children, onChangeStep }) {
       setLoading(true)
       const body = {
         strategy: otp_code ? strategieCode.EMAIL_LINK : strategie,
-        email_or_phone: email,
+        email_or_phone: email || firstSignIn.email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
