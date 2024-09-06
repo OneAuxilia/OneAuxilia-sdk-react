@@ -4,7 +4,20 @@ import InputPassword from "../InputPassword"
 import { Button } from "../ui"
 import styles from "./resetpass.module.css"
 import useStore from "../Context"
+import { capitalizeTxt } from "../../lib/function"
 
+function hasNumber(str) {
+  return /\d/.test(str)
+}
+function hasLowercase(str) {
+  return /(?=.*[a-z])/.test(str)
+}
+function hasUppercase(str) {
+  return /(?=.*[A-Z])/.test(str)
+}
+function hasSpecial(str) {
+  return /[!@#$%^&*(),.?":{}|<>]/.test(str)
+}
 export default function FormResetPassword({ onChangeStep }) {
   const { user_general_setting } = useStore()
   const [values, setValues] = useState({
@@ -17,19 +30,6 @@ export default function FormResetPassword({ onChangeStep }) {
 
   function onChangeValues(key, e) {
     setValues({ ...values, [key]: e.target.value })
-  }
-
-  function hasNumber(str) {
-    return /\d/.test(str)
-  }
-  function hasLowercase(str) {
-    return /(?=.*[a-z])/.test(str)
-  }
-  function hasUppercase(str) {
-    return /(?=.*[A-Z])/.test(str)
-  }
-  function hasSpecial(str) {
-    return /[!@#$%^&*(),.?":{}|<>]/.test(str)
   }
 
   function checkValidate() {
@@ -87,6 +87,7 @@ export default function FormResetPassword({ onChangeStep }) {
     setError(newError)
     if (newError.length > 0) return
   }
+
   async function onOk() {
     if (errors.find((i) => !i.check)) return
     try {
@@ -95,6 +96,13 @@ export default function FormResetPassword({ onChangeStep }) {
       onChangeStep(1)
     } catch (error) {
       console.log(error)
+
+      let newErrors = [...errors]
+      newErrors.push({
+        er: capitalizeTxt(error?.error),
+        check: false
+      })
+      setError(newErrors)
     } finally {
       setLoading(false)
     }

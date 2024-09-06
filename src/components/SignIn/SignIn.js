@@ -6,9 +6,11 @@ import FactorTwo from "./FactorTwo"
 import VerifySocial from "./VerifySocial"
 import ResetPassword from "./ResetPassword"
 import { LayoutSignIn } from "../ui"
+import FormResetPassword from "./FormResetPassword"
 
 function initStep() {
   const path = window.location.pathname
+  if (path.includes("reset-password-confirm")) return 6
   if (path.includes("reset-password")) return 5
   if (path.includes("verify")) return 4
   if (path.includes("factor-two")) return 3
@@ -27,6 +29,7 @@ export default function SignIn({ children }) {
     if (v === 3) routerReplace("/sign-in/factor-two")
     if (v === 4) routerReplace("/sign-in/verify")
     if (v === 5) routerReplace("/sign-in/reset-password")
+    if (v === 6) routerReplace("/sign-in/reset-password-confirm")
   }
 
   useEffect(() => {
@@ -38,13 +41,14 @@ export default function SignIn({ children }) {
     <div>
       {configLoaded && (
         <Fragment>
-          {step === 4 && <VerifySocial onChangeStep={onChangeStep} />}
+          {step === 4 && <VerifySocial onChangeStep={onChangeStep} onBack={() => setStep(1)} />}
           {step !== 4 && (
             <LayoutSignIn step={step} isSignIn={true}>
               {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
               {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
               {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
               {step === 5 && <ResetPassword onChangeStep={onChangeStep} />}
+              {step === 6 && <FormResetPassword onChangeStep={onChangeStep} />}
             </LayoutSignIn>
           )}
         </Fragment>

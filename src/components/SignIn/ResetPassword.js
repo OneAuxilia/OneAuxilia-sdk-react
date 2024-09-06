@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react"
 import useStore from "../Context"
 import { stepStatus, strategieCode } from "../../lib/const"
-import { getAuthStrategies } from "../../lib/function"
+import { getAuthStrategies, validateEmail } from "../../lib/function"
 import { Button } from "../ui"
 import SocialLogin from "../SocialLogin"
 import styles from "./resetpass.module.css"
@@ -16,7 +16,7 @@ export default function ResetPassword({ onChangeStep }) {
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [stepReset, setStepReset] = useState(1)
   const [name, setName] = useState()
-
+  const [error, setError] = useState("")
   function onNext(data) {
     if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
@@ -33,6 +33,12 @@ export default function ResetPassword({ onChangeStep }) {
   }
 
   function onChangeName(e) {
+    const { value } = e.target
+    if (validateEmail(value)) {
+      setError("")
+    } else {
+      setError("Email is valid")
+    }
     setName(e.target.value)
   }
 
@@ -45,17 +51,17 @@ export default function ResetPassword({ onChangeStep }) {
       {stepReset === 1 && (
         <Fragment>
           <div className={styles.ox_fogot}>Forgot Password?</div>
-          <InputPhoneMail onChange={onChangeName} value={name} />
+          <InputPhoneMail onChange={onChangeName} value={name} error={error} />
           <div className={styles.ox_mb_4}>
             <Button
-              disabled={!name}
+              disabled={error}
               onClick={() => onChange(4, strategieCode.EMAIL_CODE)}
               type="primary"
             >
               Reset your password
             </Button>
           </div>
-          <BoxLine text="Or, sign in with another method" />
+          <BoxLine text="Or sign in with another method" />
           <SocialLogin onNext={onNext} isReset={true} />
 
           {strategies.find((i) => i === strategieCode.EMAIL_LINK) && (
@@ -83,7 +89,7 @@ export default function ResetPassword({ onChangeStep }) {
         <FactorOneResetPassword
           initEmail={name}
           onChangeStep={onChangeStep}
-          onChangeStepReset={() => setStepReset(3)}
+          // onChangeStepReset={() => setStepReset(3)}
           isResetForm={stepReset === 4}
         />
       )}

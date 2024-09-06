@@ -24,7 +24,7 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onCh
       }
       const { data } = await apiCore.attemptFirstfactor3(body)
       if (isResetForm) {
-        onChangeStepReset()
+        onChangeStep(6)
       } else {
         if (data?.user?.status === stepStatus.COMPLETED) {
           setLogin(data)

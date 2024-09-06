@@ -93,3 +93,15 @@ export function getOtpByParams() {
   var url = new URL(window.location.href)
   return [url.searchParams.get("otp_code"), url.searchParams.get("email")]
 }
+
+export const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )
+}
+export function capitalizeTxt(txt) {
+  if (!txt) return ""
+  return txt.charAt(0).toUpperCase() + txt.slice(1) //or if you want lowercase the rest txt.slice(1).toLowerCase();
+}

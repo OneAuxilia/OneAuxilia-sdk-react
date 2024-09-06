@@ -8,8 +8,8 @@ function getParams() {
   return [url.searchParams.get("code"), url.searchParams.get("provider_name")]
 }
 
-export default function VerifySocial({ onChangeStep }) {
-  const { setFirstLogin, setLogin } = useStore()
+export default function VerifySocial({ onChangeStep, onBack }) {
+  const { setFirstLogin, setLogin, routerReplace } = useStore()
 
   function onNext(data) {
     if (data?.user?.status === stepStatus.COMPLETED) {
@@ -37,7 +37,12 @@ export default function VerifySocial({ onChangeStep }) {
     const [code, provider_name] = getParams()
     console.log("code", code)
 
-    if (code) onLogin(provider_name, code)
+    if (code && code !== "null") {
+      onLogin(provider_name, code)
+    } else {
+      routerReplace(`/sign-in?provider_name=${provider_name}`)
+      onBack()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

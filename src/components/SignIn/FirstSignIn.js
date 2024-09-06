@@ -1,14 +1,19 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import InputPhoneMail from "../InputPhoneMail"
 import InputPassword from "../InputPassword"
 import TopFormLogin from "../TopFormLogin"
 import { strategieCode, stepStatus } from "../../lib/const"
-import { getAuthStrategies } from "../../lib/function"
+import { getAuthStrategies, validateEmail } from "../../lib/function"
 import SocialLogin from "../SocialLogin"
 import global from "../../global.module.css"
 import { Button } from "../ui"
+
+function getParams() {
+  var url = new URL(window.location.href)
+  return url.searchParams.get("provider_name")
+}
 
 export default function FirstSignIn({ children, onChangeStep }) {
   const { setFirstLogin, setLoaded, user_general_setting, setLogin } = useStore()
@@ -18,10 +23,18 @@ export default function FirstSignIn({ children, onChangeStep }) {
   const [loading, setLoading] = useState(false)
   const [password, setPassWord] = useState("")
   const [error, setError] = useState("")
+  const [errorEmail, setErrorEmail] = useState("")
 
   function onChangeName(e) {
+    const { value } = e.target
+    if (validateEmail(value)) {
+      setErrorEmail("")
+    } else {
+      setErrorEmail("Invalid email")
+    }
     setName(e.target.value)
   }
+
   function onChangePassword(e) {
     setPassWord(e.target.value)
   }
@@ -45,7 +58,6 @@ export default function FirstSignIn({ children, onChangeStep }) {
         bodydata.password = password
       }
       const { data } = await apiCore.signIn(bodydata)
-      //next step
       onNext(data)
     } catch (error) {
       setError(error?.error)
@@ -54,6 +66,11 @@ export default function FirstSignIn({ children, onChangeStep }) {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const provider_name = getParams()
+    if (provider_name) setError(`You did not grant access to your ${provider_name} account`)
+  }, [])
 
   return (
     <Fragment>
@@ -64,7 +81,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
           {error}
         </div>
       )}
-      <InputPhoneMail onChange={onChangeName} value={name} />
+      <InputPhoneMail onChange={onChangeName} value={name} error={errorEmail} />
       {strategies[0] === strategieCode.PASSWORD && (
         <InputPassword
           onChangeStep={onChangeStep}
