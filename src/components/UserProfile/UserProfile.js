@@ -7,7 +7,6 @@ import Profile from "./Profile"
 //<div className={styles.ox_}>Profile</div>
 export default function UserProfile({ isSignIn, step }) {
   const [tab, setTab] = useState(1)
-  const { routerPush } = useStore()
 
   const cl1 = tab === 1 ? styles.ox_btn_li_active : ""
   const cl2 = tab === 2 ? styles.ox_btn_li_active : ""

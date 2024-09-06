@@ -4,9 +4,10 @@ import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
 import { getSessionId } from "../../lib/cookie"
+import { icLogo } from "../../lib/icons"
 
 export default function UserButton({ list, pathSetting, isModal = false }) {
-  const { onSignOut, fullName, email, routerPush } = useStore()
+  const { onSignOut, fullName, email, routerPush, avatar } = useStore()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
   const [open, setOpen] = useState(false)
 
@@ -45,11 +46,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
   return (
     <div>
       <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
-        <img
-          alt="avatar"
-          className={styles.ox_avatar}
-          src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-        />
+        <img alt="avatar" className={styles.ox_avatar} src={avatar} />
       </div>
       <div ref={ref}>
         {open && (
@@ -63,11 +60,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
               <button className={styles.ox_dropdown_li_user}>
                 <div className={styles.ox_user}>
                   <div>
-                    <img
-                      className={styles.ox_avatar}
-                      alt="avatar"
-                      src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-                    />
+                    <img className={styles.ox_avatar} alt="avatar" src={avatar} />
                   </div>
                   <div className={styles.ox_user_name_email}>
                     <div className={styles.ox_user_name}>{fullName}</div>
@@ -84,7 +77,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
                 Sign out
               </button>
             </div>
-            <div className={styles.ox_dropdown_secured}>Secured by</div>
+            <div className={styles.ox_dropdown_secured}>Secured by {icLogo}</div>
           </div>
         )}
       </div>

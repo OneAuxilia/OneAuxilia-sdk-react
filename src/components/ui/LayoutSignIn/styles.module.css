@@ -30,6 +30,7 @@
 
 .footer_signin,
 .footer_secured {
+  font-size: 0.8125rem;
   display: flex;
   align-items: center;
   justify-content: center;

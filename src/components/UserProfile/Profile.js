@@ -3,7 +3,7 @@ import useStore from "../Context"
 import styles from "./styles.module.css"
 
 export default function Profile({ isSignIn, step }) {
-  const { email } = useStore()
+  const { email, avatar } = useStore()
 
   return (
     <Fragment>
@@ -14,7 +14,7 @@ export default function Profile({ isSignIn, step }) {
         <div className={styles.ox_row_left}>
           <div className={styles.ox_profile}>Profile</div>
           <span className={styles.ox_span_avatar}>
-            <img className={styles.ox_avatar} src={imggg} alt="avatar" />
+            <img className={styles.ox_avatar} src={avatar} alt="avatar" />
           </span>
         </div>
         <div className={styles.ox_row_right}>

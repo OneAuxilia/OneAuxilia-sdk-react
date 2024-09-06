@@ -94,7 +94,6 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }
 
   useEffect(() => {
-    Cookies.set("publishableKey", rest.publishableKey)
     async function getProfile() {
       try {
         const { data } = await apiCore.getProfile()
@@ -111,6 +110,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }, [state.isSignedIn])
 
   useEffect(() => {
+    Cookies.set("publishableKey", rest.publishableKey)
     async function getDev() {
       try {
         const { data } = await apiCore.devBrowser()
@@ -135,6 +135,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
     } else {
       getDev()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const value = useMemo(
@@ -154,7 +155,6 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   )
 
   console.log("______store", value)
-
   return <OneAuxiliaContext.Provider value={value} {...rest} />
 }
 

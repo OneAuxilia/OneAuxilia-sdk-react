@@ -80,10 +80,10 @@ export function settingTheme({ color }) {
   try {
     const colorPrimary700 = color
     const color600 = hexToRgba(colorPrimary700, 0.7)
-    const color400 = hexToRgba(colorPrimary700, 0.4)
+    // const color400 = hexToRgba(colorPrimary700, 0.4)
     document.documentElement.style.setProperty("--color-primary-700", colorPrimary700)
     document.documentElement.style.setProperty("--color-primary-600", color600)
-    document.documentElement.style.setProperty("--color-primary-400", color400)
+    // document.documentElement.style.setProperty("--color-primary-400", color400)
   } catch (error) {
     console.log(error)
   }

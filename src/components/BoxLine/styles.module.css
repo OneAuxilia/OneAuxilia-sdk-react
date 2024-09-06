@@ -4,7 +4,7 @@
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 .ox_line {
   box-sizing: border-box;
@@ -19,5 +19,5 @@
 .ox_or {
   margin: 0px 1rem;
   font-size: 0.875rem;
-  color: #6b6470;
+  color: var(--color-dark-400);
 }
