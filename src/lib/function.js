@@ -105,3 +105,15 @@ export function capitalizeTxt(txt) {
   if (!txt) return ""
   return txt.charAt(0).toUpperCase() + txt.slice(1) //or if you want lowercase the rest txt.slice(1).toLowerCase();
 }
+export function hasNumber(str) {
+  return /\d/.test(str)
+}
+export function hasLowercase(str) {
+  return /(?=.*[a-z])/.test(str)
+}
+export function hasUppercase(str) {
+  return /(?=.*[A-Z])/.test(str)
+}
+export function hasSpecial(str) {
+  return /[!@#$%^&*(),.?":{}|<>]/.test(str)
+}

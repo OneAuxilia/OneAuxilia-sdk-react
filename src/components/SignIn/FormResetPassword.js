@@ -3,21 +3,17 @@ import { apiCore } from "../../api"
 import InputPassword from "../InputPassword"
 import { Button } from "../ui"
 import styles from "./resetpass.module.css"
+import global from "../../global.module.css"
 import useStore from "../Context"
-import { capitalizeTxt } from "../../lib/function"
+import {
+  capitalizeTxt,
+  hasLowercase,
+  hasNumber,
+  hasSpecial,
+  hasUppercase
+} from "../../lib/function"
+import { icCheck, icError } from "../../lib/icons"
 
-function hasNumber(str) {
-  return /\d/.test(str)
-}
-function hasLowercase(str) {
-  return /(?=.*[a-z])/.test(str)
-}
-function hasUppercase(str) {
-  return /(?=.*[A-Z])/.test(str)
-}
-function hasSpecial(str) {
-  return /[!@#$%^&*(),.?":{}|<>]/.test(str)
-}
 export default function FormResetPassword({ onChangeStep }) {
   const { user_general_setting } = useStore()
   const [values, setValues] = useState({
@@ -37,25 +33,25 @@ export default function FormResetPassword({ onChangeStep }) {
     const setting = user_general_setting?.authentication_strategies?.password?.setting || {}
     const {
       allow_special_character,
-      alphabetic_letter_required,
+      uppercase_letter_required,
       lowercase_letter_required,
       numbers_required,
       password_max_length,
       password_min_length
     } = setting
     const erMs = {
-      alphabetic_letter_required: "Require at least 1 uppercase character",
+      uppercase_letter_required: "Require at least 1 uppercase character",
       lowercase_letter_required: "Require at least 1 lowercase character",
       numbers_required: "Require at least 1 number",
+      allow_special_character: `Require at least 1 special characters include: [!@#$%^&*(),.?":{ }|<>]`,
       password_max_length: "Max length " + password_max_length,
       password_min_length: "Min length " + password_min_length,
-      allow_special_character: `Require at least 1 special characters include: [!@#$%^&*(),.?":{ }|<>]`,
       new_password_confirm: "Require confirm password",
       match: `Require password match confirm password`
     }
     const newError = []
-    if (alphabetic_letter_required) {
-      newError.push({ er: erMs.alphabetic_letter_required, check: hasUppercase(new_password) })
+    if (uppercase_letter_required) {
+      newError.push({ er: erMs.uppercase_letter_required, check: hasUppercase(new_password) })
     }
     if (lowercase_letter_required) {
       newError.push({ er: erMs.lowercase_letter_required, check: hasLowercase(new_password) })
@@ -116,6 +112,7 @@ export default function FormResetPassword({ onChangeStep }) {
     checkValidate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values])
+
   const disableBtn = errors.find((i) => !i.check)
   const { new_password, new_password_confirm } = values
   return (
@@ -137,15 +134,15 @@ export default function FormResetPassword({ onChangeStep }) {
       />
 
       {errors?.length > 0 && (
-        <div className={styles.ox_errors}>
+        <div className={global.ox_errors}>
           {errors?.map((item, index) => {
             return (
-              <div className={styles.ox_item_error} key={index}>
+              <div className={global.ox_item_error} key={index}>
                 <Fragment>
                   {item.check ? (
-                    <div className={styles.ox_ic_check}>{icCheck}</div>
+                    <div className={global.ox_ic_check}>{icCheck}</div>
                   ) : (
-                    <div className={styles.ox_ic_error}>{icError}</div>
+                    <div className={global.ox_ic_error}>{icError}</div>
                   )}
                 </Fragment>
 
@@ -167,38 +164,3 @@ export default function FormResetPassword({ onChangeStep }) {
     </Fragment>
   )
 }
-
-const icCheck = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    width={16}
-    height={16}
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-    />
-  </svg>
-)
-const icError = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    width={16}
-    height={16}
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-    />
-  </svg>
-)

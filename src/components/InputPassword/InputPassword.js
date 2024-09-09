@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import styles from "./styles.module.css"
 import global from "../../global.module.css"
-
 import { Input } from "../ui"
 
 export default function InputPassword({
@@ -10,13 +9,16 @@ export default function InputPassword({
   label = "Password",
   isReset,
   onChangeStep,
-  error
+  error,
+  children
 }) {
   const [show, setShow] = useState(false)
   return (
     <div className={styles.ox_input_fields_password}>
       <div className={styles.ox_label_input_password}>
-        <div>{label}</div>
+        <div className={styles.ox_flex_name}>
+          {label} {children}
+        </div>
         <div onClick={() => onChangeStep(5)}>
           {isReset && <div className="ox_link">Forgot password?</div>}
         </div>

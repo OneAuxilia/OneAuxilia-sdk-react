@@ -11,20 +11,3 @@
   text-align: center;
   font-size: 0.8125rem;
 }
-.ox_errors {
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-.ox_item_error {
-  display: flex;
-  gap: 8px;
-  /* height: 20px; */
-  margin-bottom: 0.25rem;
-}
-.ox_ic_check {
-  color: #09ad09;
-}
-.ox_ic_error {
-  color: #ef4444;
-}
