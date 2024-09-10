@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import { apiCore } from "../../api"
 import useStore from "../Context"
 import InputPhoneMail from "../InputPhoneMail"
@@ -40,9 +40,9 @@ export default function FirstSignUp({ onChangeStep }) {
     password_confirm: ""
   })
   const [errors, setErrors] = useState([{ er: "", check: false }])
-
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const isMounter = useRef(true)
 
   function onChangeValues(key, e) {
     setValues({ ...values, [key]: e.target.value })
@@ -56,6 +56,7 @@ export default function FirstSignUp({ onChangeStep }) {
     }
     if (data?.user?.status === stepStatus.FIRST_FACTOR) onChangeStep(2)
   }
+
   function checkValidate() {
     const { password } = values
     const setting = user_general_setting?.authentication_strategies?.password?.setting || {}
@@ -75,59 +76,59 @@ export default function FirstSignUp({ onChangeStep }) {
       password_max_length: "Max length " + password_max_length,
       password_min_length: "Min length " + password_min_length
     }
-    const newError = []
+    const newErrors = []
     if (uppercase_letter_required) {
-      newError.push({ er: erMs.uppercase_letter_required, check: hasUppercase(password) })
+      newErrors.push({ er: erMs.uppercase_letter_required, check: hasUppercase(password) })
     }
     if (lowercase_letter_required) {
-      newError.push({ er: erMs.lowercase_letter_required, check: hasLowercase(password) })
+      newErrors.push({ er: erMs.lowercase_letter_required, check: hasLowercase(password) })
     }
     if (numbers_required) {
-      newError.push({ er: erMs.numbers_required, check: hasNumber(password) })
+      newErrors.push({ er: erMs.numbers_required, check: hasNumber(password) })
     }
     if (password_max_length) {
-      newError.push({
+      newErrors.push({
         er: erMs.password_max_length,
         check: !password || password.length > password_max_length ? false : true
       })
     }
     if (password_min_length) {
-      newError.push({
+      newErrors.push({
         er: erMs.password_min_length,
         check: !password || password.length < password_min_length ? false : true
       })
     }
     if (allow_special_character) {
-      newError.push({ er: erMs.allow_special_character, check: hasSpecial(password) })
+      newErrors.push({ er: erMs.allow_special_character, check: hasSpecial(password) })
     }
+    setErrors(newErrors)
 
-    setErrors(newError)
-    if (newError.length > 0) return
+    let newError = {
+      email: "",
+      first_name: "",
+      last_name: "",
+      password: "",
+      password_confirm: ""
+    }
+    if (!values.email) newError.email = "Require email address"
+    if (!values.first_name) newError.first_name = "Require first name"
+    if (!values.last_name) newError.last_name = "Require last name"
+    if (!values.password) newError.password = "Require password"
+    if (!values.password_confirm) newError.password_confirm = "Require confirm password"
+    if (values.password_confirm && values.password_confirm !== values.password)
+      newError.password_confirm = "Require password match confirm password"
+    if (!isMounter.current) setErrorValues(newError)
   }
 
   async function onSignUp() {
     try {
-      let newError = {
-        email: "",
-        first_name: "",
-        last_name: "",
-        password: "",
-        password_confirm: ""
-      }
-      if (!values.email) newError.email = "Require email address"
-      if (!values.first_name) newError.first_name = "Require first name"
-      if (!values.last_name) newError.last_name = "Require last name"
-      if (!values.password) newError.password = "Require password"
-      if (!values.password_confirm) newError.password_confirm = "Require confirm password"
-      if (values.password_confirm && values.password_confirm !== values.password)
-        newError.password_confirm = "Require password match confirm password"
-      setErrorValues(newError)
+      isMounter.current = false
       if (
-        newError.email ||
-        newError.first_name ||
-        newError.last_name ||
-        newError.password ||
-        newError.password_confirm
+        error.email ||
+        error.first_name ||
+        error.last_name ||
+        error.password ||
+        error.password_confirm
       ) {
         return
       }

@@ -17,7 +17,7 @@ export default function InputPassword({
     <div className={styles.ox_input_fields_password}>
       <div className={styles.ox_label_input_password}>
         <div className={styles.ox_flex_name}>
-          {label} {children}
+          <div>{label}</div> {children}
         </div>
         <div onClick={() => onChangeStep(5)}>
           {isReset && <div className="ox_link">Forgot password?</div>}

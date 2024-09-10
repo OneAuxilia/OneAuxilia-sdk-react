@@ -1,5 +1,6 @@
 .ox_tooltip_container {
   position: relative;
+  height: 18px;
 }
 
 .ox_tool_tip {

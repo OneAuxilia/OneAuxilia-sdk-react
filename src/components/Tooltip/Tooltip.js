@@ -4,7 +4,7 @@ import styles from "./styles.module.css"
 export default function Tooltip({ children }) {
   return (
     <div className={styles.ox_tooltip_container}>
-      <span className={styles.ox_tool_tip_icon}>{icInfo}</span>
+      <div className={styles.ox_tool_tip_icon}>{icInfo}</div>
       <div className={styles.ox_tool_tip}>{children}</div>
     </div>
   )
