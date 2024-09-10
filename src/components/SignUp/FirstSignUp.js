@@ -11,7 +11,8 @@ import {
   hasLowercase,
   hasNumber,
   hasSpecial,
-  hasUppercase
+  hasUppercase,
+  validateEmail
 } from "../../lib/function"
 import { stepStatus } from "../../lib/const"
 import { Button } from "../ui"
@@ -111,6 +112,7 @@ export default function FirstSignUp({ onChangeStep }) {
       password_confirm: ""
     }
     if (!values.email) newError.email = "Require email address"
+    if (!validateEmail(values.email)) newError.email = "Email is valid"
     if (!values.first_name) newError.first_name = "Require first name"
     if (!values.last_name) newError.last_name = "Require last name"
     if (!values.password) newError.password = "Require password"
@@ -131,6 +133,15 @@ export default function FirstSignUp({ onChangeStep }) {
         error.password_confirm
       ) {
         return
+      }
+      if (
+        !values.email ||
+        !values.first_name ||
+        !values.last_name ||
+        !values.password ||
+        !values.password_confirm
+      ) {
+        checkValidate()
       }
 
       if (errors.find((i) => !i.check)) return

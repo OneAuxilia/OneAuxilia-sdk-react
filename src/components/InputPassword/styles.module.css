@@ -29,6 +29,6 @@
 
 .ox_flex_name {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
 }
