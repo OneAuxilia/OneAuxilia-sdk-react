@@ -5,6 +5,7 @@ import useStore from "../Context"
 import { apiCore } from "../../api"
 import { getSessionId } from "../../lib/cookie"
 import { icLogo } from "../../lib/icons"
+import { dfAvatar } from "../../lib/const"
 
 export default function UserButton({ list, pathSetting, isModal = false }) {
   const { onSignOut, fullName, email, routerPush, avatar } = useStore()
@@ -43,10 +44,11 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
       }, 100)
   }, [isComponentVisible])
 
+  const imgAvatar = avatar || dfAvatar
   return (
     <div>
       <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
-        <img alt="avatar" className={styles.ox_avatar} src={avatar} />
+        <img alt="avatar" className={styles.ox_avatar} src={imgAvatar} />
       </div>
       <div ref={ref}>
         {open && (
@@ -60,7 +62,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
               <button className={styles.ox_dropdown_li_user}>
                 <div className={styles.ox_user}>
                   <div>
-                    <img className={styles.ox_avatar} alt="avatar" src={avatar} />
+                    <img className={styles.ox_avatar} alt="avatar" src={imgAvatar} />
                   </div>
                   <div className={styles.ox_user_name_email}>
                     <div className={styles.ox_user_name}>{fullName}</div>

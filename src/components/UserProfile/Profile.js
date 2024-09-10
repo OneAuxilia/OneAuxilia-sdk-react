@@ -1,10 +1,12 @@
 import React, { Fragment } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
+import { dfAvatar } from "../../lib/const"
 
 export default function Profile({ isSignIn, step }) {
   const { email, avatar } = useStore()
 
+  const imgAvatar = avatar || dfAvatar
   return (
     <Fragment>
       <div className={styles.ox_row} style={{ fontSize: 18, fontWeight: 700 }}>
@@ -14,7 +16,7 @@ export default function Profile({ isSignIn, step }) {
         <div className={styles.ox_row_left}>
           <div className={styles.ox_profile}>Profile</div>
           <span className={styles.ox_span_avatar}>
-            <img className={styles.ox_avatar} src={avatar} alt="avatar" />
+            <img className={styles.ox_avatar} src={imgAvatar} alt="avatar" />
           </span>
         </div>
         <div className={styles.ox_row_right}>

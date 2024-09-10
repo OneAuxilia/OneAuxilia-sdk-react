@@ -26,6 +26,7 @@ export function convertDataSignIn({ token, user }) {
     Cookies.set("isSignedIn", false)
     return { isSignedIn: false }
   }
+
   Cookies.set("isSignedIn", true)
   if (token?.session_id) Cookies.set("session_id", token?.session_id)
   return {

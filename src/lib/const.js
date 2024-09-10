@@ -52,3 +52,6 @@ export const emailSettingKey = {
 }
 
 export const domainProxy = "https://auth-social-proxy-dev.oneauxilia.co"
+
+export const dfAvatar =
+  "https://sgp1.vultrobjects.com/oneauxilia-homepage-image/images/a1d23487-bce9-4c81-8b31-36f1ed10073b"
