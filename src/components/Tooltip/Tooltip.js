@@ -16,8 +16,8 @@ const icInfo = (
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    width={18}
-    height={18}
+    width={17}
+    height={17}
   >
     <path
       stroke-linecap="round"

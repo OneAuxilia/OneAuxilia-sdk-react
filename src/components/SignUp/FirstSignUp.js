@@ -112,7 +112,7 @@ export default function FirstSignUp({ onChangeStep }) {
       password_confirm: ""
     }
     if (!values.email) newError.email = "Require email address"
-    if (!validateEmail(values.email)) newError.email = "Email is valid"
+    if (values.email && !validateEmail(values.email)) newError.email = "Email is valid"
     if (!values.first_name) newError.first_name = "Require first name"
     if (!values.last_name) newError.last_name = "Require last name"
     if (!values.password) newError.password = "Require password"
