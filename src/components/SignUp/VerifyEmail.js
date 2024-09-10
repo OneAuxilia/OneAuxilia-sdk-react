@@ -23,13 +23,15 @@ export default function VerifyEmail({ children, onChangeStep }) {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
+  console.log({ strategy })
+
   async function onOk() {
     try {
       setLoaded(false)
       setLoading(true)
       const body = {
         strategy: strategy,
-        email_or_phone: email,
+        email_or_phone: email || firstSignIn.email,
         code: otp_code ? otp_code : otp
       }
       const { data } = await apiCore.attemptSignUp(body)
@@ -90,7 +92,8 @@ export default function VerifyEmail({ children, onChangeStep }) {
             step={"sign-up"}
             firstSignIn={firstSignIn}
           />
-          <Button onClick={onOk} loading={loading}>
+          <div className="ox_mb_6"></div>
+          <Button onClick={onOk} type="primary" disabled={!otp} loading={loading}>
             Continue
           </Button>
         </Fragment>
