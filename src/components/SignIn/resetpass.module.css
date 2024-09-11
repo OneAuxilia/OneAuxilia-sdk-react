@@ -11,3 +11,8 @@
   text-align: center;
   font-size: 0.8125rem;
 }
+
+.ox_email_not_exist {
+  text-align: center;
+  padding: 1rem;
+}

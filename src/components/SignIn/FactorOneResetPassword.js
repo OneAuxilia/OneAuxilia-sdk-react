@@ -6,12 +6,14 @@ import EmailLink from "../EmailLink"
 import { stepStatus, strategieCode } from "../../lib/const"
 import { getOtpByParams } from "../../lib/function"
 import { Button } from "../ui"
+import resetpass from "./resetpass.module.css"
 
 export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBack }) {
   const { firstSignIn, setLogin } = useStore()
   var [otp_code, emailCode] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
+  const [errorEmail, setErrorEmail] = useState("false")
   const [loading, setLoading] = useState(false)
 
   async function onOk() {
@@ -56,6 +58,7 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
       }
       await apiCore.prepareFirstfactor2(dataBody)
     } catch (error) {
+      setErrorEmail(error?.error)
       console.log({ error })
     }
   }
@@ -76,17 +79,27 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
         <EmailLink onResend={fetch} onBack={onBack} />
       ) : (
         <Fragment>
-          <InputOtp
-            onChange={onChangeOtp}
-            value={otp}
-            error={error}
-            onResend={fetch}
-            step={2}
-            strategie={firstSignIn.second_factor_type}
-            firstSignIn={firstSignIn}
-          />
+          {errorEmail ? (
+            <div className={resetpass.ox_email_not_exist}>{errorEmail}</div>
+          ) : (
+            <InputOtp
+              onChange={onChangeOtp}
+              value={otp}
+              error={error}
+              onResend={fetch}
+              step={2}
+              strategie={firstSignIn.second_factor_type}
+              firstSignIn={firstSignIn}
+            />
+          )}
           <div className="ox_mb_8"></div>
-          <Button type="primary" onClick={onOk} loading={loading} isIconNext={true}>
+          <Button
+            type="primary"
+            onClick={onOk}
+            disabled={errorEmail}
+            loading={loading}
+            isIconNext={true}
+          >
             Continue
           </Button>
           <div className="ox_mb_4"></div>
