@@ -142,6 +142,7 @@ export default function FirstSignUp({ onChangeStep }) {
         !values.password_confirm
       ) {
         checkValidate()
+        return
       }
 
       if (errors.find((i) => !i.check)) {
