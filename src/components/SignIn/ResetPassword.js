@@ -17,6 +17,7 @@ export default function ResetPassword({ onChangeStep }) {
   const [stepReset, setStepReset] = useState(1)
   const [name, setName] = useState()
   const [error, setError] = useState("")
+
   function onNext(data) {
     if (data?.user?.status === stepStatus.COMPLETED) {
       setLogin(data)
@@ -28,6 +29,10 @@ export default function ResetPassword({ onChangeStep }) {
   }
 
   function onChange(stepIndex, strategie) {
+    if (!name) {
+      setError("Require email address")
+      return
+    }
     setFirstLogin({ second_factor_type: strategie, email: name })
     setStepReset(stepIndex)
   }

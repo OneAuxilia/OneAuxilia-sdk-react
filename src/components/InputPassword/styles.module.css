@@ -13,18 +13,27 @@
 }
 .ox_btn_show {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--border-400);
+  color: rgba(0, 0, 0, 0.41);
 }
+.ox_btn_show:hover {
+  background-color: rgba(216, 213, 213, 0.6);
+  color: var(--color-primary-600);
+}
+
 .ox_show {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+  /* fill: rgba(0, 0, 0, 0.61); */
 }
 
 .ox_flex_name {

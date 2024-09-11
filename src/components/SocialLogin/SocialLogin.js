@@ -43,7 +43,6 @@ export default function LoginSocial({ onNext, isShowOrText }) {
   const listSocial = social_connections?.providers?.filter((i) => i.is_enable) || []
 
   const view = getView(listSocial)
-  console.log({ listSocial })
 
   return (
     <Fragment>

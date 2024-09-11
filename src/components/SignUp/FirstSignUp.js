@@ -144,7 +144,10 @@ export default function FirstSignUp({ onChangeStep }) {
         checkValidate()
       }
 
-      if (errors.find((i) => !i.check)) return
+      if (errors.find((i) => !i.check)) {
+        checkValidate()
+        return
+      }
       setLoading(true)
       const { data } = await apiCore.signUp(values)
       if (data?.status === stepStatus.COMPLETED) {
@@ -169,6 +172,8 @@ export default function FirstSignUp({ onChangeStep }) {
   }, [values])
 
   const { email, password, password_confirm, first_name, last_name } = values
+  const isErorr = errors.find((i) => !i.check)
+
   return (
     <Fragment>
       <TopFormLogin isSignIn={false} />
@@ -198,7 +203,7 @@ export default function FirstSignUp({ onChangeStep }) {
         error={errorValues.password}
       >
         {errors?.length > 0 && (
-          <Tooltip>
+          <Tooltip isError={isErorr && !isMounter.current}>
             <div className={global.ox_errors}>
               {errors?.map((item, index) => {
                 return (

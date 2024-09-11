@@ -1,10 +1,11 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-export default function Tooltip({ children }) {
+export default function Tooltip({ children, isError }) {
+  const cls = isError ? styles.ox_icon_info_error : ""
   return (
     <div className={styles.ox_tooltip_container}>
-      <div className={styles.ox_tool_tip_icon}>{icInfo}</div>
+      <div className={`${styles.ox_tool_tip_icon} ${cls}`}>{icInfo}</div>
       <div className={styles.ox_tool_tip}>{children}</div>
     </div>
   )
