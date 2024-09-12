@@ -15,7 +15,7 @@ export default function ResetPassword({ onChangeStep }) {
   const { setLogin, user_general_setting, setFirstLogin } = useStore()
   const strategies = getAuthStrategies(user_general_setting.authentication_strategies)
   const [stepReset, setStepReset] = useState(1)
-  const [name, setName] = useState()
+  const [name, setName] = useState("")
   const [error, setError] = useState("")
 
   function onNext(data) {
@@ -42,7 +42,7 @@ export default function ResetPassword({ onChangeStep }) {
     if (validateEmail(value)) {
       setError("")
     } else {
-      setError("Email is valid")
+      setError("Email is invalid")
     }
     setName(e.target.value)
   }
@@ -59,7 +59,8 @@ export default function ResetPassword({ onChangeStep }) {
           <InputPhoneMail onChange={onChangeName} value={name} error={error} />
           <div className={styles.ox_mb_4}>
             <Button
-              disabled={error}
+              disabled={error || !name}
+              isSubmit={true}
               onClick={() => onChange(4, strategieCode.EMAIL_CODE)}
               type="primary"
             >

@@ -26,13 +26,13 @@ export default function InputPassword({
       </div>
       <div className={styles.ox_wapper_input}>
         <Input value={value} type={show ? "text" : "password"} onChange={onChange} />
-        {error && <div className={global.ox_error}>{error}</div>}
         {value && (
           <div onClick={() => setShow((c) => !c)} className={styles.ox_btn_show}>
             {show ? icOpen : icClose}
           </div>
         )}
       </div>
+      {error && <div className={global.ox_error}>{error}</div>}
     </div>
   )
 }

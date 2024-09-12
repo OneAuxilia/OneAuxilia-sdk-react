@@ -153,7 +153,7 @@ export default function FormResetPassword({ onChangeStep }) {
         </div>
       )}
       <div className="ox_mb_8"></div>
-      <Button onClick={onOk} loading={loading} type="primary" disabled={disableBtn}>
+      <Button onClick={onOk} loading={loading} type="primary" disabled={disableBtn} isSubmit={true}>
         Reset Password
       </Button>
 

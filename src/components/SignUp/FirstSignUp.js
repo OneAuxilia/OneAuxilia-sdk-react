@@ -112,7 +112,7 @@ export default function FirstSignUp({ onChangeStep }) {
       password_confirm: ""
     }
     if (!values.email) newError.email = "Require email address"
-    if (values.email && !validateEmail(values.email)) newError.email = "Email is valid"
+    if (values.email && !validateEmail(values.email)) newError.email = "Email is invalid"
     if (!values.first_name) newError.first_name = "Require first name"
     if (!values.last_name) newError.last_name = "Require last name"
     if (!values.password) newError.password = "Require password"
@@ -235,7 +235,7 @@ export default function FirstSignUp({ onChangeStep }) {
 
       <div className="ox_mb_8"></div>
 
-      <Button onClick={onSignUp} loading={loading} type="primary">
+      <Button onClick={onSignUp} loading={loading} type="primary" isSubmit={true}>
         Continue
       </Button>
     </Fragment>

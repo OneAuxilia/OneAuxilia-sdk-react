@@ -93,7 +93,7 @@ export default function VerifyEmail({ children, onChangeStep }) {
             firstSignIn={firstSignIn}
           />
           <div className="ox_mb_6"></div>
-          <Button onClick={onOk} type="primary" disabled={!otp} loading={loading}>
+          <Button onClick={onOk} type="primary" disabled={!otp} loading={loading} isSubmit={true}>
             Continue
           </Button>
         </Fragment>

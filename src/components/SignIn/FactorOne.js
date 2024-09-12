@@ -91,7 +91,7 @@ export default function FactorOne({ children, onChangeStep }) {
             firstSignIn={firstSignIn}
           />
           <div className="ox_mb_8"></div>
-          <Button type="primary" onClick={onOk} loading={loading} isIconNext={true}>
+          <Button type="primary" onClick={onOk} loading={loading} isIconNext={true} isSubmit={true}>
             Continue
           </Button>
           <div className="ox_mb_4"></div>

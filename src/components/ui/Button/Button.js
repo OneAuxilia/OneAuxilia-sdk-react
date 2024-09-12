@@ -1,7 +1,16 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect, useRef } from "react"
 import btn from "./styles.module.css"
 
-export default function Button({ children, type, loading, isIconNext, disabled, ...rest }) {
+export default function Button({
+  children,
+  type,
+  loading,
+  isSubmit,
+  isIconNext,
+  disabled,
+  ...rest
+}) {
+  const el = useRef()
   const icLoading = (
     <svg
       className={btn.spinner}
@@ -17,9 +26,32 @@ export default function Button({ children, type, loading, isIconNext, disabled, 
       />
     </svg>
   )
+
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.keyCode === 13 || event.code === "NumpadEnter") {
+        if (!el.current?.disabled && isSubmit) {
+          el.current?.click()
+        }
+        event.preventDefault()
+      }
+    }
+    document.addEventListener("keydown", listener)
+    return () => {
+      document.removeEventListener("keydown", listener)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const clPrimary = type === "primary" ? btn.ox_primary : btn.ox_default
   return (
-    <button className={`${btn.ox_button} ${clPrimary}`} {...rest} disabled={loading || disabled}>
+    <button
+      ref={el}
+      type="submit"
+      className={`${btn.ox_button} ${clPrimary}`}
+      {...rest}
+      disabled={loading || disabled}
+    >
       {children}
       {loading ? (
         icLoading

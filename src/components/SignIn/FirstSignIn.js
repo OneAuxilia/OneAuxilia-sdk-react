@@ -100,7 +100,7 @@ export default function FirstSignIn({ children, onChangeStep }) {
         />
       )}
       <div className="ox_mb_8"></div>
-      <Button onClick={onOk} type="primary" loading={loading} isIconNext={true}>
+      <Button onClick={onOk} type="primary" isSubmit={true} loading={loading} isIconNext={true}>
         Continue
       </Button>
     </Fragment>

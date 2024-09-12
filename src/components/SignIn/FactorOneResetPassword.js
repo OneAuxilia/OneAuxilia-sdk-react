@@ -13,7 +13,7 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
   var [otp_code, emailCode] = getOtpByParams()
   const [otp, setOtp] = useState()
   const [error, setError] = useState("")
-  const [errorEmail, setErrorEmail] = useState("false")
+  const [errorEmail, setErrorEmail] = useState()
   const [loading, setLoading] = useState(false)
 
   async function onOk() {
@@ -72,7 +72,7 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstSignIn])
 
-  console.log("isResetForm", isResetForm)
+  console.log("isResetForm", errorEmail)
   return (
     <Fragment>
       {firstSignIn.second_factor_type === strategieCode.EMAIL_LINK ? (
@@ -99,6 +99,7 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
             disabled={errorEmail}
             loading={loading}
             isIconNext={true}
+            isSubmit={true}
           >
             Continue
           </Button>
