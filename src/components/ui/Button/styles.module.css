@@ -38,7 +38,6 @@
   background-color: var(--color-primary-600);
 }
 .ox_primary:disabled {
-  cursor: not-allowed;
   background-color: var(--color-primary-600);
 }
 .ox_default:active {
@@ -48,7 +47,6 @@
   background-color: #f5f5f5;
 }
 .ox_default:disabled {
-  cursor: not-allowed;
   background-color: #f5f5f5;
 }
 .spinner {
