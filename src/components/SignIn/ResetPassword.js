@@ -59,7 +59,6 @@ export default function ResetPassword({ onChangeStep }) {
           <InputPhoneMail onChange={onChangeName} value={name} error={error} />
           <div className={styles.ox_mb_4}>
             <Button
-              disabled={error || !name}
               isSubmit={true}
               onClick={() => onChange(4, strategieCode.EMAIL_CODE)}
               type="primary"
