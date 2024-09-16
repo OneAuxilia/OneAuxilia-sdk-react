@@ -8,6 +8,7 @@ import styles from "./styles.module.css"
 import BoxLine from "../BoxLine/BoxLine"
 import GithubLoginBox from "./GithubLoginBox"
 import MicrosoftLoginBox from "./MicrosoftLoginBox"
+import LinkedInLoginBox from "./LinkedInLoginBox"
 
 function getCodeByParams() {
   var url = new URL(window.location.href)
@@ -63,6 +64,9 @@ export default function LoginSocial({ onNext, isShowOrText }) {
                   )}
                   {auth_provider === socialCode.MICROSOFT && (
                     <MicrosoftLoginBox onLogin={onLogin} view={view} />
+                  )}
+                  {auth_provider === socialCode.LINKEDIN && (
+                    <LinkedInLoginBox onLogin={onLogin} view={view} />
                   )}
                 </Fragment>
               )
