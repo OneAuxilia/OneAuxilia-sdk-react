@@ -149,6 +149,10 @@ export default function FirstSignUp({ onChangeStep }) {
         checkValidate()
         return
       }
+      if (values.email && !validateEmail(values.email)) {
+        setErrorValues({ ...errorValues, email: "Email is invalid" })
+        return
+      }
       setLoading(true)
       const { data } = await apiCore.signUp(values)
       if (data?.status === stepStatus.COMPLETED) {
