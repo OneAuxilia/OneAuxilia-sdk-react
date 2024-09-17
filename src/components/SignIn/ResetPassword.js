@@ -29,6 +29,7 @@ export default function ResetPassword({ onChangeStep }) {
   }
 
   function onChange(stepIndex, strategie) {
+    if (error) return
     if (!name) {
       setError("Require email address")
       return
@@ -39,11 +40,15 @@ export default function ResetPassword({ onChangeStep }) {
 
   function onChangeName(e) {
     const { value } = e.target
-    if (validateEmail(value)) {
-      setError("")
-    } else {
-      setError("Email is invalid")
+    let newError = ""
+    if (!value) {
+      newError = "Require email address"
     }
+
+    if (value && !validateEmail(value)) {
+      newError = "Email is invalid"
+    }
+    setError(newError)
     setName(e.target.value)
   }
 
