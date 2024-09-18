@@ -94,14 +94,20 @@ export default function ResetPassword({ onChangeStep }) {
 
           {strategies.find((i) => i === strategieCode.EMAIL_LINK) && (
             <div className="ox_mb_2">
-              <Button disabled={!name} onClick={() => onChange(2, strategieCode.EMAIL_LINK)}>
+              <Button
+                disabled={!name || error}
+                onClick={() => onChange(2, strategieCode.EMAIL_LINK)}
+              >
                 Email link {name}
               </Button>
             </div>
           )}
           {strategies.find((i) => i === strategieCode.EMAIL_CODE) && (
             <div className={styles.ox_mb_4}>
-              <Button disabled={!name} onClick={() => onChange(2, strategieCode.EMAIL_CODE)}>
+              <Button
+                disabled={!name || error}
+                onClick={() => onChange(2, strategieCode.EMAIL_CODE)}
+              >
                 Email code to {name}
               </Button>
             </div>
