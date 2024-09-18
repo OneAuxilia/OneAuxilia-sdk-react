@@ -9,6 +9,7 @@ import BoxLine from "../BoxLine/BoxLine"
 import InputPhoneMail from "../InputPhoneMail"
 import FormResetPassword from "./FormResetPassword"
 import FactorOneResetPassword from "./FactorOneResetPassword"
+import { apiCore } from "../../api"
 //thang1681991@gmail.com
 
 export default function ResetPassword({ onChangeStep }) {
@@ -34,8 +35,7 @@ export default function ResetPassword({ onChangeStep }) {
       setError("Require email address")
       return
     }
-    setFirstLogin({ second_factor_type: strategie, email: name })
-    setStepReset(stepIndex)
+    fetch(strategie, stepIndex)
   }
 
   function onChangeName(e) {
@@ -44,7 +44,6 @@ export default function ResetPassword({ onChangeStep }) {
     if (!value) {
       newError = "Require email address"
     }
-
     if (value && !validateEmail(value)) {
       newError = "Email is invalid"
     }
@@ -54,6 +53,25 @@ export default function ResetPassword({ onChangeStep }) {
 
   function onBack() {
     onChangeStep(1)
+  }
+
+  async function fetch(strategie, stepIndex) {
+    try {
+      const dataBody = {
+        strategy: strategie,
+        email_or_phone: name
+      }
+      if (strategie === strategieCode.EMAIL_LINK) {
+        dataBody.redirect_url = window.location.origin + "/sign-in/factor-one"
+        dataBody.url = window.location.origin + "/sign-in/factor-one"
+      }
+      await apiCore.prepareFirstfactor2(dataBody)
+      setFirstLogin({ second_factor_type: strategie, email: name })
+      setStepReset(stepIndex)
+    } catch (error) {
+      setError(error?.error)
+      console.log({ error })
+    }
   }
 
   return (

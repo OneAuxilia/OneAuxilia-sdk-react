@@ -66,8 +66,6 @@ export default function FactorOneResetPassword({ onChangeStep, isResetForm, onBa
   useEffect(() => {
     if (otp_code) {
       onOk(otp_code)
-    } else {
-      fetch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstSignIn])
