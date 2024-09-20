@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import useComponentVisible from "./ClickOutside"
+import useComponentVisible from "../ClickOutside"
 import styles from "./styles.module.css"
 import useStore from "../Context"
 import { apiCore } from "../../api"
@@ -48,7 +48,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
   return (
     <div>
       <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
-        <img alt="avatar" className={styles.ox_avatar} src={imgAvatar} />
+        <img className={styles.ox_avatar} src={imgAvatar} />
       </div>
       <div ref={ref}>
         {open && (

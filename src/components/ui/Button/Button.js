@@ -8,6 +8,7 @@ export default function Button({
   isSubmit,
   isIconNext,
   disabled,
+  className,
   ...rest
 }) {
   const el = useRef()
@@ -44,11 +45,13 @@ export default function Button({
   }, [])
 
   const clPrimary = type === "primary" ? btn.ox_primary : btn.ox_default
+  console.log({ className })
+
   return (
     <button
       ref={el}
       type="submit"
-      className={`${btn.ox_button} ${clPrimary}`}
+      className={`${btn.ox_button} ${clPrimary} ${className}`}
       {...rest}
       disabled={loading || disabled}
     >

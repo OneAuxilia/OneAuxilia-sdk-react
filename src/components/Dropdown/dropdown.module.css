@@ -1,0 +1,22 @@
+.ox_dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.ox_dropdown_menu {
+  border-radius: 0.25rem;
+  top: 30px;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  width: 350px;
+  background: white;
+  padding: 0.25rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  transition: opacity 2s ease-in-out;
+  z-index: 20;
+  cursor: pointer;
+}

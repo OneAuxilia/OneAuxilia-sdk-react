@@ -21,6 +21,9 @@
   font-size: 1.2rem;
   font-weight: bold;
 }
+:global(.ox_text_primary_700) {
+  color: var(--color-primary-700);
+}
 .ox_error {
   color: #ef4444;
   font-size: 0.875rem;

@@ -73,7 +73,6 @@ function devBrowser() {
 function getProfile(id) {
   return Client.get(`${resource}/members/view_profiles/`)
 }
-
 function update(id, data) {
   return Client.put(`${resource}/${id}/`, data)
 }
@@ -86,8 +85,11 @@ function resetchangePassword(data) {
 function remove(id) {
   return Client.delete(`${resource}/${id}/`)
 }
-function create(data) {
-  return Client.post(`${resource}/`, data)
+function regenerateCode() {
+  return Client.post(`${resource}/auth/regenerate_recovery_codes/`)
+}
+function verifyBackupCode() {
+  return Client.post(`${resource}/auth/regenerate_recovery_codes/`)
 }
 
 const api = {
@@ -115,6 +117,8 @@ const api = {
   recoveryCode,
   changePassword,
   resetchangePassword,
-  remove
+  remove,
+  regenerateCode,
+  verifyBackupCode
 }
 export default api

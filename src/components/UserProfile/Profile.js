@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
 import { dfAvatar } from "../../lib/const"
+import { Button } from "../ui"
 
 export default function Profile({ isSignIn, step }) {
   const { email, avatar } = useStore()
@@ -20,7 +21,7 @@ export default function Profile({ isSignIn, step }) {
           </span>
         </div>
         <div className={styles.ox_row_right}>
-          <button className={styles.ox_btn}>Update profile</button>
+          <Button className={styles.ox_btn}>Update profile</Button>
         </div>
       </div>
       <div className={styles.ox_row}>
@@ -29,7 +30,7 @@ export default function Profile({ isSignIn, step }) {
           <div>{email}</div>
         </div>
         <div className={styles.ox_row_right}>
-          <button className={styles.ox_btn}>Update username</button>
+          <Button className={styles.ox_btn}>Update username</Button>
         </div>
       </div>
       <div className={styles.ox_row}>
@@ -40,7 +41,7 @@ export default function Profile({ isSignIn, step }) {
           </div>
         </div>
         <div className={styles.ox_row_right}>
-          <button className={styles.ox_btn}>Update username</button>
+          <Button className={styles.ox_btn}>Update username</Button>
         </div>
       </div>
     </Fragment>
