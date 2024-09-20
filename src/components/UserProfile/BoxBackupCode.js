@@ -71,13 +71,13 @@ export default function BoxBackupCode({ backupCodes, clearBackupCode }) {
           </div>
         </div>
         <div className={styles.ox_box_action_code}>
-          <Button style={{ width: 150 }} onClick={() => download(backupCodes, application_name)}>
+          <Button style={{ width: 120 }} onClick={() => download(backupCodes, application_name)}>
             <span className="ox_text_primary_700">{icDownLoad}</span>
           </Button>
-          <Button style={{ width: 150 }} onClick={printDiv}>
+          <Button style={{ width: 120 }} onClick={printDiv}>
             <span className="ox_text_primary_700">{icPrint}</span>
           </Button>
-          <Button style={{ width: 150 }} onClick={copyText}>
+          <Button style={{ width: 120 }} onClick={copyText}>
             <span className="ox_text_primary_700">{copying ? icCheck : icCopy}</span>
           </Button>
         </div>
