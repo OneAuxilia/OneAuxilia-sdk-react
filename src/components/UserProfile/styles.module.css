@@ -14,11 +14,14 @@
 .ox_user_profile_left {
   padding: 1rem;
   width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .ox_user_profile_left_title {
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .ox_user_profile_left_sub {
   font-size: 0.875rem;
@@ -26,9 +29,9 @@
 .ox_user_profile_left_action {
   margin-top: 2rem;
 }
-.ox_btn {
+/* .ox_btn {
   width: 200px;
-}
+} */
 .ox_btn_li {
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #ccc;
@@ -96,7 +99,14 @@
   width: 30%;
 }
 .ox_row_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 70%;
+}
+.ox_icon_password {
+  color: black;
+  font-size: 1.25rem;
 }
 .ox_btn_add_2fa {
   display: flex;
@@ -163,8 +173,9 @@
 }
 .ox_avatar {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+
+  width: 48px;
+  height: 48px;
 }
 
 .ox_continue {
@@ -215,4 +226,14 @@
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px solid var(--color-border-400);
+}
+.footer_secured {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.footer_secured {
+  font-weight: 500;
 }

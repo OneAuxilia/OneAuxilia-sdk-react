@@ -8,7 +8,7 @@ export default function Button({
   isSubmit,
   isIconNext,
   disabled,
-  className,
+  className = "",
   ...rest
 }) {
   const el = useRef()
@@ -28,6 +28,12 @@ export default function Button({
     </svg>
   )
 
+  function getClassType() {
+    if (type === "primary") return btn.ox_primary
+    if (type === "text") return btn.ox_text
+    return btn.ox_default
+  }
+
   useEffect(() => {
     const listener = (event) => {
       if (event.keyCode === 13 || event.code === "NumpadEnter") {
@@ -44,8 +50,7 @@ export default function Button({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const clPrimary = type === "primary" ? btn.ox_primary : btn.ox_default
-  console.log({ className })
+  const clPrimary = getClassType()
 
   return (
     <button

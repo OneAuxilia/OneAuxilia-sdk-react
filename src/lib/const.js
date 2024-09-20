@@ -26,7 +26,7 @@ export const socialCode = {
 
 export const authCodeMultiFactor = {
   AUTH_CODE: "auth_code",
-  EMAIL: "email",
+  BACKUP_CODE: "email",
   SMS: "sms",
   NONE: "none"
 }

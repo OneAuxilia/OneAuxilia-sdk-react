@@ -112,9 +112,6 @@ export default function Security({ isSignIn, step }) {
     }
   }
   // console.log({ auMultiFactors })
-  console.log({ qrCode })
-  // onClick = { addTo2fa }
-
   function clearBackupCode() {
     setBackupCodes([])
   }
@@ -128,8 +125,8 @@ export default function Security({ isSignIn, step }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [factorType])
 
-  console.log("factorType", second_factor_verification)
-  console.log("second_factor_type", second_factor_type)
+  // console.log("factorType", second_factor_verification)
+  // console.log("auMultiFactors", auMultiFactors)
 
   return (
     <Fragment>
@@ -139,7 +136,10 @@ export default function Security({ isSignIn, step }) {
       <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>Password</div>
         <div className={styles.ox_row_right}>
-          <Button className={styles.ox_btn}>Set password</Button>
+          <div className={styles.ox_icon_password}>••••••••••</div>
+          <Button type="text" className={styles.ox_btn} style={{ width: 150 }}>
+            Set password
+          </Button>
         </div>
       </div>
       {auMultiFactors.length > 0 && (
@@ -191,19 +191,6 @@ export default function Security({ isSignIn, step }) {
                     )}
                   </div>
                 ) : (
-                  // <button className={styles.ox_btn_add_2fa}>
-                  //   <select onChange={onChange} className={styles.ox_btn_add_2fa}>
-                  //     <option className={styles.ox_option} value="">
-                  //       Add two-step verification
-                  //     </option>
-                  //     <option className={styles.ox_option} value="auth_code">
-                  //       Authenticator application
-                  //     </option>
-                  //     {/* <option className={styles.ox_option} value="backup_code">
-                  //       Backup codes
-                  //     </option> */}
-                  //   </select>
-                  // </button>
                   <div>
                     <Dropdown
                       content={
@@ -240,20 +227,24 @@ export default function Security({ isSignIn, step }) {
                     </button>
                   </div>
                 </div>
-                <div className={styles.ox_box_action}>
-                  {second_factor_verification?.strategy === authCodeMultiFactor.AUTH_CODE && (
-                    <div className={styles.ox_name_second_factor}>
-                      <div>Backup codes</div>
-                    </div>
-                  )}
+                {auMultiFactors.find((i) => i.type === authCodeMultiFactor.BACKUP_CODE) && (
                   <div>
-                    <button className={styles.ox_btn_action} onClick={onRegenerate}>
-                      Regenerate
-                    </button>
+                    <div className={styles.ox_box_action}>
+                      {second_factor_verification?.strategy === authCodeMultiFactor.AUTH_CODE && (
+                        <div className={styles.ox_name_second_factor}>
+                          <div>Backup codes</div>
+                        </div>
+                      )}
+                      <div>
+                        <button className={styles.ox_btn_action} onClick={onRegenerate}>
+                          Regenerate
+                        </button>
+                      </div>
+                    </div>
+                    {backupCodes?.length > 0 && (
+                      <BoxBackupCode backupCodes={backupCodes} clearBackupCode={clearBackupCode} />
+                    )}
                   </div>
-                </div>
-                {backupCodes?.length > 0 && (
-                  <BoxBackupCode backupCodes={backupCodes} clearBackupCode={clearBackupCode} />
                 )}
               </div>
             )}

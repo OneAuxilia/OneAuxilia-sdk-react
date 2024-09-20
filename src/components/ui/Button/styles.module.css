@@ -10,7 +10,6 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-border-400);
   transition-property: background-color, background, border-color, color, fill, stroke, opacity,
     box-shadow, transform;
   transition-duration: 100ms;
@@ -20,14 +19,23 @@
   font-size: 0.8125rem;
   line-height: 1.38462;
   width: 100%;
+  background-color: transparent;
   display: flex;
   gap: 6px;
 }
 .ox_primary {
+  border: 1px solid var(--color-border-400);
   background-color: var(--color-primary-700);
   color: white;
 }
+.ox_text {
+  color: var(--color-primary-700);
+}
+.ox_text:hover {
+  background-color: rgb(238, 238, 238);
+}
 .ox_default {
+  border: 1px solid var(--color-border-400);
   color: var(--color-dark-500);
   background-color: white;
 }
