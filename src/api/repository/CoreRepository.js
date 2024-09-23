@@ -88,8 +88,8 @@ function remove(id) {
 function regenerateCode() {
   return Client.post(`${resource}/auth/regenerate_recovery_codes/`)
 }
-function verifyBackupCode() {
-  return Client.post(`${resource}/auth/regenerate_recovery_codes/`)
+function verifyBackupCode(data) {
+  return Client.post(`${resource}/auth/validate_recovery_codes/`, data)
 }
 
 const api = {

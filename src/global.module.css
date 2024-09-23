@@ -67,3 +67,15 @@
   height: 17px;
   color: #ef4444;
 }
+.ox_name_title {
+  font-weight: 700;
+  color: #212126;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.ox_name_sub {
+  font-size: 0.875rem;
+  color: var(--color-dark-200);
+  text-align: center;
+}
