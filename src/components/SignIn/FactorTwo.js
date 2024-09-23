@@ -68,7 +68,6 @@ export default function FactorTwo({ children }) {
     if (error) setError("")
     onChangeMethod("select")
   }
-  console.log({ value })
 
   useEffect(() => {
     async function fetch() {
@@ -90,6 +89,7 @@ export default function FactorTwo({ children }) {
       fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auMultiFactors])
+  // console.log({ auMultiFactors })
 
   return (
     <Fragment>
@@ -101,9 +101,11 @@ export default function FactorTwo({ children }) {
             Continue
           </Button>
           <div className="ox_mb_4"></div>
-          <div className="ox_link" onClick={onUseAnother} style={{ textAlign: "center" }}>
-            Use another method
-          </div>
+          {auMultiFactors?.find((i) => i === "email") && (
+            <div className="ox_link" onClick={onUseAnother} style={{ textAlign: "center" }}>
+              Use another method
+            </div>
+          )}
         </Fragment>
       )}
       {method === "backup_code" && (
