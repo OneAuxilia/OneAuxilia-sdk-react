@@ -46,9 +46,9 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
 
   const imgAvatar = avatar || dfAvatar
   return (
-    <div>
-      <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
-        <img className={styles.ox_avatar} src={imgAvatar} />
+    <div className={styles.ox_user_button}>
+      <div onClick={onShow}>
+        <img className={styles.ox_avatar} src={imgAvatar} alt="" />
       </div>
       <div ref={ref}>
         {open && (
