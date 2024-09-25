@@ -39,6 +39,11 @@ export function convertDataSignIn({ token, user }) {
   }
 }
 
+export function convertSubDomain(value) {
+  const key = value.replace("pk_dev_", "")
+  return window.atob(key)
+}
+
 export function convertDataSignOut() {
   Cookies.set("isSignedIn", false)
   Cookies.remove("session_id")

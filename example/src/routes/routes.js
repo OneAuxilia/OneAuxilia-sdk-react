@@ -10,17 +10,7 @@ import SignUpPage from "../pages/SignUpPage"
 import DashboardPage from "../pages/DashboardPage"
 import Layout from "../layouts/layout"
 
-function getSubDomain() {
-  try {
-    if (window.location.origin === "http://localhost:3000") return "a9hbikzv0x5y"
-    const subDomain = window.location.origin.split(".")[0]
-    return subDomain.replace("https://")
-  } catch (error) {
-    return false
-  }
-}
-
-const PUBLISHABLE_KEY = getSubDomain()
+const PUBLISHABLE_KEY = "pk_dev_aW5zX2E5aGJpa3p2MHg1eQ=="
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }

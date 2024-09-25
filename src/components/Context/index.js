@@ -7,6 +7,7 @@ import {
   convertDataFirstLogin,
   convertDataSignIn,
   convertDataSignOut,
+  convertSubDomain,
   settingTheme
 } from "../../lib/function"
 
@@ -110,7 +111,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }, [state.isSignedIn])
 
   useEffect(() => {
-    Cookies.set("publishableKey", rest.publishableKey)
+    Cookies.set("publishable-key", rest.publishableKey)
+    Cookies.set("tenantHeader", convertSubDomain(rest.publishableKey))
     async function getDev() {
       try {
         const { data } = await apiCore.devBrowser()

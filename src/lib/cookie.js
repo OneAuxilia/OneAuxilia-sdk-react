@@ -1,7 +1,10 @@
 import Cookies from "js-cookie"
 
 export function getPublishableKey() {
-  return Cookies.get("publishableKey")
+  return Cookies.get("publishable-key")
+}
+export function getTenantHeader() {
+  return Cookies.get("tenantHeader")
 }
 export function getJWT() {
   return Cookies.get("OneAuxilia-DB-JWT")

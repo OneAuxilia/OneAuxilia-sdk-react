@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getJWT, getPublishableKey, removeJWT } from "../lib/cookie"
+import { getJWT, getPublishableKey, getTenantHeader, removeJWT } from "../lib/cookie"
 
 const isLocal = window.location.origin === "http://localhost:3000"
 export default function getInstanceAxios(baseAPI) {
@@ -19,7 +19,8 @@ export default function getInstanceAxios(baseAPI) {
         if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
         if (isLocal) {
           config.headers.mode = "development"
-          config.headers["Tenant-Header"] = getPublishableKey()
+          config.headers["Tenant-Header"] = getTenantHeader()
+          config.headers["publishable-key"] = getPublishableKey()
         }
         // const access_token = getToken()
         // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`

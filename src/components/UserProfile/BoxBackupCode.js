@@ -5,7 +5,7 @@ import useStore from "../Context"
 
 function download(backupCodes, application_name) {
   var element = document.createElement("a")
-  let str = `These are your backup codes for test 04 account elektra14.
+  let str = `These are your backup codes for ${application_name}.
 Store them securely and keep them secret.Each code can only be used once. \n\n\n`
   backupCodes.forEach((element) => {
     str += element + "\n"
