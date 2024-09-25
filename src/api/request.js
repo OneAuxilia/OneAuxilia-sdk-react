@@ -15,12 +15,11 @@ export default function getInstanceAxios(baseAPI) {
           Accept: "application/json",
           "Content-Type": "application/json"
         }
-
+        config.headers["publishable-key"] = getPublishableKey()
         if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
         if (isLocal) {
           config.headers.mode = "development"
           config.headers["Tenant-Header"] = getTenantHeader()
-          config.headers["publishable-key"] = getPublishableKey()
         }
         // const access_token = getToken()
         // if (access_token) config.headers["Authorization"] = `Bearer ${access_token}`
