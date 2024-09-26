@@ -76,11 +76,11 @@ function getProfile(id) {
 function update(id, data) {
   return Client.put(`${resource}/${id}/`, data)
 }
-function changePassword(id, data) {
-  return Client.put(`${resource}/${id}/change_password/`, data)
-}
 function resetchangePassword(data) {
   return Client.put(`${resource}/members/reset_password/`, data)
+}
+function changePassword(data) {
+  return Client.put(`${resource}/members/change_password/`, data)
 }
 function remove(id) {
   return Client.delete(`${resource}/${id}/`)

@@ -4,14 +4,14 @@ import styles from "./styles.module.css"
 import { dfAvatar } from "../../lib/const"
 import { Button } from "../ui"
 
-export default function Profile({ isSignIn, step }) {
+export default function Profile() {
   const { email, avatar } = useStore()
 
   const imgAvatar = avatar || dfAvatar
   return (
     <Fragment>
       <div className={styles.ox_row} style={{ fontSize: 18, fontWeight: 700 }}>
-        Scurity
+        Profile details
       </div>
       <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>

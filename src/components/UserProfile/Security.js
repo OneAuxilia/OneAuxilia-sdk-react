@@ -8,6 +8,7 @@ import { authCodeMultiFactor } from "../../lib/const"
 import Dropdown from "../Dropdown"
 import { Button } from "../ui"
 import BoxBackupCode from "./BoxBackupCode"
+import BoxChangePassword from "./BoxChangePassword"
 
 //<div className={styles.ox_}>Profile</div>
 
@@ -133,15 +134,7 @@ export default function Security({ isSignIn, step }) {
       <div className={styles.ox_row} style={{ fontSize: 18, fontWeight: 700 }}>
         Scurity
       </div>
-      <div className={styles.ox_row}>
-        <div className={styles.ox_row_left}>Password</div>
-        <div className={styles.ox_row_right}>
-          <div className={styles.ox_icon_password}>••••••••••</div>
-          <Button type="text" className={styles.ox_btn} style={{ width: 150 }}>
-            Set password
-          </Button>
-        </div>
-      </div>
+      <BoxChangePassword />
       {auMultiFactors.length > 0 && (
         <div className={styles.ox_row_to2fa}>
           <div style={{ marginBottom: "0.5rem" }} className={styles.ox_row_left}>

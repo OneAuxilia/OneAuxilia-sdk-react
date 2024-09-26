@@ -1,0 +1,11 @@
+.ox_success_border {
+  color: #138109;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #138109;
+  border-radius: var(--border-400);
+}

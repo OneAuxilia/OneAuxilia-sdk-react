@@ -76,7 +76,6 @@
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
-  align-items: center;
 }
 .ox_row_to2fa {
   display: flex;
@@ -198,6 +197,7 @@
 
 .ox_box_wrapper_backupcode {
   padding: 1rem;
+  width: 100%;
   border-radius: 0.5rem;
   background-color: white;
   box-shadow:
@@ -236,4 +236,9 @@
 }
 .footer_secured {
   font-weight: 500;
+}
+.ox_box_btn_change_password {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }

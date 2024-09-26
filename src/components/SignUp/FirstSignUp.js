@@ -125,6 +125,8 @@ export default function FirstSignUp({ onChangeStep }) {
   async function onSignUp() {
     try {
       isMounter.current = false
+      console.log("error", error)
+
       if (
         error.email ||
         error.first_name ||
