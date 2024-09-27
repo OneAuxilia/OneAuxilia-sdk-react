@@ -7,7 +7,7 @@ import {
   convertDataFirstLogin,
   convertDataSignIn,
   convertDataSignOut,
-  convertSubDomain,
+  // convertSubDomain,
   settingTheme
 } from "../../lib/function"
 
@@ -111,8 +111,11 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }, [state.isSignedIn])
 
   useEffect(() => {
-    Cookies.set("publisher-Key", rest.publishableKey)
-    Cookies.set("tenantHeader", convertSubDomain(rest.publishableKey))
+    if (rest?.publishableKey) Cookies.set("publisher-Key", rest.publishableKey)
+    if (window.location.origin.includes("http://localhost")) {
+      Cookies.set("tenantHeader", "a9hbikzv0x5y")
+    }
+
     async function getDev() {
       try {
         const { data } = await apiCore.devBrowser()

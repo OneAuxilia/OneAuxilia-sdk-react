@@ -1,7 +1,8 @@
 import Cookies from "js-cookie"
 
 export function getPublishableKey() {
-  return Cookies.get("publisher-Key")
+  let key = Cookies.get("publisher-Key")
+  return key ? key : false
 }
 export function getTenantHeader() {
   return Cookies.get("tenantHeader")

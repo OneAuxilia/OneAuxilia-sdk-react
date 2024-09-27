@@ -10,10 +10,10 @@ import SignUpPage from "../pages/SignUpPage"
 import DashboardPage from "../pages/DashboardPage"
 import Layout from "../layouts/layout"
 
-const PUBLISHABLE_KEY = "pk_dev_aW5zX2E5aGJpa3p2MHg1eQ=="
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
+const PUBLISHABLE_KEY = ""
+// if (!PUBLISHABLE_KEY) {
+//   throw new Error("Missing Publishable Key")
+// }
 
 function ProtectedRoutes() {
   const { isLoaded, isSignedIn } = useAuth()
