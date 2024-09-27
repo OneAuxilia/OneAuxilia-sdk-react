@@ -15,8 +15,8 @@ import styles from "./styles.module.css"
 import global from "../../global.module.css"
 import SuccessBox from "../SuccessBox"
 
-export default function BoxChangePassword({}) {
-  const { user_general_setting } = useStore()
+export default function BoxChangePassword() {
+  const { user_general_setting, is_set_password } = useStore()
   const [values, setValues] = useState({
     old_password: "",
     new_password: "",
@@ -98,7 +98,7 @@ export default function BoxChangePassword({}) {
       new_password: "",
       new_password_confirm: ""
     }
-    if (!old_password) newErrorValues.old_password = "Require old password"
+    if (is_set_password && !old_password) newErrorValues.old_password = "Require old password"
     if (!new_password) newErrorValues.new_password = "Require password"
     if (!new_password_confirm) newErrorValues.new_password_confirm = "Require confirm password"
     if (new_password_confirm && new_password_confirm !== new_password)
@@ -110,7 +110,11 @@ export default function BoxChangePassword({}) {
     try {
       isMounter.current = false
 
-      if (!values.old_password || !values.new_password || !values.new_password_confirm) {
+      if (
+        (is_set_password && !values.old_password) ||
+        !values.new_password ||
+        !values.new_password_confirm
+      ) {
         checkValidate()
         return
       }
@@ -121,7 +125,12 @@ export default function BoxChangePassword({}) {
       }
 
       setLoading(true)
-      await apiCore.changePassword(values)
+      if (is_set_password) {
+        await apiCore.changePassword(values)
+      } else {
+        await apiCore.resetchangePassword(values)
+      }
+
       setLoadingSuccess(true)
       setTimeout(() => {
         setLoadingSuccess(false)
@@ -167,13 +176,15 @@ export default function BoxChangePassword({}) {
               <Fragment>
                 <div className="ox_title_form">Update password</div>
                 <div className="ox_mb_4"></div>
-                <InputPassword
-                  style={{ width: "100%" }}
-                  error={errorValues.old_password}
-                  label="Current password"
-                  onChange={(e) => onChangeValues("old_password", e)}
-                  value={old_password}
-                />
+                {is_set_password && (
+                  <InputPassword
+                    style={{ width: "100%" }}
+                    error={errorValues.old_password}
+                    label="Current password"
+                    onChange={(e) => onChangeValues("old_password", e)}
+                    value={old_password}
+                  />
+                )}
                 <InputPassword
                   error={errorValues.new_password}
                   label="New password"
@@ -228,7 +239,7 @@ export default function BoxChangePassword({}) {
                 className={styles.ox_btn}
                 style={{ width: 150 }}
               >
-                Set password
+                {is_set_password ? "Change password" : "Set password"}
               </Button>
             </Fragment>
           )}

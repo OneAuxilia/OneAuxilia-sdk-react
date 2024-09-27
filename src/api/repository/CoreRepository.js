@@ -91,7 +91,9 @@ function regenerateCode() {
 function verifyBackupCode(data) {
   return Client.post(`${resource}/auth/validate_recovery_codes/`, data)
 }
-
+function udateProfile(data) {
+  return Client.put(`${resource}/members/update_profiles/`, data)
+}
 const api = {
   signIn,
   signInSocial,
@@ -119,6 +121,7 @@ const api = {
   resetchangePassword,
   remove,
   regenerateCode,
-  verifyBackupCode
+  verifyBackupCode,
+  udateProfile
 }
 export default api

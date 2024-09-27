@@ -1,29 +1,35 @@
 import React, { Fragment } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
-import { dfAvatar } from "../../lib/const"
 import { Button } from "../ui"
+import BoxUpdateUserProfile from "./BoxUpdateUserProfile"
 
 export default function Profile() {
-  const { email, avatar } = useStore()
+  const { email } = useStore()
 
-  const imgAvatar = avatar || dfAvatar
   return (
     <Fragment>
       <div className={styles.ox_row} style={{ fontSize: 18, fontWeight: 700 }}>
         Profile details
       </div>
-      <div className={styles.ox_row}>
+      <BoxUpdateUserProfile />
+      {/* <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>
           <div className={styles.ox_profile}>Profile</div>
-          <span className={styles.ox_span_avatar}>
-            <img className={styles.ox_avatar} src={imgAvatar} alt="avatar" />
-          </span>
         </div>
         <div className={styles.ox_row_right}>
-          <Button className={styles.ox_btn}>Update profile</Button>
+          <div className={styles.ox_box_name_avatar}>
+            <span className={styles.ox_span_avatar}>
+              <img className={styles.ox_avatar} src={imgAvatar} alt="avatar" />
+            </span>
+            {fullName}
+          </div>
+
+          <Button className={styles.ox_btn} style={{ width: 150 }}>
+            Update profile
+          </Button>
         </div>
-      </div>
+      </div> */}
       <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>
           <div className={styles.ox_profile}>Username</div>

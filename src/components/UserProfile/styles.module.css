@@ -115,6 +115,11 @@
   cursor: pointer;
   color: #7859f7;
 }
+.ox_title_form {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
 .ox_btn_content_2fa {
   padding: 0.3rem 0.5rem;
   border-radius: 0.25rem;
@@ -151,11 +156,11 @@
 }
 .ox_profile {
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
 }
 .ox_span_avatar {
   box-sizing: border-box;
   display: flex;
-  margin-left: 1rem;
   flex-flow: row;
   -webkit-box-align: stretch;
   align-items: stretch;
@@ -170,9 +175,14 @@
   background-clip: padding-box;
   position: relative;
 }
+.ox_box_name_avatar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-weight: 500;
+}
 .ox_avatar {
   object-fit: cover;
-
   width: 48px;
   height: 48px;
 }
@@ -196,7 +206,7 @@
 }
 
 .ox_box_wrapper_backupcode {
-  padding: 1rem;
+  padding: 1.5rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: white;
@@ -241,4 +251,8 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+}
+.ox_action_avatar {
+  display: flex;
+  gap: 0.5rem;
 }
