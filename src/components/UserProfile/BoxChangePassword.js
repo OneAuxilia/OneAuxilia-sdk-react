@@ -134,8 +134,8 @@ export default function BoxChangePassword() {
       setLoadingSuccess(true)
       setTimeout(() => {
         setLoadingSuccess(false)
-      }, [1500])
-      // onChangeStep(1)
+        onCancel()
+      }, [1000])
     } catch (error) {
       console.log(error)
       let newErrors = [...errors]
@@ -152,13 +152,6 @@ export default function BoxChangePassword() {
   function onCancel() {
     setOpen(false)
   }
-
-  useEffect(() => {
-    if (loadingSuccess)
-      setTimeout(() => {
-        onCancel()
-      }, [2000])
-  }, [loadingSuccess])
 
   useEffect(() => {
     checkValidate()

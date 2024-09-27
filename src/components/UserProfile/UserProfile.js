@@ -1,15 +1,13 @@
 import React, { useState } from "react"
-import useStore from "../Context"
 import Security from "./Security"
 import styles from "./styles.module.css"
 import Profile from "./Profile"
 
-//<div className={styles.ox_}>Profile</div>
 export default function UserProfile({ isSignIn, step }) {
   const [tab, setTab] = useState(1)
-
   const cl1 = tab === 1 ? styles.ox_btn_li_active : ""
   const cl2 = tab === 2 ? styles.ox_btn_li_active : ""
+
   return (
     <div className={styles.ox_user_profile}>
       <div className={styles.ox_user_profile_left}>
@@ -37,6 +35,7 @@ export default function UserProfile({ isSignIn, step }) {
           </div>
         </div>
       </div>
+
       <div className={styles.ox_container}>{tab === 1 ? <Profile /> : <Security />}</div>
     </div>
   )

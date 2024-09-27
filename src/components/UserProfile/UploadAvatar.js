@@ -6,6 +6,7 @@ import { Button } from "../ui"
 export default function UploadAvatar({ value, onChange }) {
   const [file, setFile] = useState(value)
   const refInput = useRef()
+
   async function onChangeFile(event) {
     const formData = new FormData()
     formData.append("file", event.target.files[0])
@@ -14,6 +15,7 @@ export default function UploadAvatar({ value, onChange }) {
       formData
     )
     setFile(data?.image)
+    onChange(data?.image)
   }
   function onRemove() {
     onChange("")

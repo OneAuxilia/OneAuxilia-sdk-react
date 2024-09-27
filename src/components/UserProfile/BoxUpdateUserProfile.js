@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react"
+import React, { Fragment, useEffect, useRef, useState } from "react"
 import InputName from "../InputName"
 import SuccessBox from "../SuccessBox"
 import { capitalizeTxt } from "../../lib/function"
@@ -10,7 +10,8 @@ import styles from "./styles.module.css"
 import useStore from "../Context"
 
 export default function BoxUpdateUserProfile({ fullName }) {
-  const { avatar, setConfig, first_name, last_name, firstSignIn } = useStore()
+  const { avatar, setConfig, first_name, last_name } = useStore()
+
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loadingSuccess, setLoadingSuccess] = useState(false)
@@ -19,6 +20,7 @@ export default function BoxUpdateUserProfile({ fullName }) {
     last_name: last_name,
     avatar: avatar
   })
+
   const [errorValues, setErrorValues] = useState({
     first_name: "",
     last_name: ""
@@ -34,7 +36,6 @@ export default function BoxUpdateUserProfile({ fullName }) {
         return
       }
       setLoading(true)
-      values.second_factor_type = firstSignIn.second_factor_type
       await apiCore.udateProfile(values)
       setConfig({
         first_name: values.first_name,
@@ -45,7 +46,8 @@ export default function BoxUpdateUserProfile({ fullName }) {
       setLoadingSuccess(true)
       setTimeout(() => {
         setLoadingSuccess(false)
-      }, [1500])
+        onCancel()
+      }, [1000])
     } catch (error) {
       console.log(error)
       setError(capitalizeTxt(error?.error))
@@ -72,6 +74,18 @@ export default function BoxUpdateUserProfile({ fullName }) {
   function onChangeValues(key, e) {
     setValues({ ...values, [key]: e.target.value })
   }
+  function onChangeAvatar(v) {
+    setValues({ ...values, avatar: v })
+  }
+
+  useEffect(() => {
+    setValues({
+      first_name: first_name,
+      last_name: last_name,
+      avatar: avatar
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [first_name])
 
   return (
     <div className={styles.ox_row}>
@@ -82,7 +96,7 @@ export default function BoxUpdateUserProfile({ fullName }) {
         <Fragment>
           <div className={styles.ox_box_wrapper_backupcode}>
             <div className={styles.ox_title_form}>Update profile</div>
-            <UploadAvatar value={avatar} onChange={(v) => onChangeValues("avatar", v)} />
+            <UploadAvatar value={avatar} onChange={onChangeAvatar} />
             <div className="ox_mb_6"></div>
             <InputName
               onChange={(e) => onChangeValues("first_name", e)}
@@ -120,7 +134,12 @@ export default function BoxUpdateUserProfile({ fullName }) {
             {fullName}
           </div>
 
-          <Button className={styles.ox_btn} onClick={() => setOpen(true)} style={{ width: 150 }}>
+          <Button
+            loading={loading}
+            className={styles.ox_btn}
+            onClick={() => setOpen(true)}
+            style={{ width: 150 }}
+          >
             Update profile
           </Button>
         </div>
