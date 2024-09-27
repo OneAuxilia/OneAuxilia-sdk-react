@@ -111,7 +111,7 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   }, [state.isSignedIn])
 
   useEffect(() => {
-    Cookies.set("publishable-key", rest.publishableKey)
+    Cookies.set("publisher-Key", rest.publishableKey)
     Cookies.set("tenantHeader", convertSubDomain(rest.publishableKey))
     async function getDev() {
       try {
