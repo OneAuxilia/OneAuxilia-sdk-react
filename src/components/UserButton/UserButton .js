@@ -66,7 +66,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
                   </div>
                   <div className={styles.ox_user_name_email}>
                     <div className={styles.ox_user_name}>{fullName}</div>
-                    <div>{email}</div>
+                    <div className={styles.ox_user_email}>{email}</div>
                   </div>
                 </div>
               </button>
