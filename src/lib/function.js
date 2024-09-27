@@ -40,6 +40,10 @@ export function convertDataSignIn({ token, user }) {
 }
 
 export function convertSubDomain(value) {
+  if (value?.includes("pk_prod_")) {
+    const key = value.replace("pk_prod_", "")
+    return window.atob(key)
+  }
   if (value?.includes("pk_dev_")) {
     const key = value.replace("pk_dev_", "")
     return window.atob(key)
