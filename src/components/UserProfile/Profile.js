@@ -17,22 +17,16 @@ export default function Profile() {
       <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>
           <div className={styles.ox_profile}>Username</div>
-          <div>{email}</div>
         </div>
         <div className={styles.ox_row_right}>
-          <Button className={styles.ox_btn}>Update username</Button>
+          <div>{email}</div>
         </div>
       </div>
       <div className={styles.ox_row}>
         <div className={styles.ox_row_left}>
-          <div className={styles.ox_profile}>Email addresses</div>
-          <div>
-            {email} <span>Primary</span>
-          </div>
+          <div className={styles.ox_profile}>Email address</div>
         </div>
-        <div className={styles.ox_row_right}>
-          <Button className={styles.ox_btn}>Update username</Button>
-        </div>
+        <div className={styles.ox_row_right}>{email}</div>
       </div>
     </Fragment>
   )

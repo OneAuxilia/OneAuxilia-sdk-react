@@ -5,15 +5,22 @@ import { Button } from "../ui"
 
 export default function UploadAvatar({ value, onChange }) {
   const [file, setFile] = useState(value)
+  const [error, setError] = useState("")
   const refInput = useRef()
 
   async function onChangeFile(event) {
     const formData = new FormData()
-    formData.append("file", event.target.files[0])
+    const file = event.target.files[0]
+    formData.append("file", file)
+    if (file.size / 1024 / 1024 > 2) {
+      setError("File size less than 2m")
+      return
+    }
     const { data } = await axios.post(
       "https://upload-api-dev.oneauxilia.co/api/upload/image",
       formData
     )
+    if (error) setError("")
     setFile(data?.image)
     onChange(data?.image)
   }
@@ -42,7 +49,7 @@ export default function UploadAvatar({ value, onChange }) {
             </Button>
           </div>
 
-          <div>Recommended size 1:1, up to 10MB</div>
+          <div>Recommended size 1:1, up to 2MB</div>
         </div>
       </div>
     </div>

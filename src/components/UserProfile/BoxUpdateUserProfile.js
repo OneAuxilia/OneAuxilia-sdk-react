@@ -63,8 +63,8 @@ export default function BoxUpdateUserProfile({ fullName }) {
       first_name: "",
       last_name: ""
     }
-    if (!first_name) newErrorValues.first_name = "Require old password"
-    if (!last_name) newErrorValues.last_name = "Require password"
+    if (!first_name) newErrorValues.first_name = "Require first name"
+    if (!last_name) newErrorValues.last_name = "Require last name"
     if (!isMounter.current) setErrorValues(newErrorValues)
   }
 
