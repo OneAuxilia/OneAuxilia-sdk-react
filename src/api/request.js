@@ -4,7 +4,7 @@ import { getJWT, getPublishableKey, getTenantHeader, removeJWT } from "../lib/co
 const isLocal = window.location.origin === "http://localhost:3000"
 export default function getInstanceAxios(baseAPI) {
   const instance = axios.create({
-    // withCredentials: true,
+    withCredentials: true,
     baseURL: baseAPI
   })
 
