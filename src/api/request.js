@@ -13,9 +13,14 @@ export default function getInstanceAxios(baseAPI) {
       try {
         config.headers = {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          abc: "123"
         }
-        if (getPublishableKey()) config.headers["publisher-Key"] = getPublishableKey()
+
+        if (getPublishableKey()) {
+          config.headers["publisher-Key"] = getPublishableKey()
+          config.headers["xyz"] = getPublishableKey()
+        }
         if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
         if (isLocal) {
           config.headers.mode = "development"

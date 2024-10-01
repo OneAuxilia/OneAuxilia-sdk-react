@@ -35,7 +35,6 @@ export default function VerifySocial({ onChangeStep, onBack }) {
 
   useEffect(() => {
     const [code, provider_name] = getParams()
-    console.log("code", code)
 
     if (code && code !== "null") {
       onLogin(provider_name, code)
