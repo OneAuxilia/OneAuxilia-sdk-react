@@ -2,8 +2,10 @@ import React, { useState } from "react"
 import Security from "./Security"
 import styles from "./styles.module.css"
 import Profile from "./Profile"
+import useStore from "../Context"
 
-export default function UserProfile({ isSignIn, step }) {
+export default function UserProfile({ isSignIn, step, backUrl = "/dashboard" }) {
+  const { routerPush } = useStore()
   const [tab, setTab] = useState(1)
   const cl1 = tab === 1 ? styles.ox_btn_li_active : ""
   const cl2 = tab === 2 ? styles.ox_btn_li_active : ""
@@ -29,7 +31,7 @@ export default function UserProfile({ isSignIn, step }) {
           </div>
         </div>
         <div>
-          <div className={styles.footer_secured}>
+          <div className={styles.footer_secured} onClick={() => routerPush(backUrl)}>
             <div>Secured by</div>
             <div className={styles.ox_logo_bottom}>{icLogo}</div>
           </div>

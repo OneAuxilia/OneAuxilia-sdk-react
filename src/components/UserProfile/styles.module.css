@@ -9,6 +9,7 @@
     rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
     rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
   width: 880px;
+  min-height: 640px;
   border-radius: 1rem;
   margin: auto;
 }
@@ -244,6 +245,7 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
+  cursor: pointer;
 }
 .footer_secured {
   font-weight: 500;
