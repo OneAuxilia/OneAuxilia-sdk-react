@@ -8,6 +8,7 @@ import { Button } from "../ui"
 import ErrorBox from "../ErrorBox"
 import styles from "./styles.module.css"
 import useStore from "../Context"
+import { dfAvatar } from "../../lib/const"
 
 export default function BoxUpdateUserProfile({ fullName }) {
   const { avatar, setConfig, first_name, last_name } = useStore()
@@ -129,7 +130,7 @@ export default function BoxUpdateUserProfile({ fullName }) {
         <div className={styles.ox_row_right}>
           <div className={styles.ox_box_name_avatar}>
             <span className={styles.ox_span_avatar}>
-              <img className={styles.ox_avatar} src={avatar} alt="avatar" />
+              <img className={styles.ox_avatar} src={avatar || dfAvatar} alt="avatar" />
             </span>
             {fullName}
           </div>

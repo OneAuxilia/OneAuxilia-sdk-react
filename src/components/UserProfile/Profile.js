@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 import useStore from "../Context"
 import styles from "./styles.module.css"
-import { Button } from "../ui"
 import BoxUpdateUserProfile from "./BoxUpdateUserProfile"
 
 export default function Profile() {

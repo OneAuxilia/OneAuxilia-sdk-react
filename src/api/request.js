@@ -13,17 +13,15 @@ export default function getInstanceAxios(baseAPI) {
       try {
         config.headers = {
           Accept: "application/json",
-          "Content-Type": "application/json",
-          abc: "123"
+          "Content-Type": "application/json"
         }
 
         if (getPublishableKey()) {
           config.headers["publisher-Key"] = getPublishableKey()
-          config.headers["xyz"] = getPublishableKey()
         }
         if (getJWT()) config.headers["OneAuxilia-DB-JWT"] = `Oneauxilia ${getJWT()}`
         if (isLocal) {
-          config.headers.mode = "development"
+          // config.headers.mode = "development"
           config.headers["Tenant-Header"] = getTenantHeader()
         }
         // const access_token = getToken()

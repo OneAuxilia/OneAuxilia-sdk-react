@@ -18,7 +18,7 @@ function initStep() {
   return 1
 }
 
-export default function SignIn({ children }) {
+export default function SignIn({ children, afterSignInUrl = "/dashboard" }) {
   const { routerReplace, routerPush, isSignedIn, configLoaded } = useStore()
   const [step, setStep] = useState(initStep())
 
@@ -33,7 +33,7 @@ export default function SignIn({ children }) {
   }
 
   useEffect(() => {
-    if (isSignedIn) routerPush("/dashboard")
+    if (isSignedIn) routerPush(afterSignInUrl)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn])
 

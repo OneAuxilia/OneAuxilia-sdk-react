@@ -7,7 +7,7 @@ import { getSessionId } from "../../lib/cookie"
 import { icLogo } from "../../lib/icons"
 import { dfAvatar } from "../../lib/const"
 
-export default function UserButton({ list, pathSetting, isModal = false }) {
+export default function UserButton({ list, pathSetting, isModal = false, afterSignOutUrl = "/" }) {
   const { onSignOut, fullName, email, routerPush, avatar } = useStore()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
   const [open, setOpen] = useState(false)
@@ -31,7 +31,7 @@ export default function UserButton({ list, pathSetting, isModal = false }) {
   async function onLogOut() {
     try {
       await apiCore.signOut(getSessionId())
-      onSignOut()
+      onSignOut(afterSignOutUrl)
     } catch (error) {
       console.log(error)
     }
