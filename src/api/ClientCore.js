@@ -4,6 +4,7 @@ const baseURL = window.location.origin
 
 function getDomain() {
   const key = getPublishableKey()
+  if (baseURL.includes("accounts")) return baseURL
   if (key && key?.includes("pk_prod")) {
     const { host } = window.location
     return window.location.origin.replace(host, `oneauxilia.${host}`)
