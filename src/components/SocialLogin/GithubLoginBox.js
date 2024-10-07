@@ -2,15 +2,31 @@ import React, { Fragment } from "react"
 import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function GithubLoginBox({ view }) {
+export default function GithubLoginBox({ view, setting }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
-    url.search = new URLSearchParams({
-      provider_name: socialCode.GITHUB,
-      callback_url
-    })
-    window.location.href = url.href
+
+    if (setting?.client_id) {
+      const objParams = {
+        access_type: "offline",
+        prompt: "consent",
+        client_id: setting?.client_id,
+        redirect_uri: callback_url,
+        scope: "user:email read:user",
+        response_type: "code",
+        state: socialCode.GITHUB
+      }
+      let url = new URL("https://github.com/login/oauth/authorize")
+      url.search = new URLSearchParams(objParams)
+      window.location.href = url.href
+    } else {
+      url.search = new URLSearchParams({
+        provider_name: socialCode.GITHUB,
+        callback_url
+      })
+      window.location.href = url.href
+    }
   }
 
   return (

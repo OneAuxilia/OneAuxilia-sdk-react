@@ -2,15 +2,31 @@ import React, { Fragment } from "react"
 import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function LinkedInLoginBox({ view }) {
+export default function LinkedInLoginBox({ view, setting }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
-    url.search = new URLSearchParams({
-      provider_name: socialCode.LINKEDIN,
-      callback_url
-    })
-    window.location.href = url.href
+
+    if (setting?.client_id) {
+      const objParams = {
+        access_type: "offline",
+        prompt: "consent",
+        client_id: setting?.client_id,
+        redirect_uri: callback_url,
+        scope: "openid profile email",
+        response_type: "code",
+        state: socialCode.LINKEDIN
+      }
+      let url = new URL("https://www.linkedin.com/oauth/v2/authorization")
+      url.search = new URLSearchParams(objParams)
+      window.location.href = url.href
+    } else {
+      url.search = new URLSearchParams({
+        provider_name: socialCode.LINKEDIN,
+        callback_url
+      })
+      window.location.href = url.href
+    }
   }
 
   return (

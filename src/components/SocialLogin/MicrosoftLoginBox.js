@@ -2,15 +2,30 @@ import React, { Fragment } from "react"
 import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function MicrosoftLoginBox({ view }) {
+export default function MicrosoftLoginBox({ view, setting }) {
   function onClick() {
     let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
-    url.search = new URLSearchParams({
-      provider_name: socialCode.MICROSOFT,
-      callback_url
-    })
-    window.location.href = url.href
+    if (setting?.client_id) {
+      const objParams = {
+        access_type: "offline",
+        prompt: "consent",
+        client_id: setting?.client_id,
+        redirect_uri: callback_url,
+        scope: "openid email profile offline_access",
+        response_type: "code",
+        state: socialCode.MICROSOFT
+      }
+      let url = new URL("https://login.microsoftonline.com/common/oauth2/v2.0/authorize")
+      url.search = new URLSearchParams(objParams)
+      window.location.href = url.href
+    } else {
+      url.search = new URLSearchParams({
+        provider_name: socialCode.MICROSOFT,
+        callback_url
+      })
+      window.location.href = url.href
+    }
   }
 
   return (
