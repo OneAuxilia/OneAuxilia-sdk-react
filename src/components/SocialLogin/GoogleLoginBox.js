@@ -2,15 +2,30 @@ import React, { Fragment } from "react"
 import { domainProxy, socialCode } from "../../lib/const"
 import styles from "./styles.module.css"
 
-export default function GoogleLoginBox({ view }) {
+export default function GoogleLoginBox({ view, setting }) {
   function onClick() {
-    let url = new URL(domainProxy)
     const callback_url = `${window.location.origin}/sign-in/verify`
-    url.search = new URLSearchParams({
-      provider_name: socialCode.GOOGLE,
-      callback_url
-    })
-    window.location.href = url.href
+    if (setting?.client_id) {
+      const objParams = {
+        access_type: "offline",
+        prompt: "consent",
+        client_id: setting?.client_id,
+        redirect_uri: callback_url,
+        scope: "email profile openid",
+        response_type: "code",
+        state: socialCode.GOOGLE
+      }
+      let url = new URL("https://accounts.google.com/o/oauth2/v2/auth")
+      url.search = new URLSearchParams(objParams)
+      window.location.href = url.href
+    } else {
+      let url = new URL(domainProxy)
+      url.search = new URLSearchParams({
+        provider_name: socialCode.GOOGLE,
+        callback_url
+      })
+      window.location.href = url.href
+    }
   }
 
   return (

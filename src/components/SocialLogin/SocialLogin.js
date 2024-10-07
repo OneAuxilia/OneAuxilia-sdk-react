@@ -50,23 +50,23 @@ export default function LoginSocial({ onNext, isShowOrText }) {
       {listSocial.length > 0 && (
         <Fragment>
           <div className={styles.ox_row_social_login}>
-            {listSocial.map(({ auth_provider }, key) => {
+            {listSocial.map(({ auth_provider, setting }, key) => {
               return (
                 <Fragment key={key}>
                   {auth_provider === socialCode.FACEBOOK && (
-                    <FacebookLoginBox onLogin={onLogin} view={view} />
+                    <FacebookLoginBox setting={setting} onLogin={onLogin} view={view} />
                   )}
                   {auth_provider === socialCode.GOOGLE && (
-                    <GoogleLoginBox onLogin={onLogin} view={view} />
+                    <GoogleLoginBox setting={setting} onLogin={onLogin} view={view} />
                   )}
                   {auth_provider === socialCode.GITHUB && (
-                    <GithubLoginBox onLogin={onLogin} view={view} />
+                    <GithubLoginBox setting={setting} onLogin={onLogin} view={view} />
                   )}
                   {auth_provider === socialCode.MICROSOFT && (
-                    <MicrosoftLoginBox onLogin={onLogin} view={view} />
+                    <MicrosoftLoginBox setting={setting} onLogin={onLogin} view={view} />
                   )}
                   {auth_provider === socialCode.LINKEDIN && (
-                    <LinkedInLoginBox onLogin={onLogin} view={view} />
+                    <LinkedInLoginBox setting={setting} onLogin={onLogin} view={view} />
                   )}
                 </Fragment>
               )

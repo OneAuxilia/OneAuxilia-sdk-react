@@ -5,7 +5,7 @@ import useStore from "../Context"
 
 function getParams() {
   var url = new URL(window.location.href)
-  return [url.searchParams.get("code"), url.searchParams.get("provider_name")]
+  return [url.searchParams.get("code"), url.searchParams.get("state")]
 }
 
 export default function VerifySocial({ onChangeStep, onBack }) {
