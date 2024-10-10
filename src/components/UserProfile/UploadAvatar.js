@@ -15,6 +15,11 @@ export default function UploadAvatar({ value, onChange }) {
       setLoading(true)
       const formData = new FormData()
       const file = event.target.files[0]
+      if (!file.type.includes("image")) {
+        setError("File is not an image")
+        return
+      }
+
       formData.append("file", file)
       if (file.size / 1024 / 1024 > 2) {
         setError("File size less than 2m")
@@ -50,7 +55,13 @@ export default function UploadAvatar({ value, onChange }) {
         </span>
 
         <div>
-          <input style={{ display: "none" }} ref={refInput} type="file" onChange={onChangeFile} />
+          <input
+            style={{ display: "none" }}
+            ref={refInput}
+            type="file"
+            accept="image/*"
+            onChange={onChangeFile}
+          />
           <div className={styles.ox_action_avatar}>
             <Button onClick={onClick} style={{ width: 120 }} loading={loading}>
               Upload
@@ -62,7 +73,11 @@ export default function UploadAvatar({ value, onChange }) {
             )}
           </div>
 
-          <div>Recommended size 1:1, up to 2MB</div>
+          {error ? (
+            <div style={{ color: "#ef4444" }}>{error}</div>
+          ) : (
+            <div>Recommended size 1:1, up to 2MB</div>
+          )}
         </div>
       </div>
     </div>
