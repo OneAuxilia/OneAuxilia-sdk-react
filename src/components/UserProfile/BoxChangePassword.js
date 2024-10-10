@@ -15,13 +15,14 @@ import styles from "./styles.module.css"
 import global from "../../global.module.css"
 import SuccessBox from "../SuccessBox"
 
+const initData = {
+  old_password: "",
+  new_password: "",
+  new_password_confirm: ""
+}
 export default function BoxChangePassword() {
   const { user_general_setting, is_set_password } = useStore()
-  const [values, setValues] = useState({
-    old_password: "",
-    new_password: "",
-    new_password_confirm: ""
-  })
+  const [values, setValues] = useState(initData)
 
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -134,6 +135,8 @@ export default function BoxChangePassword() {
       setLoadingSuccess(true)
       setTimeout(() => {
         setLoadingSuccess(false)
+        isMounter.current = true
+        setValues(initData)
         onCancel()
       }, [1000])
     } catch (error) {
