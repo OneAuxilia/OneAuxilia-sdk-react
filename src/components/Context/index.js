@@ -113,9 +113,8 @@ export function StoreProvider({ routerPush, routerReplace, ...rest }) {
   useEffect(() => {
     if (rest?.publishableKey) Cookies.set("publisher-Key", rest.publishableKey)
     if (window.location.origin.includes("http://localhost")) {
-      Cookies.set("tenantHeader", "a9hbikzv0x5y")
+      Cookies.set("tenantHeader", rest.tenantHeader)
     }
-
     async function getDev() {
       try {
         const { data } = await apiCore.devBrowser()

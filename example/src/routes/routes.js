@@ -36,6 +36,7 @@ function RootLayoutOneAuxilia() {
   const navigate = useNavigate()
   return (
     <OneAuxiliaProvider
+      tenantHeader="a9hbikzv0x5y"
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
       publishableKey={PUBLISHABLE_KEY}
