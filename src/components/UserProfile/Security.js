@@ -150,7 +150,7 @@ export default function Security({ isSignIn, step }) {
 
           <div className={styles.ox_row_right}>
             {second_factor_type === "none" ? (
-              <div>
+              <Fragment>
                 {qrCode ? (
                   <div className={styles.ox_box_wrapper_backupcode}>
                     <div style={{ fontWeight: 700, marginBottom: "1rem" }}>
@@ -209,7 +209,7 @@ export default function Security({ isSignIn, step }) {
                     </Dropdown>
                   </div>
                 )}
-              </div>
+              </Fragment>
             ) : (
               <div>
                 <div className={styles.ox_box_action}>
