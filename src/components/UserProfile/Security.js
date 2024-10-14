@@ -33,6 +33,7 @@ export default function Security({ isSignIn, step }) {
   const [otp, setOtp] = useState("")
   const [factorType, setFactorType] = useState()
   const [backupCodes, setBackupCodes] = useState([])
+  const [error, setError] = useState("")
 
   async function addTo2fa() {
     try {
@@ -62,6 +63,10 @@ export default function Security({ isSignIn, step }) {
   }
 
   async function onConfirm() {
+    if (!otp) {
+      setError(`Require field`)
+      return
+    }
     try {
       await apiCore.validAuthProfile({
         user_id: userId,
@@ -75,6 +80,7 @@ export default function Security({ isSignIn, step }) {
       setBackupCodes(Object.keys(data.recovery_codes))
     } catch (error) {
       console.log(error)
+      setError("Incorrect code")
     }
   }
 
@@ -102,6 +108,7 @@ export default function Security({ isSignIn, step }) {
   function onResend(params) {}
 
   function onChangeOtp(v) {
+    if (v && error) setError("")
     setOtp(v)
   }
 
@@ -161,6 +168,7 @@ export default function Security({ isSignIn, step }) {
                     ) : (
                       <div>
                         <InputOtp
+                          error={error}
                           onChange={onChangeOtp}
                           value={otp}
                           isProfile={true}

@@ -209,7 +209,7 @@
 
 .ox_box_wrapper_backupcode {
   padding: 1.5rem;
-  width: 100%;
+  /* width: 100%; */
   border-radius: 0.5rem;
   background-color: white;
   box-shadow:
