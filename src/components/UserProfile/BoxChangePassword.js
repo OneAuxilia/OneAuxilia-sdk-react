@@ -21,7 +21,7 @@ const initData = {
   new_password_confirm: ""
 }
 export default function BoxChangePassword() {
-  const { user_general_setting, is_set_password } = useStore()
+  const { user_general_setting, is_set_password, onSignOut, afterSignOutUrl } = useStore()
   const [values, setValues] = useState(initData)
 
   const [open, setOpen] = useState(false)
@@ -138,6 +138,7 @@ export default function BoxChangePassword() {
         isMounter.current = true
         setValues(initData)
         onCancel()
+        onSignOut(afterSignOutUrl)
       }, [1000])
     } catch (error) {
       console.log(error)

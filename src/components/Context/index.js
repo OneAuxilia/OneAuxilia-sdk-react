@@ -22,6 +22,7 @@ function initialState(props) {
       firstName: "",
       lastName: ""
     },
+    afterSignOutUrl: "/sign-in",
     signUp: {
       status: false
     },

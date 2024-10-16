@@ -7,8 +7,8 @@ import { getSessionId } from "../../lib/cookie"
 import { icLogo } from "../../lib/icons"
 import { dfAvatar } from "../../lib/const"
 
-export default function UserButton({ list, pathSetting, isModal = false, afterSignOutUrl = "/" }) {
-  const { onSignOut, fullName, email, routerPush, avatar } = useStore()
+export default function UserButton({ list, pathSetting, isModal = false }) {
+  const { onSignOut, fullName, email, routerPush, avatar, afterSignOutUrl } = useStore()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
   const [open, setOpen] = useState(false)
 
