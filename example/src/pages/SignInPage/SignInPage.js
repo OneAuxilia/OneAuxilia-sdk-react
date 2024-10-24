@@ -1,5 +1,5 @@
 import React from "react"
-import { SignIn } from "oneauxilia-react"
+import { SignIn } from "@oneauxilia/oneauxilia-react"
 
 export default function SignInPage() {
   return (

@@ -1,5 +1,5 @@
 import React from "react"
-import { SignedIn, UserButton } from "oneauxilia-react"
+import { SignedIn, UserButton } from "@oneauxilia/oneauxilia-react"
 import styles from "./styles.module.css"
 import { Outlet } from "react-router-dom"
 

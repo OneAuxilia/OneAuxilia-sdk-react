@@ -92,7 +92,15 @@
   margin-bottom: 0.25rem;
   font-size: 16px;
   font-weight: 500;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ox_user_email {
   font-size: 0.875rem;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

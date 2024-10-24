@@ -1,6 +1,6 @@
 {
-  "short_name": "oneauxilia-react",
-  "name": "oneauxilia-react",
+  "short_name": "@oneauxilia/oneauxilia-react",
+  "name": "@oneauxilia/oneauxilia-react",
   "icons": [
     {
       "src": "favicon.ico",

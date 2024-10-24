@@ -15,8 +15,8 @@ npm install --save oneauxilia-react
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'oneauxilia-react'
-import 'oneauxilia-react/dist/index.css'
+import MyComponent from '@oneauxilia/oneauxilia-react'
+import '@oneauxilia/oneauxilia-react/dist/index.css'
 
 class Example extends Component {
   render() {
@@ -27,4 +27,4 @@ class Example extends Component {
 
 ## License
 
-1.0.0 © [thang148](https://github.com/thang148)
+1.0.0 © [oneauxilia](https://github.com/oneauxilia)
