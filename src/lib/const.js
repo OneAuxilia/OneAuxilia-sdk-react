@@ -51,7 +51,9 @@ export const emailSettingKey = {
   is_verification_link: "is_verification_link"
 }
 
-export const domainProxy = "https://auth-social-proxy-dev.oneauxilia.co"
+export const domainProxy = window.location.origin.includes("com")
+  ? "https://auth-social-proxy.oneauxilia.com"
+  : "https://auth-social-proxy-dev.oneauxilia.co"
 
 export const dfAvatar =
   "https://sgp1.vultrobjects.com/oneauxilia-homepage-image/images/310c6675-16e4-4faa-8845-a67f6faf1f89"
