@@ -1,0 +1,35 @@
+.ox_tooltip_container {
+  position: relative;
+  height: 17px;
+}
+
+.ox_tool_tip {
+  position: absolute;
+  max-width: 220px;
+  min-width: 180px;
+  transform: translate(0, -50%);
+  left: 24px;
+  top: 0;
+  opacity: 0;
+  border-radius: var(--border-400);
+  background-color: #fff;
+  padding: 0 1rem;
+  z-index: -1;
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  transition: opacity 0.5s ease;
+}
+.ox_tool_tip_icon {
+  cursor: pointer;
+  color: var(--color-primary-700);
+}
+.ox_tooltip_container:hover .ox_tool_tip {
+  opacity: 1;
+  z-index: 10;
+}
+
+.ox_icon_info_error {
+  color: #ef4444;
+}

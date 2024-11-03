@@ -1,7 +1,17 @@
-// import { getPublishableKey } from "../lib/cookie"
+import { getPublishableKey } from "../lib/cookie"
 import getInstanceAxios from "./request"
-// const intansce = getPublishableKey()
 const baseURL = window.location.origin
-const baseDomain = `${baseURL}/`
 
-export default getInstanceAxios(baseDomain)
+function getDomain() {
+  const key = getPublishableKey()
+  if (baseURL.includes("accounts")) {
+    return baseURL
+  }
+  if (key && key?.includes("pk_prod")) {
+    const { host } = window.location
+    return window.location.origin.replace(host, `oneauxilia.${host}`)
+  }
+  return baseURL === "http://localhost:3000" ? "https://core-api-dev.oneauxilia.co" : baseURL
+}
+
+export default getInstanceAxios(getDomain())

@@ -1,5 +1,5 @@
 {
-  "name": "oneauxilia-react-example",
+  "name": "@oneauxilia/oneauxilia-react-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -11,7 +11,7 @@
   },
   "dependencies": {
 
-    "oneauxilia-react": "link:..",
+    "@oneauxilia/oneauxilia-react": "link:..",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-error-overlay": "^6.0.11",

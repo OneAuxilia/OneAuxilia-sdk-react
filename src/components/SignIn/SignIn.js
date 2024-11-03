@@ -1,77 +1,58 @@
-import React, { useEffect, useState } from "react"
-import Cookies from "js-cookie"
-import styles from "./styles.module.css"
+import React, { Fragment, useEffect, useState } from "react"
 import useStore from "../Context"
-import { setToken, getSignedIn } from "../../lib/cookie"
-import { apiCore } from "../../api"
-import InputPhoneMail from "../InputPhoneMail"
-import InputPassword from "../InputPassword"
-import BottomFormLogin from "../BottomFormLogin"
-import TopFormLogin from "../TopFormLogin"
+import FirstSignIn from "./FirstSignIn"
+import FactorOne from "./FactorOne"
+import FactorTwo from "./FactorTwo"
+import VerifySocial from "./VerifySocial"
+import ResetPassword from "./ResetPassword"
+import { LayoutSignIn } from "../ui"
+import FormResetPassword from "./FormResetPassword"
 
-export default function SignIn({ children }) {
-  const { setLogin, setLoaded, routerPush } = useStore()
-  const [name, setName] = useState("huyhq@gmail.com")
-  const [password, setPassWord] = useState("abc@123Xy")
+function initStep() {
+  const path = window.location.pathname
+  if (path.includes("reset-password-confirm")) return 6
+  if (path.includes("reset-password")) return 5
+  if (path.includes("verify")) return 4
+  if (path.includes("factor-two")) return 3
+  if (path.includes("factor-one")) return 2
+  return 1
+}
 
-  function onChangeName(e) {
-    setName(e.target.value)
-  }
-  function onChangePassword(e) {
-    setPassWord(e.target.value)
-  }
+export default function SignIn({ children, afterSignInUrl = "/dashboard" }) {
+  const { routerReplace, routerPush, isSignedIn, configLoaded } = useStore()
+  const [step, setStep] = useState(initStep())
 
-  async function onLogin() {
-    try {
-      const bodydata = { username: name, password }
-      setLoaded(false)
-      const { data } = await apiCore.signIn(bodydata)
-      const { token, user } = data
-      const fullName = user.first_name + " " + user.last_name
-      setLogin({
-        ...token,
-        ...user,
-        isSignedIn: true,
-        userId: user?.id,
-        fullName
-      })
-      setToken(token.session_token)
-      Cookies.set("userId", user?.id)
-      setLoaded(true)
-      routerPush("/dashboard")
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function getConfig() {
-    try {
-      await apiCore.getConfig()
-    } catch (error) {
-      console.log(error)
-    }
+  function onChangeStep(v) {
+    setStep(v)
+    if (v === 1) routerReplace("/sign-in")
+    if (v === 2) routerReplace("/sign-in/factor-one")
+    if (v === 3) routerReplace("/sign-in/factor-two")
+    if (v === 4) routerReplace("/sign-in/verify")
+    if (v === 5) routerReplace("/sign-in/reset-password")
+    if (v === 6) routerReplace("/sign-in/reset-password-confirm")
   }
 
   useEffect(() => {
-    if (getSignedIn()) routerPush("/dashboard")
-  }, [])
+    if (isSignedIn) routerPush(afterSignInUrl)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSignedIn])
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.componentContainer}>
-        <div className={styles.oxBox}>
-          <div className={styles.ox_form}>
-            <TopFormLogin />
-            <InputPhoneMail onChange={onChangeName} value={name} />
-            <InputPassword onChange={onChangePassword} value={password} />
-            <button className={styles.ox_button} onClick={onLogin}>
-              Continue
-            </button>
-          </div>
-          <BottomFormLogin isSignIn={true} />
-        </div>
-        {children}
-      </div>
+    <div>
+      {configLoaded && (
+        <Fragment>
+          {step === 4 && <VerifySocial onChangeStep={onChangeStep} onBack={() => setStep(1)} />}
+          {step !== 4 && (
+            <LayoutSignIn step={step} isSignIn={true}>
+              {step === 1 && <FirstSignIn onChangeStep={onChangeStep} />}
+              {step === 2 && <FactorOne onChangeStep={onChangeStep} />}
+              {step === 3 && <FactorTwo onChangeStep={onChangeStep} />}
+              {step === 5 && <ResetPassword onChangeStep={onChangeStep} />}
+              {step === 6 && <FormResetPassword onChangeStep={onChangeStep} />}
+            </LayoutSignIn>
+          )}
+        </Fragment>
+      )}
     </div>
   )
 }

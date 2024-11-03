@@ -1,0 +1,55 @@
+.ox_component_container {
+  margin-bottom: 2rem;
+  border-radius: 0.75rem;
+  width: 25rem;
+  overflow: hidden;
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 5px 15px 0px,
+    rgba(25, 28, 33, 0.2) 0px 15px 35px -5px,
+    rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+}
+.oxBox {
+  width: 100%;
+  border-radius: 0.75rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+}
+.ox_form {
+  padding: 2rem 2.5rem;
+  border-radius: 0.75rem;
+  z-index: 10;
+  background: white;
+  margin-bottom: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.ox_footer {
+  font-size: 0.875rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+}
+
+.footer_signin,
+.footer_secured {
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 1rem 2rem;
+}
+.footer_secured {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.footer_signin {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+.logoIcon {
+  height: 14px;
+  width: 14px;
+}
+.ox_logo_bottom {
+  display: flex;
+  gap: 3px;
+  align-items: start;
+}

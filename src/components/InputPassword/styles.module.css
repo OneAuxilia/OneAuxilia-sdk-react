@@ -1,59 +1,43 @@
 .ox_input_fields_password {
+  margin-bottom: 1.5rem;
+}
+.ox_wapper_input {
   position: relative;
-  margin-bottom: 1.25rem;
 }
 .ox_label_input_password {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 }
-.ox_label_password {
-  font-weight: 500;
-}
-.ox_input {
-  box-sizing: border-box;
-  margin: 0px;
-  padding: 0.375rem 0.75rem;
-  background-color: white;
-  color: rgb(19, 19, 22);
-  outline: transparent solid 2px;
-  outline-offset: 2px;
-  max-height: 2.25rem;
-  width: 100%;
-  aspect-ratio: unset;
-  accent-color: rgb(104, 66, 255);
-  font-family: inherit;
-  letter-spacing: normal;
-  font-weight: 400;
-  font-size: 0.8125rem;
-  line-height: 1.38462;
-  border-radius: 0.375rem;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.11);
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 0px 1px 0px;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
-    transform;
-  transition-timing-function: ease;
-  transition-duration: 200ms;
-}
-
-.ox_input:focus-within {
-  box-shadow:
-    rgba(0, 0, 0, 0.28) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.11) 0px 0px 1px 0px,
-    rgba(0, 0, 0, 0.11) 0px 0px 0px 4px;
-}
-
 .ox_btn_show {
   position: absolute;
-  top: 2rem;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-400);
+  color: rgba(0, 0, 0, 0.41);
 }
+.ox_btn_show:hover {
+  background-color: rgba(216, 213, 213, 0.6);
+  color: var(--color-primary-600);
+}
+
 .ox_show {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+  /* fill: rgba(0, 0, 0, 0.61); */
+}
+
+.ox_flex_name {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }

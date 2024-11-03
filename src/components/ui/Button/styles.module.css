@@ -1,0 +1,74 @@
+.ox_button {
+  padding: 0.375rem 0.75rem;
+  border-width: 0px;
+  outline: 0px;
+  user-select: none;
+  cursor: pointer;
+  border-radius: var(--border-400);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition-property: background-color, background, border-color, color, fill, stroke, opacity,
+    box-shadow, transform;
+  transition-duration: 100ms;
+  font-family: inherit;
+  letter-spacing: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.38462;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  gap: 6px;
+}
+.ox_primary {
+  border: 1px solid var(--color-border-400);
+  background-color: var(--color-primary-700);
+  color: white;
+}
+.ox_text {
+  color: var(--color-primary-700);
+}
+.ox_text:hover {
+  background-color: rgb(238, 238, 238);
+}
+.ox_default {
+  border: 1px solid var(--color-border-400);
+  color: var(--color-dark-500);
+  background-color: white;
+}
+.ox_primary:active {
+  background-color: var(--color-primary-600);
+}
+.ox_primary:hover {
+  background-color: var(--color-primary-600);
+}
+.ox_primary:disabled {
+  background-color: var(--color-primary-600);
+}
+.ox_default:active {
+  background-color: #f5f5f5;
+}
+.ox_default:hover {
+  background-color: #f5f5f5;
+}
+.ox_default:disabled {
+  background-color: #f5f5f5;
+}
+
+.spinner {
+  animation-name: spin;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

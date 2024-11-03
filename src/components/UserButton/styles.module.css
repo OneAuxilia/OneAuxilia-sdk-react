@@ -4,7 +4,7 @@
   position: absolute;
   overflow: hidden;
   top: 60px;
-  right: 1rem;
+  right: 0;
   width: 350px;
   background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
     linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
@@ -15,9 +15,13 @@
   transition: opacity 2s ease-in-out;
   z-index: 20;
 }
+.ox_user_button {
+  position: relative;
+}
 .ox_avatar {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+  max-width: 36px;
   border-radius: 100%;
   border: 3px solid #fff;
   transition: border 0.3s ease-in-out;
@@ -42,6 +46,9 @@
   background-color: white;
   cursor: pointer;
 }
+.ox_dropdown_li:hover {
+  color: #6842ff;
+}
 .ox_dropdown_li_user {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -56,15 +63,16 @@
   cursor: pointer;
 }
 .ox_dropdown_secured {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  font-weight: bold;
+  font-size: 0.8125rem;
   display: flex;
   height: 50px;
-  align-items: center;
   width: 100%;
-  gap: 16px;
-  border: none;
+  gap: 4px;
   border-bottom: 1px solid #e0dfdf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .size6 {
   height: 1.5rem;
@@ -84,4 +92,15 @@
   margin-bottom: 0.25rem;
   font-size: 16px;
   font-weight: 500;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ox_user_email {
+  font-size: 0.875rem;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

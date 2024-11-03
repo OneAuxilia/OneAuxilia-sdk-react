@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react"
-import useComponentVisible from "./ClickOutside"
+import useComponentVisible from "../ClickOutside"
 import styles from "./styles.module.css"
 import useStore from "../Context"
+import { apiCore } from "../../api"
+import { getSessionId } from "../../lib/cookie"
+import { icLogo } from "../../lib/icons"
+import { dfAvatar } from "../../lib/const"
 
-export default function UserButton({ list }) {
-  const { onSignOut, fullName, email } = useStore()
+export default function UserButton({ list, pathSetting, isModal = false }) {
+  const { onSignOut, fullName, email, routerPush, avatar, afterSignOutUrl } = useStore()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
   const [open, setOpen] = useState(false)
 
@@ -17,20 +21,34 @@ export default function UserButton({ list }) {
     }
   }
 
+  function handleSetting() {
+    if (!isModal && pathSetting) {
+      routerPush(pathSetting)
+      setIsComponentVisible(false)
+    }
+  }
+
+  async function onLogOut() {
+    try {
+      await apiCore.signOut(getSessionId())
+      onSignOut(afterSignOutUrl)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     if (!isComponentVisible)
       setTimeout(() => {
         setOpen(false)
       }, 100)
   }, [isComponentVisible])
+
+  const imgAvatar = avatar || dfAvatar
   return (
-    <div>
-      <div className="text-dark-500 cursor-pointer font-bold py-2" onClick={onShow}>
-        <img
-          alt="avatar"
-          className={styles.ox_avatar}
-          src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-        />
+    <div className={styles.ox_user_button}>
+      <div onClick={onShow}>
+        <img className={styles.ox_avatar} src={imgAvatar} alt="" />
       </div>
       <div ref={ref}>
         {open && (
@@ -44,28 +62,24 @@ export default function UserButton({ list }) {
               <button className={styles.ox_dropdown_li_user}>
                 <div className={styles.ox_user}>
                   <div>
-                    <img
-                      className={styles.ox_avatar}
-                      alt="avatar"
-                      src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-                    />
+                    <img className={styles.ox_avatar} alt="avatar" src={imgAvatar} />
                   </div>
                   <div className={styles.ox_user_name_email}>
                     <div className={styles.ox_user_name}>{fullName}</div>
-                    <div>{email}</div>
+                    <div className={styles.ox_user_email}>{email}</div>
                   </div>
                 </div>
               </button>
-              <button className={styles.ox_dropdown_li}>
+              <button className={styles.ox_dropdown_li} onClick={handleSetting}>
                 <div>{icSetting}</div>
                 Setting
               </button>
-              <button onClick={onSignOut} className={styles.ox_dropdown_li}>
+              <button onClick={onLogOut} className={styles.ox_dropdown_li}>
                 <div>{icLogout}</div>
                 Sign out
               </button>
             </div>
-            <div className={styles.ox_dropdown_secured}>Secured by</div>
+            <div className={styles.ox_dropdown_secured}>Secured by {icLogo}</div>
           </div>
         )}
       </div>

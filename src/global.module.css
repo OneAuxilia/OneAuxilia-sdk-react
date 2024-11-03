@@ -1,0 +1,81 @@
+:global(.ox_mb_2) {
+  margin-bottom: 0.5rem;
+}
+:global(.ox_mb_4) {
+  margin-bottom: 1rem;
+}
+:global(.ox_mb_6) {
+  margin-bottom: 1.5rem;
+}
+:global(.ox_mb_8) {
+  margin-bottom: 2rem;
+}
+:global(.ox_link) {
+  text-align: center;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  color: var(--color-primary-700);
+}
+:global(.ox_title_form) {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+:global(.ox_text_primary_700) {
+  color: var(--color-primary-700);
+}
+.ox_error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.ox_btn_resend_disable {
+  font-size: 0.8125rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-400);
+  color: var(--color-primary-600);
+  background-color: white;
+  opacity: 0.5;
+}
+.ox_btn_resend {
+  cursor: pointer;
+  opacity: 1;
+}
+.ox_btn_resend:hover {
+  background-color: var(--color-primary-50);
+}
+.ox_errors {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.ox_item_error {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.ox_ic_check {
+  height: 17px;
+  color: #09ad09;
+}
+.ox_ic_error {
+  height: 17px;
+  color: #ef4444;
+}
+.ox_name_title {
+  font-weight: 700;
+  color: #212126;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.ox_name_sub {
+  font-size: 0.875rem;
+  color: var(--color-dark-200);
+  text-align: center;
+}

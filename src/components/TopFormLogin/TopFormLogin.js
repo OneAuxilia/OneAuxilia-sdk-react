@@ -1,17 +1,40 @@
-import React from "react"
+import React, { useState } from "react"
 import styles from "./styles.module.css"
+import useStore from "../Context"
 
-const logo =
-  "https://edg-dev-edg-upload.s3.ap-northeast-1.amazonaws.com/images/3c55537e-f21c-4970-ac41-6bb0ced4bf78.png"
-export default function TopFormLogin() {
+export default function TopFormLogin({ isSignIn }) {
+  const { branding_customization, application_name } = useStore()
   return (
     <div className={styles.ox_header}>
-      <div className={styles.ox_box_logo}>
-        <img src={logo} alt="xxx" className={styles.ox_logo_header} />
-        oneauxilia
+      {branding_customization?.logo && (
+        <div className={styles.ox_box_logo}>
+          <Image src={branding_customization?.logo} alt="onauxilia" />
+        </div>
+      )}
+      <div className={styles.ox_text_header}>
+        {isSignIn ? "Sign in" : "Sign up"} to {application_name}
       </div>
-      <div className={styles.ox_text_header}>Sign in to Oneauxilia</div>
-      <div className={styles.ox_text_header_sub}>Welcome back! Please sign in to continue</div>
+      <div className={styles.ox_text_header_sub}>
+        {isSignIn
+          ? "Welcome back! Please sign in to continue"
+          : "Welcome! Please fill in the details to get started"}
+      </div>
     </div>
+  )
+}
+
+function Image({ src, alt }) {
+  const [loader, setLoader] = useState(false)
+  function onLoad() {
+    setLoader(true)
+  }
+  return (
+    <img
+      onLoad={onLoad}
+      style={{ height: "2rem", opacity: loader && 1 }}
+      src={src}
+      alt={alt}
+      className={styles.ox_logo_header}
+    />
   )
 }
