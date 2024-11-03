@@ -52,7 +52,7 @@ export const emailSettingKey = {
 }
 
 export const domainProxy = window.location.origin.includes("com")
-  ? "https://auth-social-proxy.oneauxilia.com"
+  ? "https://oa-prx.oneauxilia.com"
   : "https://auth-social-proxy-dev.oneauxilia.co"
 
 export const dfAvatar =
