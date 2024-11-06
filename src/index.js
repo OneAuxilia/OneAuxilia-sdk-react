@@ -45,3 +45,7 @@ export function useOrganization() {
   const { invitations } = useStore()
   return { invitations }
 }
+// NPM
+//userName: oneauxilia
+// User: admin@oneauxilia.com
+// Password: !sagy8J,s^z,XY7
