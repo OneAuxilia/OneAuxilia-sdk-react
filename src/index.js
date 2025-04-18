@@ -1,13 +1,13 @@
 import React from "react"
 import useStore, { StoreProvider } from "./components/Context"
 import "./variables.css"
+export { StoreProvider as OneAuxiliaProvider }
 export { default as SignIn } from "./components/SignIn"
 export { default as SignUp } from "./components/SignUp"
 export { default as SignedIn } from "./components/SignedIn"
 export { default as SignedOut } from "./components/SignedOut"
 export { default as UserButton } from "./components/UserButton"
 export { default as UserProfile } from "./components/UserProfile"
-export { StoreProvider as OneAuxiliaProvider }
 
 export const ExampleComponent = ({ text }) => {
   return <div>Example Component: {text}</div>

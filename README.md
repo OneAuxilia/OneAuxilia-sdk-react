@@ -15,12 +15,12 @@ npm install --save oneauxilia-react
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from '@oneauxilia/oneauxilia-react'
+import OneAuxiliaProvider from '@oneauxilia/oneauxilia-react'
 import '@oneauxilia/oneauxilia-react/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <OneAuxiliaProvider />
   }
 }
 ```
